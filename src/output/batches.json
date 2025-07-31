@@ -1,6 +1,6 @@
 [
   {
-    "_id": "  ",
+    "_id": "688727aecf204543f1bbc93c",
     "api_batch_id": "API-PAR-B0001",
     "status": "Released",
     "customer": "688727aecf204543f1bbc91d",
@@ -69,9 +69,7 @@
       "688727aecf204543f1bbc9ae",
       "688727aecf204543f1bbc9b7"
     ],
-    "deviations": [
-      "688727aecf204543f1bbc9bf"
-    ],
+    "deviations": ["688727aecf204543f1bbc9bf"],
     "equipment_events": [
       "688727aecf204543f1bbc965",
       "688727aecf204543f1bbc967",
@@ -820,9 +818,7 @@
       "688727aecf204543f1bbcd8c",
       "688727aecf204543f1bbcd95"
     ],
-    "deviations": [
-      "688727aecf204543f1bbcd9b"
-    ],
+    "deviations": ["688727aecf204543f1bbcd9b"],
     "equipment_events": [
       "688727aecf204543f1bbcd3c",
       "688727aecf204543f1bbcd3e",
@@ -990,10 +986,7 @@
       "688727aecf204543f1bbce73",
       "688727aecf204543f1bbce77"
     ],
-    "deviations": [
-      "688727aecf204543f1bbce7c",
-      "688727aecf204543f1bbce7d"
-    ],
+    "deviations": ["688727aecf204543f1bbce7c", "688727aecf204543f1bbce7d"],
     "equipment_events": [
       "688727aecf204543f1bbce49",
       "688727aecf204543f1bbce4b",
@@ -1678,10 +1671,7 @@
       "688727aecf204543f1bbd246",
       "688727aecf204543f1bbd24f"
     ],
-    "deviations": [
-      "688727aecf204543f1bbd256",
-      "688727aecf204543f1bbd257"
-    ],
+    "deviations": ["688727aecf204543f1bbd256", "688727aecf204543f1bbd257"],
     "equipment_events": [
       "688727aecf204543f1bbd208",
       "688727aecf204543f1bbd20a",
@@ -1770,10 +1760,7 @@
       "688727aecf204543f1bbd2c8",
       "688727aecf204543f1bbd2d0"
     ],
-    "deviations": [
-      "688727aecf204543f1bbd2d5",
-      "688727aecf204543f1bbd2d6"
-    ],
+    "deviations": ["688727aecf204543f1bbd2d5", "688727aecf204543f1bbd2d6"],
     "equipment_events": [
       "688727aecf204543f1bbd281",
       "688727aecf204543f1bbd283",
@@ -2116,10 +2103,7 @@
       "688727aecf204543f1bbd4a4",
       "688727aecf204543f1bbd4aa"
     ],
-    "deviations": [
-      "688727aecf204543f1bbd4ae",
-      "688727aecf204543f1bbd4af"
-    ],
+    "deviations": ["688727aecf204543f1bbd4ae", "688727aecf204543f1bbd4af"],
     "equipment_events": [
       "688727aecf204543f1bbd453",
       "688727aecf204543f1bbd455",
@@ -2694,9 +2678,7 @@
       "688727aecf204543f1bbd751",
       "688727aecf204543f1bbd756"
     ],
-    "deviations": [
-      "688727aecf204543f1bbd75c"
-    ],
+    "deviations": ["688727aecf204543f1bbd75c"],
     "equipment_events": [
       "688727aecf204543f1bbd725",
       "688727aecf204543f1bbd727",
@@ -3474,9 +3456,7 @@
       "688727aecf204543f1bbdb33",
       "688727aecf204543f1bbdb38"
     ],
-    "deviations": [
-      "688727aecf204543f1bbdb40"
-    ],
+    "deviations": ["688727aecf204543f1bbdb40"],
     "equipment_events": [
       "688727aecf204543f1bbdb09",
       "688727aecf204543f1bbdb0b",
@@ -3559,9 +3539,7 @@
       "688727aecf204543f1bbdb8f",
       "688727aecf204543f1bbdb97"
     ],
-    "deviations": [
-      "688727aecf204543f1bbdb9f"
-    ],
+    "deviations": ["688727aecf204543f1bbdb9f"],
     "equipment_events": [
       "688727aecf204543f1bbdb6a",
       "688727aecf204543f1bbdb6c",
@@ -3721,10 +3699,7 @@
       "688727aecf204543f1bbdc79",
       "688727aecf204543f1bbdc7d"
     ],
-    "deviations": [
-      "688727aecf204543f1bbdc84",
-      "688727aecf204543f1bbdc85"
-    ],
+    "deviations": ["688727aecf204543f1bbdc84", "688727aecf204543f1bbdc85"],
     "equipment_events": [
       "688727aecf204543f1bbdc27",
       "688727aecf204543f1bbdc29",
@@ -4077,9 +4052,7 @@
       "688727aecf204543f1bbde38",
       "688727aecf204543f1bbde41"
     ],
-    "deviations": [
-      "688727aecf204543f1bbde47"
-    ],
+    "deviations": ["688727aecf204543f1bbde47"],
     "equipment_events": [
       "688727aecf204543f1bbde07",
       "688727aecf204543f1bbde09",
@@ -4332,10 +4305,7 @@
       "688727aecf204543f1bbdfca",
       "688727aecf204543f1bbdfd0"
     ],
-    "deviations": [
-      "688727aecf204543f1bbdfd4",
-      "688727aecf204543f1bbdfd5"
-    ],
+    "deviations": ["688727aecf204543f1bbdfd4", "688727aecf204543f1bbdfd5"],
     "equipment_events": [
       "688727aecf204543f1bbdf6d",
       "688727aecf204543f1bbdf6f",
@@ -5114,10 +5084,7 @@
       "688727aecf204543f1bbe398",
       "688727aecf204543f1bbe39c"
     ],
-    "deviations": [
-      "688727aecf204543f1bbe3a1",
-      "688727aecf204543f1bbe3a2"
-    ],
+    "deviations": ["688727aecf204543f1bbe3a1", "688727aecf204543f1bbe3a2"],
     "equipment_events": [
       "688727aecf204543f1bbe366",
       "688727aecf204543f1bbe368",
@@ -5918,10 +5885,7 @@
       "688727aecf204543f1bbe7d2",
       "688727aecf204543f1bbe7da"
     ],
-    "deviations": [
-      "688727aecf204543f1bbe7de",
-      "688727aecf204543f1bbe7df"
-    ],
+    "deviations": ["688727aecf204543f1bbe7de", "688727aecf204543f1bbe7df"],
     "equipment_events": [
       "688727aecf204543f1bbe7ad",
       "688727aecf204543f1bbe7af",
@@ -6182,9 +6146,7 @@
       "688727aecf204543f1bbe949",
       "688727aecf204543f1bbe94f"
     ],
-    "deviations": [
-      "688727aecf204543f1bbe954"
-    ],
+    "deviations": ["688727aecf204543f1bbe954"],
     "equipment_events": [
       "688727aecf204543f1bbe8f1",
       "688727aecf204543f1bbe8f3",
@@ -6534,9 +6496,7 @@
       "688727aecf204543f1bbeaf2",
       "688727aecf204543f1bbeaf6"
     ],
-    "deviations": [
-      "688727aecf204543f1bbeafa"
-    ],
+    "deviations": ["688727aecf204543f1bbeafa"],
     "equipment_events": [
       "688727aecf204543f1bbeab6",
       "688727aecf204543f1bbeab8",
@@ -6781,10 +6741,7 @@
       "688727aecf204543f1bbec3a",
       "688727aecf204543f1bbec3e"
     ],
-    "deviations": [
-      "688727aecf204543f1bbec44",
-      "688727aecf204543f1bbec45"
-    ],
+    "deviations": ["688727aecf204543f1bbec44", "688727aecf204543f1bbec45"],
     "equipment_events": [
       "688727aecf204543f1bbec06",
       "688727aecf204543f1bbec08",
