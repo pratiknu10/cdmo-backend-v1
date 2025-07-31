@@ -80,9 +80,9 @@ app.get("/", (req, res) => {
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1", customerBatchRoutes);
 app.use("/api/v1", batchRouter);
-// app.use("/api/v1", genealogyRouter);
-// app.use("/api/v1", sampleTestRoute);
-// app.use("/api/v1", DeviationCapaRouter);
+app.use("/api/v1", genealogyRouter);
+app.use("/api/v1", sampleTestRoute);
+app.use("/api/v1", DeviationCapaRouter);
 app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
