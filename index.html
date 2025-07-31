@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CDMO Data Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .stat-card {
+        background: #3498db;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+      }
+      .instructions {
+        background: #ecf0f1;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .btn {
+        background: #27ae60;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px 5px;
+      }
+      .btn:hover {
+        background: #219a52;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🏭 CDMO Bulk Data Generator</h1>
+
+      <div class="instructions">
+        <h3>📋 How to Generate Data:</h3>
+        <ol>
+          <li>
+            <strong>Install Dependencies:</strong> <code>npm install</code>
+          </li>
+          <li><strong>Generate Data:</strong> <code>npm run generate</code></li>
+          <li>
+            <strong>Check Output:</strong> All JSON files will be in
+            <code>./output/</code> directory
+          </li>
+        </ol>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">60+</div>
+          <div>API Batches</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1800+</div>
+          <div>Components</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">600+</div>
+          <div>Process Steps</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2000+</div>
+          <div>Test Results</div>
+        </div>
+      </div>
+
+      <h3>🧬 API Molecules:</h3>
+      <ul>
+        <li>Paracetamol (Acetaminophen) - 9 process steps</li>
+        <li>Ibuprofen (S-enantiomer) - 10 process steps</li>
+        <li>Atorvastatin Calcium - 10 process steps</li>
+        <li>Metformin HCl - 9 process steps</li>
+        <li>Amlodipine Besylate - 10 process steps</li>
+        <li>Sofosbuvir (HPAPI) - 10 process steps</li>
+        <li>Sitagliptin Phosphate - 9 process steps</li>
+        <li>Olanzapine - 9 process steps</li>
+      </ul>
+
+      <button class="btn" onclick="window.location.reload()">
+        🔄 Refresh Page
+      </button>
+    </div>
+    <script src="./idck.js"></script>
+  </body>
+</html>

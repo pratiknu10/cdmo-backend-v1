@@ -1,0 +1,540 @@
+[
+  {
+    "sample_id": "SPL-001",
+    "api_batch_id": "BATCH-PAR-2023-B001",
+    "Sampling_point": "Acetylation",
+    "sample_type": "TLC completion check",
+    "sample_status": "Completed",
+    "sample_collected_on": "2023-04-24T14:05:00Z",
+    "sample_collected_by": "ANL-100",
+    "approval_status": "Approved",
+    "QA Review By": "QA-500",
+    "QA Approval Timestamp": "2023-04-24T16:30:00Z",
+    "Test": [
+      {
+        "test_id": "TST-001",
+        "sample_id": "SPL-001",
+        "test_name": "TLC completion check",
+        "test_method": "TLC",
+        "result_value": "Rf match with RS",
+        "result_unit": "—",
+        "result_status": "PASS",
+        "specification_range": "Rf ±0.05 vs RS",
+        "test_timestamp": "2023-04-24T15:45:00Z",
+        "analyst_id": "ANL-200",
+        "approval_status": "Approved",
+        "Reagents": [
+          {
+            "reagent_id": "RS-101",
+            "reagent_name": "Silica TLC plate",
+            "reagent_batch_no": "BATCH-TLC-01",
+            "reagent_expiry_date": "2026-12-31",
+            "reagent_status": "Approved",
+            "used_by": "ANL-200",
+            "used_on": "2023-04-24T15:15:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-03-28T12:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-510",
+            "qa_approval_timestamp": "2023-03-29T10:00:00Z"
+          },
+          {
+            "reagent_id": "RS-102",
+            "reagent_name": "Mobile phase toluene:EtOAc:AcOH",
+            "reagent_batch_no": "MP-881",
+            "reagent_expiry_date": "2026-06-30",
+            "reagent_status": "Approved",
+            "used_by": "ANL-200",
+            "used_on": "2023-04-24T15:15:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-03-28T12:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-510",
+            "qa_approval_timestamp": "2023-03-29T10:00:00Z"
+          }
+        ],
+        "Equipment_Id": [
+          {
+            "equipment_id": "TLC-UV-01",
+            "equipment_type": "TLC jar + UV lamp",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-24T15:45:00Z",
+            "used_by": "ANL-200",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-520",
+            "qa_approval_timestamp": "2023-04-20T10:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-002",
+    "api_batch_id": "BATCH-PAR-2023-B001",
+    "Sampling_point": "Crystallisation",
+    "sample_type": "In‑process HPLC assay",
+    "sample_status": "Completed",
+    "sample_collected_on": "2023-04-24T19:35:00Z",
+    "sample_collected_by": "ANL-110",
+    "approval_status": "Approved",
+    "QA Review By": "QA-501",
+    "QA Approval Timestamp": "2023-04-24T22:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-002",
+        "sample_id": "SPL-002",
+        "test_name": "Paracetamol HPLC assay",
+        "test_method": "HPLC-UV",
+        "result_value": "98.7",
+        "result_unit": "%",
+        "result_status": "PASS",
+        "specification_range": "97.0 – 102.0 %",
+        "test_timestamp": "2023-04-24T21:15:00Z",
+        "analyst_id": "ANL-210",
+        "approval_status": "Approved",
+        "Reagents": [
+          {
+            "reagent_id": "RS-201",
+            "reagent_name": "Buffer pH 3 (20 mM KH₂PO₄)",
+            "reagent_batch_no": "BUF-053",
+            "reagent_expiry_date": "2024-06-30",
+            "reagent_status": "Approved",
+            "used_by": "ANL-210",
+            "used_on": "2023-04-24T20:45:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-04-10T08:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-511",
+            "qa_approval_timestamp": "2023-04-11T09:00:00Z"
+          },
+          {
+            "reagent_id": "RS-202",
+            "reagent_name": "Acetonitrile (HPLC grade)",
+            "reagent_batch_no": "ACN-888",
+            "reagent_expiry_date": "2025-12-31",
+            "reagent_status": "Approved",
+            "used_by": "ANL-210",
+            "used_on": "2023-04-24T20:45:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-04-10T08:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-511",
+            "qa_approval_timestamp": "2023-04-11T09:00:00Z"
+          }
+        ],
+        "Equipment_Id": [
+          {
+            "equipment_id": "HPLC-01",
+            "equipment_type": "Agilent 1260 HPLC",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-24T21:15:00Z",
+            "used_by": "ANL-210",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-521",
+            "qa_approval_timestamp": "2023-04-18T10:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-003",
+    "api_batch_id": "BATCH-PAR-2023-B001",
+    "Sampling_point": "Fluid‑Bed Drying",
+    "sample_type": "Water content (KF)",
+    "sample_status": "Completed",
+    "sample_collected_on": "2023-04-27T08:10:00Z",
+    "sample_collected_by": "ANL-120",
+    "approval_status": "Approved",
+    "QA Review By": "QA-502",
+    "QA Approval Timestamp": "2023-04-27T10:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-003",
+        "sample_id": "SPL-003",
+        "test_name": "Karl Fischer water",
+        "test_method": "KF volumetric",
+        "result_value": "0.18",
+        "result_unit": "% w/w",
+        "result_status": "PASS",
+        "specification_range": "≤ 0.5 %",
+        "test_timestamp": "2023-04-27T09:15:00Z",
+        "analyst_id": "ANL-220",
+        "approval_status": "Approved",
+        "Reagents": [
+          {
+            "reagent_id": "RS-301",
+            "reagent_name": "Hydranal Composite 5",
+            "reagent_batch_no": "KF-2023-07",
+            "reagent_expiry_date": "2024-07-31",
+            "reagent_status": "Approved",
+            "used_by": "ANL-220",
+            "used_on": "2023-04-27T09:00:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-04-15T09:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-512",
+            "qa_approval_timestamp": "2023-04-16T10:00:00Z"
+          }
+        ],
+        "Equipment_Id": [
+          {
+            "equipment_id": "KF-01",
+            "equipment_type": "Metrohm 870 KF",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-27T09:15:00Z",
+            "used_by": "ANL-220",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-522",
+            "qa_approval_timestamp": "2023-04-20T10:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-004",
+    "api_batch_id": "BATCH-PAR-2023-B001",
+    "Sampling_point": "Milling / Final QC",
+    "sample_type": "Release tests",
+    "sample_status": "Completed",
+    "sample_collected_on": "2023-04-27T09:45:00Z",
+    "sample_collected_by": "ANL-130",
+    "approval_status": "Approved",
+    "QA Review By": "QA-503",
+    "QA Approval Timestamp": "2023-04-27T13:30:00Z",
+    "Test": [
+      {
+        "test_id": "TST-004-A",
+        "sample_id": "SPL-004",
+        "test_name": "Assay (HPLC)",
+        "test_method": "HPLC‑UV",
+        "result_value": "99.2",
+        "result_unit": "%",
+        "result_status": "PASS",
+        "specification_range": "98 – 102 %",
+        "test_timestamp": "2023-04-27T11:00:00Z",
+        "analyst_id": "ANL-230",
+        "approval_status": "Approved",
+        "Reagents": [
+          {
+            "reagent_id": "SPL‑002",
+            "reagent_name": "Acetonitrile (HPLC grade)",
+            "reagent_batch_no": "ACN-888",
+            "reagent_expiry_date": "2025-12-31",
+            "reagent_status": "Approved",
+            "used_by": "ANL-210",
+            "used_on": "2023-04-24T20:45:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-04-10T08:00:00Z",
+            "qa_status": "Approved",
+            "qa_reviewed_by": "QA-511",
+            "qa_approval_timestamp": "2023-04-11T09:00:00Z"
+          }
+        ],
+        "Equipment_Id": [
+          {
+            "equipment_id": "HPLC-01",
+            "equipment_type": "Agilent 1260 HPLC",
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-27T11:00:00Z",
+            "used_by": "ANL-230",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      },
+      {
+        "test_id": "TST-004-B",
+        "sample_id": "SPL-004",
+        "test_name": "Related substances (HPLC)",
+        "test_method": "Gradient HPLC‑UV",
+        "result_value": "0.14",
+        "result_unit": "% total impurity",
+        "result_status": "PASS",
+        "specification_range": "≤ 0.5 %",
+        "test_timestamp": "2023-04-27T11:45:00Z",
+        "analyst_id": "ANL-230",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "HPLC-01",
+            "equipment_type": "Agilent 1260 HPLC",
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-27T11:45:00Z",
+            "used_by": "ANL-230",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      },
+      {
+        "test_id": "TST-004-C",
+        "sample_id": "SPL-004",
+        "test_name": "Residual solvents (GC)",
+        "test_method": "GC‑FID",
+        "result_value": "80",
+        "result_unit": "ppm",
+        "result_status": "PASS",
+        "specification_range": "≤ 300 ppm",
+        "test_timestamp": "2023-04-27T12:15:00Z",
+        "analyst_id": "ANL-230",
+        "approval_status": "Approved",
+        "Reagents": [
+          {
+            "reagent_id": "RS-401",
+            "reagent_name": "DMF Internal Std",
+            "reagent_batch_no": "IS-DMF-12",
+            "reagent_expiry_date": "2025-12-31",
+            "reagent_status": "Approved",
+            "used_by": "ANL-230",
+            "used_on": "2023-04-27T12:00:00Z",
+            "coa_received": true,
+            "coa_approval_date": "2023-04-01T08:00:00Z",
+            "qa_status": "Approved"
+          }
+        ],
+        "Equipment_Id": [
+          {
+            "equipment_id": "GC-FID-01",
+            "equipment_type": "Agilent 7890 GC‑FID",
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-27T12:15:00Z",
+            "used_by": "ANL-230",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      },
+      {
+        "test_id": "TST-004-D",
+        "sample_id": "SPL-004",
+        "test_name": "Particle size (PSD)",
+        "test_method": "Laser diffraction",
+        "result_value": "{ 'd10': 32, 'd50': 103, 'd90': 148 }",
+        "result_unit": "µm",
+        "result_status": "PASS",
+        "specification_range": "d90 ≤ 150 µm",
+        "test_timestamp": "2023-04-27T12:45:00Z",
+        "analyst_id": "ANL-240",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "LaserPSD-01",
+            "equipment_type": "Malvern Mastersizer 3000",
+            "calibration_status": "Calibrated",
+            "used_on": "2023-04-27T12:45:00Z",
+            "used_by": "ANL-240",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-IBU-001",
+    "api_batch_id": "BATCH-IBU-2025-B001",
+    "Sampling_point": "Catalytic Hydrogenation",
+    "sample_type": "H₂ uptake check (GC)",
+    "sample_status": "Completed",
+    "sample_collected_on": "2025-02-05T17:05:00Z",
+    "sample_collected_by": "ANL-310",
+    "approval_status": "Approved",
+    "QA Review By": "QA-600",
+    "QA Approval Timestamp": "2025-02-05T19:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-IBU-001",
+        "sample_id": "SPL-IBU-001",
+        "test_name": "Residual H₂ (GC)",
+        "test_method": "GC‑FID",
+        "result_value": "0.02",
+        "result_unit": "% v/v",
+        "result_status": "PASS",
+        "specification_range": "≤ 0.1 %",
+        "test_timestamp": "2025-02-05T18:00:00Z",
+        "analyst_id": "ANL-320",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "GC-FID-01",
+            "equipment_type": "Agilent 7890 GC‑FID",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2025-02-05T18:00:00Z",
+            "used_by": "ANL-320",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-620",
+            "qa_approval_timestamp": "2025-01-20T10:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-IBU-002",
+    "api_batch_id": "BATCH-IBU-2025-B001",
+    "Sampling_point": "Resolution",
+    "sample_type": "Specific rotation",
+    "sample_status": "Completed",
+    "sample_collected_on": "2025-02-06T19:05:00Z",
+    "sample_collected_by": "ANL-330",
+    "approval_status": "Approved",
+    "QA Review By": "QA-601",
+    "QA Approval Timestamp": "2025-02-06T21:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-IBU-002",
+        "sample_id": "SPL-IBU-002",
+        "test_name": "Specific rotation",
+        "test_method": "Polarimetry",
+        "result_value": "+56.2",
+        "result_unit": "° (c = 1, EtOH)",
+        "result_status": "PASS",
+        "specification_range": "+54 to +58°",
+        "test_timestamp": "2025-02-06T20:00:00Z",
+        "analyst_id": "ANL-331",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "Polar-01",
+            "equipment_type": "Polarimeter",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2025-02-06T20:00:00Z",
+            "used_by": "ANL-331",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-621",
+            "qa_approval_timestamp": "2025-01-25T09:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-IBU-003",
+    "api_batch_id": "BATCH-IBU-2025-B001",
+    "Sampling_point": "Tray Drying",
+    "sample_type": "Loss‑on‑drying",
+    "sample_status": "Completed",
+    "sample_collected_on": "2025-02-07T20:05:00Z",
+    "sample_collected_by": "ANL-340",
+    "approval_status": "Approved",
+    "QA Review By": "QA-602",
+    "QA Approval Timestamp": "2025-02-07T23:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-IBU-003",
+        "sample_id": "SPL-IBU-003",
+        "test_name": "LOD @ 105 °C",
+        "test_method": "Moisture balance",
+        "result_value": "0.12",
+        "result_unit": "%",
+        "result_status": "PASS",
+        "specification_range": "≤ 0.5 %",
+        "test_timestamp": "2025-02-07T21:00:00Z",
+        "analyst_id": "ANL-341",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "Moist-Bal-01",
+            "equipment_type": "Sartorius MA‑160",
+            "serial_number": null,
+            "calibration_status": "Calibrated",
+            "used_on": "2025-02-07T21:00:00Z",
+            "used_by": "ANL-341",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved",
+            "qa_reviewed_by": "QA-622",
+            "qa_approval_timestamp": "2025-01-28T10:00:00Z"
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "sample_id": "SPL-IBU-004",
+    "api_batch_id": "BATCH-IBU-2025-B001",
+    "Sampling_point": "Milling / Final QC",
+    "sample_type": "Release tests",
+    "sample_status": "Completed",
+    "sample_collected_on": "2025-02-08T09:40:00Z",
+    "sample_collected_by": "ANL-350",
+    "approval_status": "Approved",
+    "QA Review By": "QA-603",
+    "QA Approval Timestamp": "2025-02-08T13:00:00Z",
+    "Test": [
+      {
+        "test_id": "TST-IBU-004A",
+        "sample_id": "SPL-IBU-004",
+        "test_name": "Assay (HPLC chiral)",
+        "test_method": "Chiral HPLC‑UV",
+        "result_value": "99.1",
+        "result_unit": "%",
+        "result_status": "PASS",
+        "specification_range": "98 – 102 %",
+        "test_timestamp": "2025-02-08T11:00:00Z",
+        "analyst_id": "ANL-360",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "CH-HPLC-01",
+            "equipment_type": "Shimadzu i‑Series Chiral HPLC",
+            "calibration_status": "Calibrated",
+            "used_on": "2025-02-08T11:00:00Z",
+            "used_by": "ANL-360",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      },
+      {
+        "test_id": "TST-IBU-004B",
+        "sample_id": "SPL-IBU-004",
+        "test_name": "Enantiomeric purity",
+        "test_method": "Chiral HPLC‑UV",
+        "result_value": "99.8",
+        "result_unit": "% S‑enantiomer",
+        "result_status": "PASS",
+        "specification_range": "≥ 99 %",
+        "test_timestamp": "2025-02-08T11:45:00Z",
+        "analyst_id": "ANL-360",
+        "approval_status": "Approved",
+        "Reagents": [],
+        "Equipment_Id": [
+          {
+            "equipment_id": "CH-HPLC-01",
+            "equipment_type": "Shimadzu i‑Series Chiral HPLC",
+            "calibration_status": "Calibrated",
+            "used_on": "2025-02-08T11:45:00Z",
+            "used_by": "ANL-360",
+            "equipment_status": "Active",
+            "qa_approval_status": "Approved"
+          }
+        ]
+      }
+    ]
+  }
+]

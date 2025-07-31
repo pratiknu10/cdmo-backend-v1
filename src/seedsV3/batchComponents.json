@@ -1,0 +1,756 @@
+[
+  {
+    "_id": "53d6ea176d1bae9bcfd8a8d8",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-01",
+    "component_type": "Raw Material",
+    "component_name": "p‑Aminophenol (PAP)",
+    "material_code_component": "RM-PAP",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-12345",
+    "internal_lot_id": "INT-LOT-67890",
+    "quantity_used": 450.5,
+    "uom": "kg",
+    "usage_ts": "2024-06-10T10:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-08T14:20:00.000Z",
+      "reviewed_by": "67648f90a1b2c3d4e5f67890"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-09T09:15:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T10:30:00.000Z"
+  },
+  {
+    "_id": "ca0aece955d801471d797d94",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-02",
+    "component_type": "Raw Material",
+    "component_name": "Acetic Anhydride",
+    "material_code_component": "RM-ACAN",
+    "supplier_name": "ReagentSource Ltd",
+    "supplier_lot_id": "SUP-LOT-23456",
+    "internal_lot_id": "INT-LOT-78901",
+    "quantity_used": 523.2,
+    "uom": "L",
+    "usage_ts": "2024-06-10T11:45:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-07T16:30:00.000Z",
+      "reviewed_by": "67648f92c3d4e5f678901234"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-08T13:25:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T11:45:00.000Z"
+  },
+  {
+    "_id": "c0c75c1653e1d2ab027dbc6d",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-03",
+    "component_type": "Raw Material",
+    "component_name": "Sodium Hydroxide 30%",
+    "material_code_component": "BASE-NAOH",
+    "supplier_name": "QualityChem Inc",
+    "supplier_lot_id": "SUP-LOT-34567",
+    "internal_lot_id": "INT-LOT-89012",
+    "quantity_used": 25.4,
+    "uom": "kg",
+    "usage_ts": "2024-06-10T09:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-06T10:15:00.000Z",
+      "reviewed_by": "67648f93d4e5f67890123456"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-07T14:20:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T09:30:00.000Z"
+  },
+  {
+    "_id": "3402944149b121f6c795a0a6",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-04",
+    "component_type": "Raw Material",
+    "component_name": "Water (DI)",
+    "material_code_component": "SOL-WATER",
+    "supplier_name": "Internal Production",
+    "supplier_lot_id": "WATER-BATCH-2024-156",
+    "internal_lot_id": "INT-LOT-90123",
+    "quantity_used": 1250.0,
+    "uom": "L",
+    "usage_ts": "2024-06-10T09:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-09T08:00:00.000Z",
+      "reviewed_by": "67648f94e5f678901234567a"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-09T12:00:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T09:30:00.000Z"
+  },
+  {
+    "_id": "8484c495a1d7b82210e04019",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-05",
+    "component_type": "Raw Material",
+    "component_name": "Glacial Acetic Acid",
+    "material_code_component": "SOL-GAA",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-45678",
+    "internal_lot_id": "INT-LOT-01234",
+    "quantity_used": 175.5,
+    "uom": "L",
+    "usage_ts": "2024-06-10T11:45:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-05T15:30:00.000Z",
+      "reviewed_by": "67648f95f678901234567abc"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-06T11:45:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T11:45:00.000Z"
+  },
+  {
+    "_id": "d42ba22ac470bbfc602a5b68",
+    "batch": "67648fd0456789abcdef0123",
+    "api_batch_id": "BATCH-PAR-0001",
+    "component_batch_id": "COMP-BATCH-PAR-0001-06",
+    "component_type": "Raw Material",
+    "component_name": "Paracetamol seed crystals",
+    "material_code_component": "SEED-PAR",
+    "supplier_name": "Internal Production",
+    "supplier_lot_id": "SEED-PAR-2024-032",
+    "internal_lot_id": "INT-LOT-12345",
+    "quantity_used": 2.5,
+    "uom": "kg",
+    "usage_ts": "2024-06-10T13:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-06-08T16:00:00.000Z",
+      "reviewed_by": "67648f96678901234567abcd"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-06-09T10:30:00.000Z"
+    },
+    "createdAt": "2024-06-10T09:15:00.000Z",
+    "updatedAt": "2024-06-10T13:00:00.000Z"
+  },
+  {
+    "_id": "ae6b2a8fcc8c829f4e5aacf7",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-01",
+    "component_type": "Raw Material",
+    "component_name": "Isobutylbenzene",
+    "material_code_component": "RM-IBB",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-56789",
+    "internal_lot_id": "INT-LOT-23456",
+    "quantity_used": 675.8,
+    "uom": "L",
+    "usage_ts": "2023-08-14T09:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-12T14:30:00.000Z",
+      "reviewed_by": "67648f9778901234567abcde"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-13T10:15:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T09:00:00.000Z"
+  },
+  {
+    "_id": "8cba5d33f8dbe6e9ff4170fa",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-02",
+    "component_type": "Raw Material",
+    "component_name": "Hydrogen Fluoride (anhydrous)",
+    "material_code_component": "ACID-HF",
+    "supplier_name": "ReagentSource Ltd",
+    "supplier_lot_id": "SUP-LOT-67890",
+    "internal_lot_id": "INT-LOT-34567",
+    "quantity_used": 85.3,
+    "uom": "kg",
+    "usage_ts": "2023-08-14T09:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-10T11:15:00.000Z",
+      "reviewed_by": "67648f988901234567abcdef"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-11T09:30:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T09:00:00.000Z"
+  },
+  {
+    "_id": "cd81c00b1b741cbf0330dba5",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-03",
+    "component_type": "Raw Material",
+    "component_name": "Acetyl Chloride",
+    "material_code_component": "RM-ACCL",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-78901",
+    "internal_lot_id": "INT-LOT-45678",
+    "quantity_used": 234.7,
+    "uom": "L",
+    "usage_ts": "2023-08-14T09:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-11T16:45:00.000Z",
+      "reviewed_by": "67648f9901234567abcdef01"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-12T09:30:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T09:30:00.000Z"
+  },
+  {
+    "_id": "9ccf67b46f3dad6139466511",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-04",
+    "component_type": "Raw Material",
+    "component_name": "Hydrogen gas (99.9%)",
+    "material_code_component": "GAS-H2",
+    "supplier_name": "Industrial Gases Ltd",
+    "supplier_lot_id": "H2-TANK-2023-089",
+    "internal_lot_id": "INT-LOT-56789",
+    "quantity_used": 12.5,
+    "uom": "m³",
+    "usage_ts": "2023-08-14T11:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-13T08:00:00.000Z",
+      "reviewed_by": "67648f9a1234567abcdef012"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-13T14:15:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T11:30:00.000Z"
+  },
+  {
+    "_id": "3c99c96d85b51aea4519e385",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-05",
+    "component_type": "Raw Material",
+    "component_name": "Raney Nickel Catalyst",
+    "material_code_component": "CAT-RANEYNI",
+    "supplier_name": "Catalyst Technologies",
+    "supplier_lot_id": "SUP-LOT-89012",
+    "internal_lot_id": "INT-LOT-67890",
+    "quantity_used": 8.2,
+    "uom": "kg",
+    "usage_ts": "2023-08-14T11:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-10T13:20:00.000Z",
+      "reviewed_by": "67648f9b234567abcdef0123"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-11T15:45:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T11:30:00.000Z"
+  },
+  {
+    "_id": "73913d882dda4965807354d1",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-06",
+    "component_type": "Raw Material",
+    "component_name": "Isopropanol (IPA)",
+    "material_code_component": "SOL-IPA",
+    "supplier_name": "QualityChem Inc",
+    "supplier_lot_id": "SUP-LOT-90123",
+    "internal_lot_id": "INT-LOT-78901",
+    "quantity_used": 456.3,
+    "uom": "L",
+    "usage_ts": "2023-08-14T11:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-12T09:45:00.000Z",
+      "reviewed_by": "67648f9c34567abcdef01234"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-13T11:30:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T11:30:00.000Z"
+  },
+  {
+    "_id": "0ef45b95284f301daa938cda",
+    "batch": "67648fd2678901abcdef2345",
+    "api_batch_id": "BATCH-IBU-0001",
+    "component_batch_id": "COMP-BATCH-IBU-0001-07",
+    "component_type": "Raw Material",
+    "component_name": "(R)‑Mandelic Acid",
+    "material_code_component": "RM-MANDEL",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-01234",
+    "internal_lot_id": "INT-LOT-89012",
+    "quantity_used": 125.7,
+    "uom": "kg",
+    "usage_ts": "2023-08-14T17:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2023-08-11T14:30:00.000Z",
+      "reviewed_by": "67648f9d4567abcdef012345"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2023-08-12T16:15:00.000Z"
+    },
+    "createdAt": "2023-08-14T08:30:00.000Z",
+    "updatedAt": "2023-08-14T17:00:00.000Z"
+  },
+  {
+    "_id": "7809e2a0f326070c2bdd6259",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-01",
+    "component_type": "Intermediate",
+    "component_name": "Protected lactone (INT‑A)",
+    "material_code_component": "RM-PLAC",
+    "supplier_name": "Internal Production",
+    "supplier_lot_id": "INT-A-2025-045",
+    "internal_lot_id": "INT-LOT-90123",
+    "quantity_used": 389.6,
+    "uom": "kg",
+    "usage_ts": "2025-03-18T12:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-16T09:30:00.000Z",
+      "reviewed_by": "67648f9e567abcdef0123456"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-17T11:45:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T12:30:00.000Z"
+  },
+  {
+    "_id": "419374cd02abd3fd1e95606a",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-02",
+    "component_type": "Raw Material",
+    "component_name": "Sodium Hydroxide",
+    "material_code_component": "BASE-NAOH",
+    "supplier_name": "QualityChem Inc",
+    "supplier_lot_id": "SUP-LOT-12345",
+    "internal_lot_id": "INT-LOT-01234",
+    "quantity_used": 45.8,
+    "uom": "kg",
+    "usage_ts": "2025-03-18T12:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-15T14:20:00.000Z",
+      "reviewed_by": "67648f9f67abcdef01234567"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-16T08:15:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T12:30:00.000Z"
+  },
+  {
+    "_id": "3f21056e327ba766abdb9725",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-03",
+    "component_type": "Raw Material",
+    "component_name": "Tetrahydrofuran (THF)",
+    "material_code_component": "SOL-THF",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-23456",
+    "internal_lot_id": "INT-LOT-12345",
+    "quantity_used": 234.5,
+    "uom": "L",
+    "usage_ts": "2025-03-18T12:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-14T16:45:00.000Z",
+      "reviewed_by": "67648fa07abcdef012345678"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-15T10:30:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T12:30:00.000Z"
+  },
+  {
+    "_id": "b0ad43ddd12c0cbfd0dfeeff",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-04",
+    "component_type": "Raw Material",
+    "component_name": "Isobutyl Acyl Chloride",
+    "material_code_component": "RM-IBAC",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-34567",
+    "internal_lot_id": "INT-LOT-23456",
+    "quantity_used": 156.3,
+    "uom": "L",
+    "usage_ts": "2025-03-18T14:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-15T16:20:00.000Z",
+      "reviewed_by": "67648fa1abcdef0123456789"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-16T12:15:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T14:00:00.000Z"
+  },
+  {
+    "_id": "f29eb8fa1090e02e9d760e8e",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-05",
+    "component_type": "Raw Material",
+    "component_name": "Pyridine",
+    "material_code_component": "BASE-PYR",
+    "supplier_name": "ReagentSource Ltd",
+    "supplier_lot_id": "SUP-LOT-45678",
+    "internal_lot_id": "INT-LOT-34567",
+    "quantity_used": 89.4,
+    "uom": "L",
+    "usage_ts": "2025-03-18T14:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-16T11:30:00.000Z",
+      "reviewed_by": "67648fa2bcdef0123456789a"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-17T09:45:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T14:00:00.000Z"
+  },
+  {
+    "_id": "bc72f7a972f413f3724f10ca",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-06",
+    "component_type": "Raw Material",
+    "component_name": "Dichloromethane (DCM)",
+    "material_code_component": "SOL-DCM",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-56789",
+    "internal_lot_id": "INT-LOT-45678",
+    "quantity_used": 567.2,
+    "uom": "L",
+    "usage_ts": "2025-03-18T14:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-15T13:15:00.000Z",
+      "reviewed_by": "67648fa3cdef0123456789ab"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-16T15:30:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T14:00:00.000Z"
+  },
+  {
+    "_id": "02be32a260c0eb697e30daf0",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-07",
+    "component_type": "Raw Material",
+    "component_name": "Dibenzylamine (DBA)",
+    "material_code_component": "RM-DBA",
+    "supplier_name": "Catalyst Technologies",
+    "supplier_lot_id": "SUP-LOT-67890",
+    "internal_lot_id": "INT-LOT-56789",
+    "quantity_used": 78.9,
+    "uom": "kg",
+    "usage_ts": "2025-03-18T15:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-16T14:45:00.000Z",
+      "reviewed_by": "67648f90a1b2c3d4e5f67890"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-17T16:20:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T15:30:00.000Z"
+  },
+  {
+    "_id": "f424929222d6a9f98c99f599",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-08",
+    "component_type": "Raw Material",
+    "component_name": "p‑Toluenesulfonic Acid",
+    "material_code_component": "ACID-PTSA",
+    "supplier_name": "QualityChem Inc",
+    "supplier_lot_id": "SUP-LOT-78901",
+    "internal_lot_id": "INT-LOT-67890",
+    "quantity_used": 34.7,
+    "uom": "kg",
+    "usage_ts": "2025-03-18T16:45:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-17T10:30:00.000Z",
+      "reviewed_by": "67648f91b2c3d4e5f6789012"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-17T14:15:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T16:45:00.000Z"
+  },
+  {
+    "_id": "9bff524d690e78aef4a13d62",
+    "batch": "67648fd4890123abcdef4567",
+    "api_batch_id": "BATCH-ATO-0001",
+    "component_batch_id": "COMP-BATCH-ATO-0001-09",
+    "component_type": "Raw Material",
+    "component_name": "Calcium Acetate",
+    "material_code_component": "SALT-CAAC",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-89012",
+    "internal_lot_id": "INT-LOT-78901",
+    "quantity_used": 67.3,
+    "uom": "kg",
+    "usage_ts": "2025-03-18T19:15:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2025-03-16T16:45:00.000Z",
+      "reviewed_by": "67648f92c3d4e5f678901234"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2025-03-17T12:30:00.000Z"
+    },
+    "createdAt": "2025-03-18T12:00:00.000Z",
+    "updatedAt": "2025-03-18T19:15:00.000Z"
+  },
+  {
+    "_id": "83f71a3bdeb9faf546cb8120",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-01",
+    "component_type": "Raw Material",
+    "component_name": "Dicyandiamide",
+    "material_code_component": "RM-DCDA",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-MET-12345",
+    "internal_lot_id": "INT-LOT-MET-67890",
+    "quantity_used": 234.5,
+    "uom": "kg",
+    "usage_ts": "2024-11-20T11:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-18T14:20:00.000Z",
+      "reviewed_by": "67648f90a1b2c3d4e5f67890"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-19T09:15:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T11:00:00.000Z"
+  },
+  {
+    "_id": "60b3537db243cf5d6a7c665f",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-02",
+    "component_type": "Raw Material",
+    "component_name": "Dimethylamine (40%)",
+    "material_code_component": "RM-DMA",
+    "supplier_name": "ReagentSource Ltd",
+    "supplier_lot_id": "SUP-LOT-MET-23456",
+    "internal_lot_id": "INT-LOT-MET-78901",
+    "quantity_used": 189.7,
+    "uom": "L",
+    "usage_ts": "2024-11-20T11:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-17T16:30:00.000Z",
+      "reviewed_by": "67648f92c3d4e5f678901234"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-18T13:25:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T11:30:00.000Z"
+  },
+  {
+    "_id": "93c21bedc52094b00c4cab6d",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-03",
+    "component_type": "Raw Material",
+    "component_name": "Xylene",
+    "material_code_component": "SOL-XYL",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-MET-34567",
+    "internal_lot_id": "INT-LOT-MET-89012",
+    "quantity_used": 567.3,
+    "uom": "L",
+    "usage_ts": "2024-11-20T11:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-16T10:15:00.000Z",
+      "reviewed_by": "67648f93d4e5f67890123456"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-17T14:20:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T11:30:00.000Z"
+  },
+  {
+    "_id": "4d651a29e3706ff7a33be13b",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-04",
+    "component_type": "Raw Material",
+    "component_name": "Water",
+    "material_code_component": "SOL-WATER",
+    "supplier_name": "Internal Production",
+    "supplier_lot_id": "WATER-BATCH-2024-298",
+    "internal_lot_id": "INT-LOT-MET-90123",
+    "quantity_used": 834.2,
+    "uom": "L",
+    "usage_ts": "2024-11-20T14:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-19T08:00:00.000Z",
+      "reviewed_by": "67648f94e5f678901234567a"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-19T12:00:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T14:00:00.000Z"
+  },
+  {
+    "_id": "3c89a4cd6bb59c740383c577",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-05",
+    "component_type": "Raw Material",
+    "component_name": "Hydrochloric Acid (conc.)",
+    "material_code_component": "ACID-HCl",
+    "supplier_name": "QualityChem Inc",
+    "supplier_lot_id": "SUP-LOT-MET-45678",
+    "internal_lot_id": "INT-LOT-MET-01234",
+    "quantity_used": 67.4,
+    "uom": "L",
+    "usage_ts": "2024-11-20T15:30:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-18T15:30:00.000Z",
+      "reviewed_by": "67648f95f678901234567abc"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-19T11:45:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T15:30:00.000Z"
+  },
+  {
+    "_id": "5754ffbfab3a9943bb82e3e2",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-06",
+    "component_type": "Raw Material",
+    "component_name": "Isopropanol (IPA)",
+    "material_code_component": "SOL-IPA",
+    "supplier_name": "ChemSupply Co",
+    "supplier_lot_id": "SUP-LOT-MET-56789",
+    "internal_lot_id": "INT-LOT-MET-12345",
+    "quantity_used": 345.8,
+    "uom": "L",
+    "usage_ts": "2024-11-20T16:45:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-17T16:20:00.000Z",
+      "reviewed_by": "67648f96678901234567abcd"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-18T12:15:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T16:45:00.000Z"
+  },
+  {
+    "_id": "3d4e4a824ef9027f188503e7",
+    "batch": "67648fd6012345abcdef6789",
+    "api_batch_id": "BATCH-MET-0001",
+    "component_batch_id": "COMP-BATCH-MET-0001-07",
+    "component_type": "Raw Material",
+    "component_name": "Silicon Dioxide",
+    "material_code_component": "RM-SiO2",
+    "supplier_name": "PureMaterials Corp",
+    "supplier_lot_id": "SUP-LOT-MET-67890",
+    "internal_lot_id": "INT-LOT-MET-23456",
+    "quantity_used": 2.8,
+    "uom": "kg",
+    "usage_ts": "2024-11-20T22:00:00.000Z",
+    "coa": {
+      "received": true,
+      "approval_date": "2024-11-16T14:45:00.000Z",
+      "reviewed_by": "67648f9778901234567abcde"
+    },
+    "qc": {
+      "status": "Approved",
+      "approval_date": "2024-11-17T16:30:00.000Z"
+    },
+    "createdAt": "2024-11-20T10:45:00.000Z",
+    "updatedAt": "2024-11-20T22:00:00.000Z"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "66c01234567890abcdef0123",
+    "project_code": "PROJ-001-PAR",
+    "project_name": "Paracetamol Development Project",
+    "customer": "66b01234567890abcdef0123",
+    "status": "Ongoing",
+    "start_date": "2020-03-15T08:30:00.000Z",
+    "end_date": null,
+    "batches": ["66d01234567890abcdef0123", "66d11234567890abcdef0123"],
+    "createdAt": "2020-03-15T08:30:00.000Z",
+    "updatedAt": "2024-11-22T14:25:33.567Z"
+  },
+  {
+    "_id": "66c11234567890abcdef0123",
+    "project_code": "PROJ-002-IBU",
+    "project_name": "Ibuprofen Development Project",
+    "customer": "66b11234567890abcdef0123",
+    "status": "Completed",
+    "start_date": "2019-08-22T10:15:00.000Z",
+    "end_date": "2023-12-18T16:45:00.000Z",
+    "batches": ["66d21234567890abcdef0123", "66d31234567890abcdef0123"],
+    "createdAt": "2019-08-22T10:15:00.000Z",
+    "updatedAt": "2023-12-18T16:45:00.000Z"
+  },
+  {
+    "_id": "66c21234567890abcdef0123",
+    "project_code": "PROJ-003-ATO",
+    "project_name": "Atorvastatin Development Project",
+    "customer": "66b21234567890abcdef0123",
+    "status": "Ongoing",
+    "start_date": "2021-01-10T12:00:00.000Z",
+    "end_date": null,
+    "batches": ["66d41234567890abcdef0123", "66d51234567890abcdef0123"],
+    "createdAt": "2021-01-10T12:00:00.000Z",
+    "updatedAt": "2025-06-14T09:33:22.123Z"
+  },
+  {
+    "_id": "66c31234567890abcdef0123",
+    "project_code": "PROJ-004-MET",
+    "project_name": "Metformin Development Project",
+    "customer": "66b31234567890abcdef0123",
+    "status": "On-Hold",
+    "start_date": "2022-05-08T14:20:00.000Z",
+    "end_date": null,
+    "batches": ["66d61234567890abcdef0123"],
+    "createdAt": "2022-05-08T14:20:00.000Z",
+    "updatedAt": "2024-08-30T11:47:18.456Z"
+  },
+  {
+    "_id": "66c41234567890abcdef0123",
+    "project_code": "PROJ-005-AML",
+    "project_name": "Amlodipine Development Project",
+    "customer": "66b41234567890abcdef0123",
+    "status": "Completed",
+    "start_date": "2020-11-03T09:45:00.000Z",
+    "end_date": "2024-02-28T15:30:00.000Z",
+    "batches": ["66d71234567890abcdef0123", "66d81234567890abcdef0123"],
+    "createdAt": "2020-11-03T09:45:00.000Z",
+    "updatedAt": "2024-02-28T15:30:00.000Z"
+  },
+  {
+    "_id": "66c51234567890abcdef0123",
+    "project_code": "PROJ-006-SOF",
+    "project_name": "Sofosbuvir Development Project",
+    "customer": "66b51234567890abcdef0123",
+    "status": "Ongoing",
+    "start_date": "2021-07-12T11:15:00.000Z",
+    "end_date": null,
+    "batches": ["66d91234567890abcdef0123"],
+    "createdAt": "2021-07-12T11:15:00.000Z",
+    "updatedAt": "2025-04-18T13:52:47.789Z"
+  }
+]

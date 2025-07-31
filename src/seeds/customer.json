@@ -1,0 +1,192 @@
+[
+  {
+    "customer_id": "CUST-001",
+    "name": "Acme Pharma Ltd.",
+    "status": "Active",
+    "industry": "Pharmaceuticals",
+    "contact": {
+      "person": "Dr Arjun Rao",
+      "email": "arjun.rao@acmepharma.com",
+      "phone": "+91‑22‑4000‑1234"
+    },
+    "address": {
+      "line1": "123 Industrial Park",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "zipcode": "500032"
+    },
+    "created_at": "2020-02-15"
+  },
+  {
+    "customer_id": "CUST-002",
+    "name": "Blue River Therapeutics Inc.",
+    "status": "Active",
+    "industry": "Biotech CDMO",
+    "contact": {
+      "person": "Sarah Nguyen",
+      "email": "s.nguyen@blueriver‑tx.com",
+      "phone": "+1‑617‑555‑8840"
+    },
+    "address": {
+      "line1": "300 Cambridge Park Dr",
+      "city": "Cambridge",
+      "state": "MA",
+      "country": "USA",
+      "zipcode": "02140"
+    },
+    "created_at": "2021-06-10"
+  },
+  {
+    "customer_id": "CUST-003",
+    "name": "Novio Generics GmbH",
+    "status": "Active",
+    "industry": "Generic APIs",
+    "contact": {
+      "person": "Dr Klaus Meier",
+      "email": "k.meier@novio‑generics.de",
+      "phone": "+49‑211‑9876‑120"
+    },
+    "address": {
+      "line1": "Rheinstrasse 41",
+      "city": "Düsseldorf",
+      "state": "NRW",
+      "country": "Germany",
+      "zipcode": "40219"
+    },
+    "created_at": "2019-11-22"
+  },
+  {
+    "customer_id": "CUST-004",
+    "name": "Sunfield Life Sciences",
+    "status": "Active",
+    "industry": "CDMO & Formulations",
+    "contact": {
+      "person": "Isha Patel",
+      "email": "isha.patel@sunfield‑ls.com",
+      "phone": "+91‑79‑3500‑2211"
+    },
+    "address": {
+      "line1": "Plot 61, GIDC Estate",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "zipcode": "382445"
+    },
+    "created_at": "2022-04-06"
+  },
+  {
+    "customer_id": "CUST-005",
+    "name": "Polar API Oy",
+    "status": "Inactive",
+    "industry": "High‑potency APIs",
+    "contact": {
+      "person": "Mikko Virtanen",
+      "email": "m.virtanen@polar‑api.fi",
+      "phone": "+358‑20‑123‑7700"
+    },
+    "address": {
+      "line1": "Satamatie 7",
+      "city": "Turku",
+      "state": "Varsinais‑Suomi",
+      "country": "Finland",
+      "zipcode": "20100"
+    },
+    "created_at": "2020-09-12"
+  },
+  {
+    "customer_id": "CUST-006",
+    "name": "Vanguard Pharm SAS",
+    "status": "Active",
+    "industry": "Oncology CDMO",
+    "contact": {
+      "person": "Claire Martin",
+      "email": "c.martin@vanguard‑pharm.fr",
+      "phone": "+33‑1‑88‑77‑5566"
+    },
+    "address": {
+      "line1": "12 Rue Pasteur",
+      "city": "Lyon",
+      "state": "Auvergne‑Rhône‑Alpes",
+      "country": "France",
+      "zipcode": "69007"
+    },
+    "created_at": "2023-01-18"
+  },
+  {
+    "customer_id": "CUST-007",
+    "name": "Pacific Chem Solutions",
+    "status": "Active",
+    "industry": "Custom Chemistry",
+    "contact": {
+      "person": "Daniel Hsu",
+      "email": "daniel.hsu@pac‑chem.com",
+      "phone": "+886‑2‑2788‑3221"
+    },
+    "address": {
+      "line1": "No 88, Sec 2, Keelung Rd",
+      "city": "Taipei",
+      "state": "",
+      "country": "Taiwan",
+      "zipcode": "110"
+    },
+    "created_at": "2021-03-30"
+  },
+  {
+    "customer_id": "CUST-008",
+    "name": "Crescent Biosynth PLC",
+    "status": "Active",
+    "industry": "Peptide/Small‑mol Hybrid",
+    "contact": {
+      "person": "Mohamed El‑Aziz",
+      "email": "m.elaziz@crescent‑bio.co.uk",
+      "phone": "+44‑161‑600‑9000"
+    },
+    "address": {
+      "line1": "Unit 9, Bridgewater Park",
+      "city": "Manchester",
+      "state": "",
+      "country": "UK",
+      "zipcode": "M17 1DD"
+    },
+    "created_at": "2020-07-19"
+  },
+  {
+    "customer_id": "CUST-009",
+    "name": "Greenleaf Medichem Co.",
+    "status": "Active",
+    "industry": "Sustainable Chemistry",
+    "contact": {
+      "person": "Luis Ortega",
+      "email": "l.ortega@greenleaf‑med.com",
+      "phone": "+34‑93‑550‑7788"
+    },
+    "address": {
+      "line1": "Carrer d'Almogàvers 160",
+      "city": "Barcelona",
+      "state": "Catalonia",
+      "country": "Spain",
+      "zipcode": "08018"
+    },
+    "created_at": "2024-02-11"
+  },
+  {
+    "customer_id": "CUST-010",
+    "name": "Silver Peak Chemicals",
+    "status": "Active",
+    "industry": "High‑volume Generics",
+    "contact": {
+      "person": "Emily Johnson",
+      "email": "emily.j@silverpeak‑chem.com",
+      "phone": "+1‑801‑555‑4420"
+    },
+    "address": {
+      "line1": "4500 West 2700 South",
+      "city": "Salt Lake City",
+      "state": "UT",
+      "country": "USA",
+      "zipcode": "84120"
+    },
+    "created_at": "2019-12-04"
+  }
+]

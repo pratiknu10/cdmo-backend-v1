@@ -1,0 +1,37 @@
+import mongoose from "mongoose";
+
+export const batchSchema = new mongoose.Schema({
+  Customer_Name: String,
+  Customer_ID: String,
+  Project_Code: String,
+  API_Batch_ID: String,
+  Batch_ID: String,
+  Batch_Description: String,
+  Material_Code: String,
+  Material_ID: String,
+  Material_Name: String,
+  Material_Description: String,
+  Material_Type: String,
+  Product_Name: String,
+  Plant_Location: String,
+  Manufacturing_Order_ID: String,
+  Batch_Status: String,
+  Start_Date: Date,
+  End_Date: Date,
+  Version_No: String,
+  Parent_Batch_ID: String,
+  Traceability_Level: String,
+  Data_Source: String,
+  Order_ID: String,
+  Target_Yield: Number,
+  Actual_Yield: Number,
+  Yield_Unit: String,
+  QA_Disposition_Status: String,
+  Data_Pull_Timestamp: Date,
+  Batch_Template_ID: String,
+  Batch_Comments: String,
+  Related_Process_Stage: String,
+  Related_Process_Step: Number,
+});
+
+export const Batch = mongoose.model("Batch", batchSchema);

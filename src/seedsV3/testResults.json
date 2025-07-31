@@ -1,0 +1,554 @@
+[
+  {
+    "_id": "680000012345678abcdef012",
+    "sample": "670000012345678abcdef012",
+    "sample_id": "SAMP-BATCH-PAR-0001-01",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-01-01",
+    "method_id": "METHOD-TLC-001",
+    "parameter": "TLC completion check",
+    "value": 95.2,
+    "unit": "% completion",
+    "result": "Pass",
+    "tested_at": "2024-06-10T12:00:00.000Z",
+    "tested_by": "67648f90a1b2c3d4e5f67890",
+    "equipment_used": ["TLC-UV-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-TLC-001",
+        "name": "Silica TLC plate",
+        "lot_no": "TLC-12345",
+        "expiry": "2026-03-15T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-TLC-002",
+        "name": "Mobile phase (toluene:EtOAc:AcOH 8:1:1)",
+        "lot_no": "MOB-23456",
+        "expiry": "2025-12-31T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Crude reaction mixture analysis - acetylation complete",
+    "createdAt": "2024-06-10T12:00:00.000Z",
+    "updatedAt": "2024-06-10T12:00:00.000Z"
+  },
+  {
+    "_id": "680000123456789abcdef123",
+    "sample": "670000123456789abcdef123",
+    "sample_id": "SAMP-BATCH-PAR-0001-02",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-02-01",
+    "method_id": "METHOD-HPLC-001",
+    "parameter": "In-process HPLC assay",
+    "value": 98.7,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2024-06-10T14:30:00.000Z",
+    "tested_by": "67648f92c3d4e5f678901234",
+    "equipment_used": ["HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-HPLC-001",
+        "name": "Mobile phase MeOH:Water (65:35)",
+        "lot_no": "HPLC-34567",
+        "expiry": "2026-06-30T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-HPLC-002",
+        "name": "Paracetamol Reference Standard",
+        "lot_no": "RS-45678",
+        "expiry": "2027-01-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Crystallization slurry analysis - assay within specification",
+    "createdAt": "2024-06-10T14:30:00.000Z",
+    "updatedAt": "2024-06-10T14:30:00.000Z"
+  },
+  {
+    "_id": "680000234567890abcdef234",
+    "sample": "670000234567890abcdef234",
+    "sample_id": "SAMP-BATCH-PAR-0002-01",
+    "test_id": "TEST-SAMP-BATCH-PAR-0002-01-01",
+    "method_id": "METHOD-KF-001",
+    "parameter": "Water content (KF)",
+    "value": 0.15,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2024-06-10T19:00:00.000Z",
+    "tested_by": "67648f93d4e5f67890123456",
+    "equipment_used": ["KF-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-KF-001",
+        "name": "Hydranal Composite 5 KF reagent",
+        "lot_no": "KF-56789",
+        "expiry": "2025-12-31T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-KF-002",
+        "name": "Dry Methanol",
+        "lot_no": "MEOH-67890",
+        "expiry": "2026-04-20T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Dried cake moisture analysis - specification met",
+    "createdAt": "2024-06-10T19:00:00.000Z",
+    "updatedAt": "2024-06-10T19:00:00.000Z"
+  },
+  {
+    "_id": "680000345678901abcdef345",
+    "sample": "670000345678901abcdef345",
+    "sample_id": "SAMP-BATCH-PAR-0001-03",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-03-01",
+    "method_id": "METHOD-HPLC-002",
+    "parameter": "Assay (HPLC)",
+    "value": 99.2,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2024-06-10T20:45:00.000Z",
+    "tested_by": "67648f94e5f678901234567a",
+    "equipment_used": ["HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-HPLC-003",
+        "name": "Buffer (KH₂PO₄ 20 mM pH 3)",
+        "lot_no": "BUF-78901",
+        "expiry": "2025-11-15T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-HPLC-004",
+        "name": "Acetonitrile HPLC grade",
+        "lot_no": "ACN-89012",
+        "expiry": "2026-08-30T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Final API assay - release specification met",
+    "createdAt": "2024-06-10T20:45:00.000Z",
+    "updatedAt": "2024-06-10T20:45:00.000Z"
+  },
+  {
+    "_id": "680000456789012abcdef456",
+    "sample": "670000345678901abcdef345",
+    "sample_id": "SAMP-BATCH-PAR-0001-03",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-03-02",
+    "method_id": "METHOD-HPLC-003",
+    "parameter": "Related substances (HPLC)",
+    "value": 0.08,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2024-06-10T21:30:00.000Z",
+    "tested_by": "67648f95f678901234567abc",
+    "equipment_used": ["HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-HPLC-005",
+        "name": "Gradient ACN/Buffer system",
+        "lot_no": "GRAD-90123",
+        "expiry": "2026-05-20T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-HPLC-006",
+        "name": "Impurity Reference Standards mix",
+        "lot_no": "IMP-01234",
+        "expiry": "2026-12-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Related substances within limits",
+    "createdAt": "2024-06-10T21:30:00.000Z",
+    "updatedAt": "2024-06-10T21:30:00.000Z"
+  },
+  {
+    "_id": "680000567890123abcdef567",
+    "sample": "670000345678901abcdef345",
+    "sample_id": "SAMP-BATCH-PAR-0001-03",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-03-03",
+    "method_id": "METHOD-GC-001",
+    "parameter": "Residual solvents (GC)",
+    "value": 45.2,
+    "unit": "ppm",
+    "result": "Pass",
+    "tested_at": "2024-06-10T22:15:00.000Z",
+    "tested_by": "67648f96678901234567abcd",
+    "equipment_used": ["GC-FID-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-GC-001",
+        "name": "Dimethylformamide IS",
+        "lot_no": "DMF-12345",
+        "expiry": "2025-10-30T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-GC-002",
+        "name": "Helium carrier gas",
+        "lot_no": "HE-23456",
+        "expiry": "2026-07-25T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Residual solvents below ICH limits",
+    "createdAt": "2024-06-10T22:15:00.000Z",
+    "updatedAt": "2024-06-10T22:15:00.000Z"
+  },
+  {
+    "_id": "680000678901234abcdef678",
+    "sample": "670000345678901abcdef345",
+    "sample_id": "SAMP-BATCH-PAR-0001-03",
+    "test_id": "TEST-SAMP-BATCH-PAR-0001-03-04",
+    "method_id": "METHOD-PSD-001",
+    "parameter": "PSD (d10/d50/d90)",
+    "value": 142.5,
+    "unit": "µm (d90)",
+    "result": "Pass",
+    "tested_at": "2024-06-10T23:00:00.000Z",
+    "tested_by": "67648f9778901234567abcde",
+    "equipment_used": ["LaserPSD-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-PSD-001",
+        "name": "Dispersant water",
+        "lot_no": "WATER-34567",
+        "expiry": "2025-12-31T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Particle size distribution meets milling specification (D90 ≤ 150 µm)",
+    "createdAt": "2024-06-10T23:00:00.000Z",
+    "updatedAt": "2024-06-10T23:00:00.000Z"
+  },
+  {
+    "_id": "680000789012345abcdef789",
+    "sample": "670000456789012abcdef456",
+    "sample_id": "SAMP-BATCH-IBU-0001-01",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-01-01",
+    "method_id": "METHOD-GC-002",
+    "parameter": "% Conversion (GC)",
+    "value": 97.8,
+    "unit": "% conversion",
+    "result": "Pass",
+    "tested_at": "2023-08-14T17:00:00.000Z",
+    "tested_by": "67648f988901234567abcdef",
+    "equipment_used": ["GC-FID-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-GC-003",
+        "name": "n-Propanol Internal Standard",
+        "lot_no": "PROP-45678",
+        "expiry": "2024-09-15T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-GC-004",
+        "name": "DB-5 column system",
+        "lot_no": "DB5-56789",
+        "expiry": "2025-03-20T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Hydrogenation conversion complete - alcohol intermediate formed",
+    "createdAt": "2023-08-14T17:00:00.000Z",
+    "updatedAt": "2023-08-14T17:00:00.000Z"
+  },
+  {
+    "_id": "680000890123456abcdef890",
+    "sample": "670000567890123abcdef567",
+    "sample_id": "SAMP-BATCH-IBU-0001-02",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-02-01",
+    "method_id": "METHOD-UV-001",
+    "parameter": "Colorimetric Cr VI residue",
+    "value": 2.1,
+    "unit": "ppm",
+    "result": "Pass",
+    "tested_at": "2023-08-14T19:15:00.000Z",
+    "tested_by": "67648f9901234567abcdef01",
+    "equipment_used": ["UV-VIS-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-UV-001",
+        "name": "1,5-Diphenylcarbazide",
+        "lot_no": "DPC-67890",
+        "expiry": "2024-12-10T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-UV-002",
+        "name": "Sulfuric Acid reagent grade",
+        "lot_no": "H2SO4-78901",
+        "expiry": "2026-06-30T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Chromium VI residue within acceptable limits after oxidation step",
+    "createdAt": "2023-08-14T19:15:00.000Z",
+    "updatedAt": "2023-08-14T19:15:00.000Z"
+  },
+  {
+    "_id": "680000901234567abcdef901",
+    "sample": "670000678901234abcdef678",
+    "sample_id": "SAMP-BATCH-IBU-0001-03",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-03-01",
+    "method_id": "METHOD-CHIRAL-001",
+    "parameter": "Chiral purity (Chiral HPLC)",
+    "value": 99.4,
+    "unit": "% S-enantiomer",
+    "result": "Pass",
+    "tested_at": "2023-08-15T03:30:00.000Z",
+    "tested_by": "67648f9a1234567abcdef012",
+    "equipment_used": ["CH-HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-CHIRAL-001",
+        "name": "Hexane/IPA mobile phase (90:10)",
+        "lot_no": "CHIR-89012",
+        "expiry": "2024-11-25T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-CHIRAL-002",
+        "name": "R,S-Ibuprofen Reference Standard mix",
+        "lot_no": "RS-CHIR-90123",
+        "expiry": "2025-08-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Resolution step successful - S-enantiomer purity achieved",
+    "createdAt": "2023-08-15T03:30:00.000Z",
+    "updatedAt": "2023-08-15T03:30:00.000Z"
+  },
+  {
+    "_id": "680001012345678abcdef012",
+    "sample": "670000789012345abcdef789",
+    "sample_id": "SAMP-BATCH-IBU-0001-04",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-04-01",
+    "method_id": "METHOD-LOD-001",
+    "parameter": "Loss-on-Drying, PSD spot",
+    "value": 0.8,
+    "unit": "% LOD",
+    "result": "Pass",
+    "tested_at": "2023-08-15T13:45:00.000Z",
+    "tested_by": "67648f9b234567abcdef0123",
+    "equipment_used": ["Moist-Bal-01", "LaserPSD-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-LOD-001",
+        "name": "Silica gel desiccant",
+        "lot_no": "SiO2-01234",
+        "expiry": "2025-12-31T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-PSD-002",
+        "name": "Isopropanol dispersant",
+        "lot_no": "IPA-DISP-12345",
+        "expiry": "2024-10-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Dried cake moisture content acceptable",
+    "createdAt": "2023-08-15T13:45:00.000Z",
+    "updatedAt": "2023-08-15T13:45:00.000Z"
+  },
+  {
+    "_id": "680001123456789abcdef123",
+    "sample": "670000890123456abcdef890",
+    "sample_id": "SAMP-BATCH-IBU-0001-05",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-05-01",
+    "method_id": "METHOD-HPLC-004",
+    "parameter": "Assay (HPLC)",
+    "value": 99.1,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2023-08-15T14:30:00.000Z",
+    "tested_by": "67648f9c34567abcdef01234",
+    "equipment_used": ["HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-HPLC-007",
+        "name": "Mobile phase ACN:Water (55:45)",
+        "lot_no": "MOB-IBU-23456",
+        "expiry": "2024-12-20T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-HPLC-008",
+        "name": "S-Ibuprofen Reference Standard",
+        "lot_no": "RS-IBU-34567",
+        "expiry": "2025-06-30T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Final S-Ibuprofen API assay meets release specification",
+    "createdAt": "2023-08-15T14:30:00.000Z",
+    "updatedAt": "2023-08-15T14:30:00.000Z"
+  },
+  {
+    "_id": "680001234567890abcdef234",
+    "sample": "670000890123456abcdef890",
+    "sample_id": "SAMP-BATCH-IBU-0001-05",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-05-02",
+    "method_id": "METHOD-HPLC-005",
+    "parameter": "RS impurities (HPLC)",
+    "value": 0.12,
+    "unit": "%",
+    "result": "Pass",
+    "tested_at": "2023-08-15T15:15:00.000Z",
+    "tested_by": "67648f9d4567abcdef012345",
+    "equipment_used": ["HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-HPLC-009",
+        "name": "Gradient ACN/Phosphate buffer",
+        "lot_no": "GRAD-IBU-45678",
+        "expiry": "2025-01-15T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-HPLC-010",
+        "name": "Ibuprofen Impurity Standards",
+        "lot_no": "IMP-IBU-56789",
+        "expiry": "2025-09-30T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Related substances within specification limits",
+    "createdAt": "2023-08-15T15:15:00.000Z",
+    "updatedAt": "2023-08-15T15:15:00.000Z"
+  },
+  {
+    "_id": "680001345678901abcdef345",
+    "sample": "670000890123456abcdef890",
+    "sample_id": "SAMP-BATCH-IBU-0001-05",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-05-03",
+    "method_id": "METHOD-CHIRAL-002",
+    "parameter": "Optical purity (Chiral HPLC)",
+    "value": 99.6,
+    "unit": "% S-enantiomer",
+    "result": "Pass",
+    "tested_at": "2023-08-15T16:00:00.000Z",
+    "tested_by": "67648f9e567abcdef0123456",
+    "equipment_used": ["CH-HPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-CHIRAL-003",
+        "name": "Hexane/EtOH mobile phase (95:5)",
+        "lot_no": "CHIR-IBU-67890",
+        "expiry": "2024-08-20T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Final optical purity exceeds specification (≥99.0%)",
+    "createdAt": "2023-08-15T16:00:00.000Z",
+    "updatedAt": "2023-08-15T16:00:00.000Z"
+  },
+  {
+    "_id": "680001456789012abcdef456",
+    "sample": "670000890123456abcdef890",
+    "sample_id": "SAMP-BATCH-IBU-0001-05",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-05-04",
+    "method_id": "METHOD-GC-003",
+    "parameter": "Residual solvents",
+    "value": 89.5,
+    "unit": "ppm",
+    "result": "Pass",
+    "tested_at": "2023-08-15T16:45:00.000Z",
+    "tested_by": "67648f9f67abcdef01234567",
+    "equipment_used": ["GC-FID-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-GC-005",
+        "name": "t-Butanol Internal Standard",
+        "lot_no": "TBUT-78901",
+        "expiry": "2025-02-28T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-GC-006",
+        "name": "Helium carrier gas",
+        "lot_no": "HE-89012",
+        "expiry": "2026-12-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Residual heptane and IPA within ICH Q3C limits",
+    "createdAt": "2023-08-15T16:45:00.000Z",
+    "updatedAt": "2023-08-15T16:45:00.000Z"
+  },
+  {
+    "_id": "680001567890123abcdef567",
+    "sample": "670000890123456abcdef890",
+    "sample_id": "SAMP-BATCH-IBU-0001-05",
+    "test_id": "TEST-SAMP-BATCH-IBU-0001-05-05",
+    "method_id": "METHOD-MP-001",
+    "parameter": "Melting point",
+    "value": 76.2,
+    "unit": "°C",
+    "result": "Pass",
+    "tested_at": "2023-08-15T17:30:00.000Z",
+    "tested_by": "67648fa07abcdef012345678",
+    "equipment_used": ["Auto-MP-01"],
+    "reagents": [],
+    "remarks": "Melting point within specification range (75-78°C)",
+    "createdAt": "2023-08-15T17:30:00.000Z",
+    "updatedAt": "2023-08-15T17:30:00.000Z"
+  },
+  {
+    "_id": "680001678901234abcdef678",
+    "sample": "670000901234567abcdef901",
+    "sample_id": "SAMP-BATCH-ATO-0001-01",
+    "test_id": "TEST-SAMP-BATCH-ATO-0001-01-01",
+    "method_id": "METHOD-UPLC-001",
+    "parameter": "% Side-chain conversion (UPLC)",
+    "value": 96.8,
+    "unit": "% conversion",
+    "result": "Pass",
+    "tested_at": "2025-03-18T17:30:00.000Z",
+    "tested_by": "67648fa1abcdef0123456789",
+    "equipment_used": ["UPLC-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-UPLC-001",
+        "name": "Mobile phase ACN/0.1% FA",
+        "lot_no": "UPLC-ATO-90123",
+        "expiry": "2026-01-30T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Esterification reaction progress satisfactory",
+    "createdAt": "2025-03-18T17:30:00.000Z",
+    "updatedAt": "2025-03-18T17:30:00.000Z"
+  },
+  {
+    "_id": "680001789012345abcdef789",
+    "sample": "670001012345678abcdef012",
+    "sample_id": "SAMP-BATCH-ATO-0001-02",
+    "test_id": "TEST-SAMP-BATCH-ATO-0001-02-01",
+    "method_id": "METHOD-IR-001",
+    "parameter": "IR ID (lactone band)",
+    "value": 1735.2,
+    "unit": "cm⁻¹",
+    "result": "Pass",
+    "tested_at": "2025-03-18T18:15:00.000Z",
+    "tested_by": "67648fa2bcdef0123456789a",
+    "equipment_used": ["FT-IR-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-IR-001",
+        "name": "KBr disc matrix",
+        "lot_no": "KBr-01234",
+        "expiry": "2026-12-31T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Lactone carbonyl stretch confirmed at expected frequency",
+    "createdAt": "2025-03-18T18:15:00.000Z",
+    "updatedAt": "2025-03-18T18:15:00.000Z"
+  },
+  {
+    "_id": "680001890123456abcdef890",
+    "sample": "670001123456789abcdef123",
+    "sample_id": "SAMP-BATCH-ATO-0001-03",
+    "test_id": "TEST-SAMP-BATCH-ATO-0001-03-01",
+    "method_id": "METHOD-ICP-001",
+    "parameter": "Calcium % (ICP-OES)",
+    "value": 3.94,
+    "unit": "% Ca",
+    "result": "Pass",
+    "tested_at": "2025-03-18T20:00:00.000Z",
+    "tested_by": "67648fa3cdef0123456789ab",
+    "equipment_used": ["ICP-OES-01"],
+    "reagents": [
+      {
+        "reagent_id": "REA-ICP-001",
+        "name": "HNO₃ (1 M) digestion solution",
+        "lot_no": "HNO3-12345",
+        "expiry": "2025-11-30T00:00:00.000Z"
+      },
+      {
+        "reagent_id": "REA-ICP-002",
+        "name": "Calcium standard solution",
+        "lot_no": "CA-STD-23456",
+        "expiry": "2026-06-15T00:00:00.000Z"
+      }
+    ],
+    "remarks": "Calcium content confirms successful salt formation",
+    "createdAt": "2025-03-18T20:00:00.000Z",
+    "updatedAt": "2025-03-18T20:00:00.000Z"
+  }
+]

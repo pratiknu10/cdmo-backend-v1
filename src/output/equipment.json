@@ -1,0 +1,662 @@
+[
+  {
+    "_id": "WB-01",
+    "name": "Equipment WB-01",
+    "model": "Model-WB-01",
+    "location": "Location-WB-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-03-01T14:09:30.436Z",
+    "last_cleaned_on": "2024-12-09T14:34:21.461Z",
+    "status": "Available"
+  },
+  {
+    "_id": "R-101",
+    "name": "Equipment R-101",
+    "model": "Model-R-101",
+    "location": "Location-R-101",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-07-11T15:03:24.240Z",
+    "last_cleaned_on": "2025-05-13T16:53:55.662Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-01",
+    "name": "Equipment CJ-01",
+    "model": "Model-CJ-01",
+    "location": "Location-CJ-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-03-01T03:07:09.403Z",
+    "last_cleaned_on": "2024-06-11T08:18:01.760Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-01",
+    "name": "Equipment CF-01",
+    "model": "Model-CF-01",
+    "location": "Location-CF-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-28T19:59:28.858Z",
+    "last_cleaned_on": "2025-05-11T13:26:12.114Z",
+    "status": "Available"
+  },
+  {
+    "_id": "FBD-02",
+    "name": "Equipment FBD-02",
+    "model": "Model-FBD-02",
+    "location": "Location-FBD-02",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-01-30T00:28:32.658Z",
+    "last_cleaned_on": "2024-09-14T17:24:11.704Z",
+    "status": "Available"
+  },
+  {
+    "_id": "MIL-03",
+    "name": "Equipment MIL-03",
+    "model": "Model-MIL-03",
+    "location": "Location-MIL-03",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-06-07T13:36:28.515Z",
+    "last_cleaned_on": "2025-07-19T07:03:00.260Z",
+    "status": "Available"
+  },
+  {
+    "_id": "QC-Lab",
+    "name": "Equipment QC-Lab",
+    "model": "Model-QC-Lab",
+    "location": "Location-QC-Lab",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-02-28T21:56:18.549Z",
+    "last_cleaned_on": "2025-06-01T21:29:46.783Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-201",
+    "name": "Equipment GLR-201",
+    "model": "Model-GLR-201",
+    "location": "Location-GLR-201",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-09-15T06:21:02.779Z",
+    "last_cleaned_on": "2024-12-29T12:46:56.536Z",
+    "status": "Available"
+  },
+  {
+    "_id": "SEP-02",
+    "name": "Equipment SEP-02",
+    "model": "Model-SEP-02",
+    "location": "Location-SEP-02",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-04-22T13:22:10.615Z",
+    "last_cleaned_on": "2024-06-11T01:34:36.252Z",
+    "status": "Available"
+  },
+  {
+    "_id": "H2-Reactor",
+    "name": "Equipment H2-Reactor",
+    "model": "Model-H2-Reactor",
+    "location": "Location-H2-Reactor",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-11-22T19:14:20.543Z",
+    "last_cleaned_on": "2025-02-24T07:51:02.363Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-202",
+    "name": "Equipment GLR-202",
+    "model": "Model-GLR-202",
+    "location": "Location-GLR-202",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-06-02T11:57:19.703Z",
+    "last_cleaned_on": "2025-04-08T20:07:31.580Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CHR-Skid",
+    "name": "Equipment CHR-Skid",
+    "model": "Model-CHR-Skid",
+    "location": "Location-CHR-Skid",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-31T18:01:24.870Z",
+    "last_cleaned_on": "2024-12-05T00:18:20.076Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-04",
+    "name": "Equipment CJ-04",
+    "model": "Model-CJ-04",
+    "location": "Location-CJ-04",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-02-05T05:53:08.417Z",
+    "last_cleaned_on": "2024-09-20T11:06:27.057Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-02",
+    "name": "Equipment CF-02",
+    "model": "Model-CF-02",
+    "location": "Location-CF-02",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-19T11:53:53.905Z",
+    "last_cleaned_on": "2024-09-30T12:10:30.429Z",
+    "status": "Available"
+  },
+  {
+    "_id": "Oven-01",
+    "name": "Equipment Oven-01",
+    "model": "Model-Oven-01",
+    "location": "Location-Oven-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-09T00:06:38.772Z",
+    "last_cleaned_on": "2025-06-19T17:23:47.945Z",
+    "status": "Available"
+  },
+  {
+    "_id": "MIL-05",
+    "name": "Equipment MIL-05",
+    "model": "Model-MIL-05",
+    "location": "Location-MIL-05",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-12-29T16:11:15.717Z",
+    "last_cleaned_on": "2024-10-17T13:26:32.303Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-301",
+    "name": "Equipment GLR-301",
+    "model": "Model-GLR-301",
+    "location": "Location-GLR-301",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-07-10T17:17:56.821Z",
+    "last_cleaned_on": "2025-02-25T09:48:59.238Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-302",
+    "name": "Equipment GLR-302",
+    "model": "Model-GLR-302",
+    "location": "Location-GLR-302",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-03-15T22:11:25.556Z",
+    "last_cleaned_on": "2024-08-10T20:49:03.591Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-303",
+    "name": "Equipment GLR-303",
+    "model": "Model-GLR-303",
+    "location": "Location-GLR-303",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-01-02T12:12:57.723Z",
+    "last_cleaned_on": "2024-11-30T13:54:49.969Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-07",
+    "name": "Equipment CJ-07",
+    "model": "Model-CJ-07",
+    "location": "Location-CJ-07",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-01-19T19:56:39.331Z",
+    "last_cleaned_on": "2024-07-09T20:08:19.611Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-07",
+    "name": "Equipment CF-07",
+    "model": "Model-CF-07",
+    "location": "Location-CF-07",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-04-04T07:17:14.551Z",
+    "last_cleaned_on": "2024-10-25T06:52:34.863Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-304",
+    "name": "Equipment GLR-304",
+    "model": "Model-GLR-304",
+    "location": "Location-GLR-304",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-10T15:08:11.243Z",
+    "last_cleaned_on": "2024-12-23T18:05:59.250Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-08",
+    "name": "Equipment CJ-08",
+    "model": "Model-CJ-08",
+    "location": "Location-CJ-08",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-12-22T15:03:42.346Z",
+    "last_cleaned_on": "2024-08-31T11:34:30.620Z",
+    "status": "Available"
+  },
+  {
+    "_id": "VTD-02",
+    "name": "Equipment VTD-02",
+    "model": "Model-VTD-02",
+    "location": "Location-VTD-02",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-03-05T20:00:32.760Z",
+    "last_cleaned_on": "2025-02-17T14:18:55.748Z",
+    "status": "Available"
+  },
+  {
+    "_id": "JET-01",
+    "name": "Equipment JET-01",
+    "model": "Model-JET-01",
+    "location": "Location-JET-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-08-14T13:32:19.766Z",
+    "last_cleaned_on": "2024-12-21T22:20:51.627Z",
+    "status": "Available"
+  },
+  {
+    "_id": "R-401",
+    "name": "Equipment R-401",
+    "model": "Model-R-401",
+    "location": "Location-R-401",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-04-15T11:05:18.229Z",
+    "last_cleaned_on": "2024-07-17T22:47:29.560Z",
+    "status": "Available"
+  },
+  {
+    "_id": "R-402",
+    "name": "Equipment R-402",
+    "model": "Model-R-402",
+    "location": "Location-R-402",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-16T22:25:59.433Z",
+    "last_cleaned_on": "2024-06-24T13:25:49.356Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-10",
+    "name": "Equipment CJ-10",
+    "model": "Model-CJ-10",
+    "location": "Location-CJ-10",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-13T13:31:23.575Z",
+    "last_cleaned_on": "2024-08-18T15:35:52.210Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-10",
+    "name": "Equipment CF-10",
+    "model": "Model-CF-10",
+    "location": "Location-CF-10",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-08-13T10:12:12.077Z",
+    "last_cleaned_on": "2024-09-15T14:28:21.933Z",
+    "status": "Available"
+  },
+  {
+    "_id": "Oven-03",
+    "name": "Equipment Oven-03",
+    "model": "Model-Oven-03",
+    "location": "Location-Oven-03",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-06-22T08:55:44.067Z",
+    "last_cleaned_on": "2025-02-19T12:44:12.013Z",
+    "status": "Available"
+  },
+  {
+    "_id": "BL-01",
+    "name": "Equipment BL-01",
+    "model": "Model-BL-01",
+    "location": "Location-BL-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-01-31T12:19:54.310Z",
+    "last_cleaned_on": "2024-10-15T03:30:13.883Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-501",
+    "name": "Equipment GLR-501",
+    "model": "Model-GLR-501",
+    "location": "Location-GLR-501",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-05-26T09:56:12.377Z",
+    "last_cleaned_on": "2024-08-30T12:14:23.051Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-12",
+    "name": "Equipment CJ-12",
+    "model": "Model-CJ-12",
+    "location": "Location-CJ-12",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-05-06T21:56:04.578Z",
+    "last_cleaned_on": "2025-05-14T04:02:37.394Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-12",
+    "name": "Equipment CF-12",
+    "model": "Model-CF-12",
+    "location": "Location-CF-12",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-08-08T13:15:01.444Z",
+    "last_cleaned_on": "2024-07-10T11:06:18.472Z",
+    "status": "Available"
+  },
+  {
+    "_id": "H2-Skid-2",
+    "name": "Equipment H2-Skid-2",
+    "model": "Model-H2-Skid-2",
+    "location": "Location-H2-Skid-2",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-09-28T03:06:31.564Z",
+    "last_cleaned_on": "2024-11-08T22:56:34.078Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-502",
+    "name": "Equipment GLR-502",
+    "model": "Model-GLR-502",
+    "location": "Location-GLR-502",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-16T00:52:53.726Z",
+    "last_cleaned_on": "2024-07-18T14:59:17.421Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-13",
+    "name": "Equipment CJ-13",
+    "model": "Model-CJ-13",
+    "location": "Location-CJ-13",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-13T00:16:03.155Z",
+    "last_cleaned_on": "2024-10-10T05:04:02.901Z",
+    "status": "Available"
+  },
+  {
+    "_id": "VTD-03",
+    "name": "Equipment VTD-03",
+    "model": "Model-VTD-03",
+    "location": "Location-VTD-03",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-03-30T15:18:30.084Z",
+    "last_cleaned_on": "2024-11-26T20:37:33.932Z",
+    "status": "Available"
+  },
+  {
+    "_id": "MIL-09",
+    "name": "Equipment MIL-09",
+    "model": "Model-MIL-09",
+    "location": "Location-MIL-09",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-03-02T00:44:49.330Z",
+    "last_cleaned_on": "2025-04-08T23:25:58.839Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-601",
+    "name": "Equipment GLR-601",
+    "model": "Model-GLR-601",
+    "location": "Location-GLR-601",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-01-09T12:28:22.670Z",
+    "last_cleaned_on": "2025-06-25T06:05:28.683Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-602",
+    "name": "Equipment GLR-602",
+    "model": "Model-GLR-602",
+    "location": "Location-GLR-602",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-02-15T13:33:03.378Z",
+    "last_cleaned_on": "2024-08-08T18:38:34.603Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-603",
+    "name": "Equipment GLR-603",
+    "model": "Model-GLR-603",
+    "location": "Location-GLR-603",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-03-12T15:30:45.729Z",
+    "last_cleaned_on": "2024-07-03T17:04:46.701Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-604",
+    "name": "Equipment GLR-604",
+    "model": "Model-GLR-604",
+    "location": "Location-GLR-604",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-03-03T23:32:32.262Z",
+    "last_cleaned_on": "2024-11-11T02:05:02.524Z",
+    "status": "Available"
+  },
+  {
+    "_id": "SEP-10",
+    "name": "Equipment SEP-10",
+    "model": "Model-SEP-10",
+    "location": "Location-SEP-10",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-06-27T16:38:27.817Z",
+    "last_cleaned_on": "2024-09-26T09:08:15.203Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-15",
+    "name": "Equipment CJ-15",
+    "model": "Model-CJ-15",
+    "location": "Location-CJ-15",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-09-06T08:14:23.197Z",
+    "last_cleaned_on": "2025-03-19T16:50:39.654Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-15-ISO",
+    "name": "Equipment CF-15-ISO",
+    "model": "Model-CF-15-ISO",
+    "location": "Location-CF-15-ISO",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-23T02:00:25.768Z",
+    "last_cleaned_on": "2024-11-29T17:56:48.146Z",
+    "status": "Available"
+  },
+  {
+    "_id": "VTD-HP-01",
+    "name": "Equipment VTD-HP-01",
+    "model": "Model-VTD-HP-01",
+    "location": "Location-VTD-HP-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-04-02T23:15:16.586Z",
+    "last_cleaned_on": "2025-07-25T08:00:08.327Z",
+    "status": "Available"
+  },
+  {
+    "_id": "JET-HP-01",
+    "name": "Equipment JET-HP-01",
+    "model": "Model-JET-HP-01",
+    "location": "Location-JET-HP-01",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-23T13:06:02.261Z",
+    "last_cleaned_on": "2025-07-27T23:53:29.834Z",
+    "status": "Available"
+  },
+  {
+    "_id": "H2-Skid-5",
+    "name": "Equipment H2-Skid-5",
+    "model": "Model-H2-Skid-5",
+    "location": "Location-H2-Skid-5",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-16T09:27:38.589Z",
+    "last_cleaned_on": "2024-08-14T08:31:04.591Z",
+    "status": "Available"
+  },
+  {
+    "_id": "SEP-12",
+    "name": "Equipment SEP-12",
+    "model": "Model-SEP-12",
+    "location": "Location-SEP-12",
+    "calibration_status": "Due Soon",
+    "last_calibrated_on": "2025-05-10T19:20:19.663Z",
+    "last_cleaned_on": "2025-05-16T23:39:54.628Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-701",
+    "name": "Equipment GLR-701",
+    "model": "Model-GLR-701",
+    "location": "Location-GLR-701",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-10T03:57:21.520Z",
+    "last_cleaned_on": "2025-07-02T01:17:21.118Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-17",
+    "name": "Equipment CJ-17",
+    "model": "Model-CJ-17",
+    "location": "Location-CJ-17",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-01-06T16:15:31.327Z",
+    "last_cleaned_on": "2025-05-31T06:08:09.807Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-17",
+    "name": "Equipment CF-17",
+    "model": "Model-CF-17",
+    "location": "Location-CF-17",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-07-23T23:49:27.442Z",
+    "last_cleaned_on": "2024-11-17T13:40:50.903Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-702",
+    "name": "Equipment GLR-702",
+    "model": "Model-GLR-702",
+    "location": "Location-GLR-702",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-13T04:34:12.572Z",
+    "last_cleaned_on": "2024-09-09T02:31:01.815Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-18",
+    "name": "Equipment CJ-18",
+    "model": "Model-CJ-18",
+    "location": "Location-CJ-18",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-19T19:25:10.634Z",
+    "last_cleaned_on": "2024-07-29T03:54:56.000Z",
+    "status": "Available"
+  },
+  {
+    "_id": "VTD-04",
+    "name": "Equipment VTD-04",
+    "model": "Model-VTD-04",
+    "location": "Location-VTD-04",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-08-21T18:14:53.110Z",
+    "last_cleaned_on": "2025-01-28T18:24:27.731Z",
+    "status": "Available"
+  },
+  {
+    "_id": "MIL-11",
+    "name": "Equipment MIL-11",
+    "model": "Model-MIL-11",
+    "location": "Location-MIL-11",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-01-09T13:44:14.282Z",
+    "last_cleaned_on": "2024-08-04T06:58:12.228Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-801",
+    "name": "Equipment GLR-801",
+    "model": "Model-GLR-801",
+    "location": "Location-GLR-801",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-02-05T03:42:52.041Z",
+    "last_cleaned_on": "2024-08-10T12:50:21.256Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-802",
+    "name": "Equipment GLR-802",
+    "model": "Model-GLR-802",
+    "location": "Location-GLR-802",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-03-28T14:39:14.781Z",
+    "last_cleaned_on": "2024-07-26T21:18:25.878Z",
+    "status": "Available"
+  },
+  {
+    "_id": "GLR-803",
+    "name": "Equipment GLR-803",
+    "model": "Model-GLR-803",
+    "location": "Location-GLR-803",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-10-15T03:36:19.375Z",
+    "last_cleaned_on": "2025-04-01T10:47:39.944Z",
+    "status": "Available"
+  },
+  {
+    "_id": "SEP-15",
+    "name": "Equipment SEP-15",
+    "model": "Model-SEP-15",
+    "location": "Location-SEP-15",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-04-15T11:26:45.300Z",
+    "last_cleaned_on": "2025-07-26T17:53:12.661Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CJ-20",
+    "name": "Equipment CJ-20",
+    "model": "Model-CJ-20",
+    "location": "Location-CJ-20",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-01-14T03:01:45.765Z",
+    "last_cleaned_on": "2024-12-25T06:02:19.014Z",
+    "status": "Available"
+  },
+  {
+    "_id": "CF-20-DR",
+    "name": "Equipment CF-20-DR",
+    "model": "Model-CF-20-DR",
+    "location": "Location-CF-20-DR",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-01-28T07:40:34.194Z",
+    "last_cleaned_on": "2024-10-07T01:12:18.015Z",
+    "status": "Available"
+  },
+  {
+    "_id": "VTD-05-N2",
+    "name": "Equipment VTD-05-N2",
+    "model": "Model-VTD-05-N2",
+    "location": "Location-VTD-05-N2",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2025-02-01T08:30:50.546Z",
+    "last_cleaned_on": "2024-12-18T06:02:29.557Z",
+    "status": "Available"
+  },
+  {
+    "_id": "JET-03",
+    "name": "Equipment JET-03",
+    "model": "Model-JET-03",
+    "location": "Location-JET-03",
+    "calibration_status": "Due Soon",
+    "last_calibrated_on": "2025-05-21T20:36:31.870Z",
+    "last_cleaned_on": "2025-03-12T19:52:13.471Z",
+    "status": "Available"
+  },
+  {
+    "_id": "QC-Lab-B",
+    "name": "Equipment QC-Lab-B",
+    "model": "Model-QC-Lab-B",
+    "location": "Location-QC-Lab-B",
+    "calibration_status": "Valid",
+    "last_calibrated_on": "2024-08-03T09:24:26.956Z",
+    "last_cleaned_on": "2025-03-14T13:28:51.924Z",
+    "status": "Available"
+  }
+]

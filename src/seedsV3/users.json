@@ -1,0 +1,162 @@
+[
+  {
+    "_id": "669a1b2c3d4e5f6789012345",
+    "name": "Dr. Sarah Chen",
+    "email": "sarah.chen@cdmo.com",
+    "role": "QA",
+    "createdAt": "2020-11-21T14:25:22.038Z",
+    "updatedAt": "2025-03-19T18:27:04.687Z"
+  },
+  {
+    "_id": "669b2c3d4e5f6789012345ab",
+    "name": "Mike Rodriguez",
+    "email": "mike.rodriguez@cdmo.com",
+    "role": "Operator",
+    "createdAt": "2019-08-06T23:58:57.279Z",
+    "updatedAt": "2024-06-04T18:24:05.069Z"
+  },
+  {
+    "_id": "669c3d4e5f6789012345abcd",
+    "name": "Jennifer Park",
+    "email": "jennifer.park@cdmo.com",
+    "role": "Analyst",
+    "createdAt": "2019-08-01T20:32:13.361Z",
+    "updatedAt": "2021-02-03T15:49:11.511Z"
+  },
+  {
+    "_id": "669d4e5f6789012345abcdef",
+    "name": "Dr. Ahmed Hassan",
+    "email": "ahmed.hassan@cdmo.com",
+    "role": "Supervisor",
+    "createdAt": "2020-05-15T11:42:33.892Z",
+    "updatedAt": "2023-09-27T09:15:42.127Z"
+  },
+  {
+    "_id": "669e5f6789012345abcdef01",
+    "name": "Lisa Thompson",
+    "email": "lisa.thompson@cdmo.com",
+    "role": "Operator",
+    "createdAt": "2019-12-08T16:23:45.234Z",
+    "updatedAt": "2024-11-12T14:38:29.891Z"
+  },
+  {
+    "_id": "669f6789012345abcdef0123",
+    "name": "David Kumar",
+    "email": "david.kumar@cdmo.com",
+    "role": "Analyst",
+    "createdAt": "2020-02-29T08:17:52.456Z",
+    "updatedAt": "2025-01-08T12:55:17.234Z"
+  },
+  {
+    "_id": "66a06789012345abcdef0123",
+    "name": "Dr. Maria Santos",
+    "email": "maria.santos@cdmo.com",
+    "role": "QA",
+    "createdAt": "2019-07-22T19:34:18.678Z",
+    "updatedAt": "2023-04-15T21:42:33.567Z"
+  },
+  {
+    "_id": "66a1789012345abcdef01234",
+    "name": "James Wilson",
+    "email": "james.wilson@cdmo.com",
+    "role": "Operator",
+    "createdAt": "2020-10-03T13:28:41.890Z",
+    "updatedAt": "2024-08-19T07:29:56.123Z"
+  },
+  {
+    "_id": "66a289012345abcdef012345",
+    "name": "Dr. Priya Sharma",
+    "email": "priya.sharma@cdmo.com",
+    "role": "Supervisor",
+    "createdAt": "2019-11-17T06:45:27.345Z",
+    "updatedAt": "2025-05-22T15:18:44.789Z"
+  },
+  {
+    "_id": "66a39012345abcdef0123456",
+    "name": "Robert Taylor",
+    "email": "robert.taylor@cdmo.com",
+    "role": "Admin",
+    "createdAt": "2020-01-14T22:51:38.567Z",
+    "updatedAt": "2024-03-27T10:33:29.456Z"
+  },
+  {
+    "_id": "66a4012345abcdef01234567",
+    "name": "Dr. Elena Volkov",
+    "email": "elena.volkov@cdmo.com",
+    "role": "Analyst",
+    "createdAt": "2019-09-30T14:16:49.123Z",
+    "updatedAt": "2023-12-05T17:44:51.678Z"
+  },
+  {
+    "_id": "66a512345abcdef012345678",
+    "name": "Carlos Martinez",
+    "email": "carlos.martinez@cdmo.com",
+    "role": "Operator",
+    "createdAt": "2020-06-11T09:37:22.789Z",
+    "updatedAt": "2024-10-14T13:26:38.234Z"
+  },
+  {
+    "_id": "66a62345abcdef0123456789",
+    "name": "Dr. Yuki Tanaka",
+    "email": "yuki.tanaka@cdmo.com",
+    "role": "QA",
+    "createdAt": "2019-04-25T18:52:15.345Z",
+    "updatedAt": "2025-02-17T11:47:26.567Z"
+  },
+  {
+    "_id": "66a7345abcdef0123456789a",
+    "name": "Amanda Foster",
+    "email": "amanda.foster@cdmo.com",
+    "role": "Supervisor",
+    "createdAt": "2020-08-07T12:33:44.678Z",
+    "updatedAt": "2024-01-23T19:22:17.890Z"
+  },
+  {
+    "_id": "66a845abcdef0123456789ab",
+    "name": "Dr. Raj Patel",
+    "email": "raj.patel@cdmo.com",
+    "role": "QA",
+    "createdAt": "2019-03-18T07:29:33.123Z",
+    "updatedAt": "2023-11-09T16:35:42.456Z"
+  },
+  {
+    "_id": "66a95abcdef0123456789abc",
+    "name": "Sophie Mueller",
+    "email": "sophie.mueller@cdmo.com",
+    "role": "Analyst",
+    "createdAt": "2020-12-02T20:14:56.789Z",
+    "updatedAt": "2024-07-30T08:51:29.234Z"
+  },
+  {
+    "_id": "66aa5bcdef0123456789abcd",
+    "name": "Dr. Omar Al-Rashid",
+    "email": "omar.al-rashid@cdmo.com",
+    "role": "Supervisor",
+    "createdAt": "2019-06-13T15:41:27.345Z",
+    "updatedAt": "2025-04-12T22:18:54.567Z"
+  },
+  {
+    "_id": "66ab5cdef0123456789abcde",
+    "name": "Grace Lee",
+    "email": "grace.lee@cdmo.com",
+    "role": "Operator",
+    "createdAt": "2020-09-26T11:58:39.678Z",
+    "updatedAt": "2024-05-18T14:42:16.890Z"
+  },
+  {
+    "_id": "66ac5def0123456789abcdef",
+    "name": "Dr. Marco Rossi",
+    "email": "marco.rossi@cdmo.com",
+    "role": "QA",
+    "createdAt": "2019-10-21T17:25:48.123Z",
+    "updatedAt": "2023-08-14T06:37:33.456Z"
+  },
+  {
+    "_id": "66ad5ef0123456789abcdef0",
+    "name": "Anna Kowalski",
+    "email": "anna.kowalski@cdmo.com",
+    "role": "Admin",
+    "createdAt": "2020-04-09T23:46:17.789Z",
+    "updatedAt": "2024-12-01T18:24:51.234Z"
+  }
+]

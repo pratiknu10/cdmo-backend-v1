@@ -1,0 +1,182 @@
+[
+  {
+    "project_code": "PROJ-PAR-ACME-2023-A",
+    "customer_id": "CUST-001",
+    "material_code": "API-PAR",
+    "material_name": "Paracetamol (Acetaminophen)",
+    "status": "Completed",
+    "start_date": "2023-02-05",
+    "end_date": "2023-05-04"
+  },
+  {
+    "project_code": "PROJ-IBU-ACME-2024-A",
+    "customer_id": "CUST-001",
+    "material_code": "API-IBU",
+    "material_name": "Ibuprofen (S‑Ibuprofen)",
+    "status": "Completed",
+    "start_date": "2024-09-20",
+    "end_date": "2025-02-15"
+  },
+  {
+    "project_code": "PROJ-ATC-BLUE-2022-A",
+    "customer_id": "CUST-002",
+    "material_code": "API-ATC",
+    "material_name": "Atorvastatin Calcium",
+    "status": "Completed",
+    "start_date": "2022-03-01",
+    "end_date": "2022-07-15"
+  },
+  {
+    "project_code": "PROJ-SOF-BLUE-2025-A",
+    "customer_id": "CUST-002",
+    "material_code": "API-SOF",
+    "material_name": "Sofosbuvir",
+    "status": "Ongoing",
+    "start_date": "2025-05-01",
+    "end_date": "2025-10-31"
+  },
+  {
+    "project_code": "PROJ-MET-NOVIO-2021-A",
+    "customer_id": "CUST-003",
+    "material_code": "API-MET",
+    "material_name": "Metformin Hydrochloride",
+    "status": "Completed",
+    "start_date": "2021-06-10",
+    "end_date": "2021-09-30"
+  },
+  {
+    "project_code": "PROJ-PAR-NOVIO-2023-B",
+    "customer_id": "CUST-003",
+    "material_code": "API-PAR",
+    "material_name": "Paracetamol (Acetaminophen)",
+    "status": "Completed",
+    "start_date": "2023-10-01",
+    "end_date": "2024-02-28"
+  },
+  {
+    "project_code": "PROJ-AML-SUNFIELD-2024-A",
+    "customer_id": "CUST-004",
+    "material_code": "API-AML",
+    "material_name": "Amlodipine Besylate",
+    "status": "Completed",
+    "start_date": "2024-02-01",
+    "end_date": "2024-05-30"
+  },
+  {
+    "project_code": "PROJ-IBU-SUNFIELD-2025-A",
+    "customer_id": "CUST-004",
+    "material_code": "API-IBU",
+    "material_name": "Ibuprofen (S‑Ibuprofen)",
+    "status": "Ongoing",
+    "start_date": "2025-04-15",
+    "end_date": "2025-08-15"
+  },
+  {
+    "project_code": "PROJ-OLA-POLAR-2020-A",
+    "customer_id": "CUST-005",
+    "material_code": "API-OLA",
+    "material_name": "Olanzapine",
+    "status": "Failed",
+    "start_date": "2020-07-01",
+    "end_date": "2020-12-15"
+  },
+  {
+    "project_code": "PROJ-ATC-VANGUARD-2023-A",
+    "customer_id": "CUST-006",
+    "material_code": "API-ATC",
+    "material_name": "Atorvastatin Calcium",
+    "status": "Completed",
+    "start_date": "2023-09-05",
+    "end_date": "2024-01-10"
+  },
+  {
+    "project_code": "PROJ-SIT-VANGUARD-2024-A",
+    "customer_id": "CUST-006",
+    "material_code": "API-SIT",
+    "material_name": "Sitagliptin Phosphate",
+    "status": "Completed",
+    "start_date": "2024-11-01",
+    "end_date": "2025-03-31"
+  },
+  {
+    "project_code": "PROJ-SOF-PACIFIC-2022-A",
+    "customer_id": "CUST-007",
+    "material_code": "API-SOF",
+    "material_name": "Sofosbuvir",
+    "status": "Completed",
+    "start_date": "2022-05-01",
+    "end_date": "2022-10-31"
+  },
+  {
+    "project_code": "PROJ-MET-PACIFIC-2025-A",
+    "customer_id": "CUST-007",
+    "material_code": "API-MET",
+    "material_name": "Metformin Hydrochloride",
+    "status": "Ongoing",
+    "start_date": "2025-06-01",
+    "end_date": "2025-11-30"
+  },
+  {
+    "project_code": "PROJ-AML-CRESCENT-2020-A",
+    "customer_id": "CUST-008",
+    "material_code": "API-AML",
+    "material_name": "Amlodipine Besylate",
+    "status": "Completed",
+    "start_date": "2020-09-15",
+    "end_date": "2021-02-15"
+  },
+  {
+    "project_code": "PROJ-OLA-CRESCENT-2024-A",
+    "customer_id": "CUST-008",
+    "material_code": "API-OLA",
+    "material_name": "Olanzapine",
+    "status": "Completed",
+    "start_date": "2024-03-01",
+    "end_date": "2024-06-30"
+  },
+  {
+    "project_code": "PROJ-PAR-GREENLEAF-2024-A",
+    "customer_id": "CUST-009",
+    "material_code": "API-PAR",
+    "material_name": "Paracetamol (Acetaminophen)",
+    "status": "Completed",
+    "start_date": "2024-07-05",
+    "end_date": "2024-12-05"
+  },
+  {
+    "project_code": "PROJ-SIT-GREENLEAF-2025-A",
+    "customer_id": "CUST-009",
+    "material_code": "API-SIT",
+    "material_name": "Sitagliptin Phosphate",
+    "status": "Completed",
+    "start_date": "2025-01-20",
+    "end_date": "2025-06-20"
+  },
+  {
+    "project_code": "PROJ-IBU-SILVER-2021-A",
+    "customer_id": "CUST-010",
+    "material_code": "API-IBU",
+    "material_name": "Ibuprofen (S‑Ibuprofen)",
+    "status": "Completed",
+    "start_date": "2021-01-10",
+    "end_date": "2021-04-25"
+  },
+  {
+    "project_code": "PROJ-ATC-SILVER-2022-A",
+    "customer_id": "CUST-010",
+    "material_code": "API-ATC",
+    "material_name": "Atorvastatin Calcium",
+    "status": "Completed",
+    "start_date": "2022-11-05",
+    "end_date": "2023-02-28"
+  },
+  {
+    "project_code": "PROJ-SOF-SILVER-2025-A",
+    "customer_id": "CUST-010",
+    "material_code": "API-SOF",
+    "material_name": "Sofosbuvir",
+    "status": "Ongoing",
+    "start_date": "2025-03-15",
+    "end_date": "2025-08-14"
+  }
+]

@@ -1,0 +1,823 @@
+[
+  {
+    "material_code": "API-PAR",
+    "material_name": "Paracetamol (Acetaminophen)",
+    "type": "API",
+    "description": "Final analgesic API"
+  },
+  {
+    "material_code": "API-IBU",
+    "material_name": "Ibuprofen (S‑Ibuprofen)",
+    "type": "API",
+    "description": "Optically pure NSAID API"
+  },
+  {
+    "material_code": "API-ATC",
+    "material_name": "Atorvastatin Calcium",
+    "type": "API",
+    "description": "Cholesterol‑lowering statin (Ca²⁺ salt)"
+  },
+  {
+    "material_code": "API-MET",
+    "material_name": "Metformin Hydrochloride",
+    "type": "API",
+    "description": "Antidiabetic API"
+  },
+  {
+    "material_code": "API-AML",
+    "material_name": "Amlodipine Besylate",
+    "type": "API",
+    "description": "Antihypertensive API (besylate salt)"
+  },
+  {
+    "material_code": "API-SOF",
+    "material_name": "Sofosbuvir",
+    "type": "API",
+    "description": "Antiviral HPAPI"
+  },
+  {
+    "material_code": "API-SIT",
+    "material_name": "Sitagliptin Phosphate (monohydrate)",
+    "type": "API",
+    "description": "DPP‑4 inhibitor API"
+  },
+  {
+    "material_code": "API-OLA",
+    "material_name": "Olanzapine",
+    "type": "API",
+    "description": "Atypical antipsychotic API"
+  },
+
+  {
+    "material_code": "INT-PAR-01",
+    "material_name": "Acetaminophen reaction mixture",
+    "type": "INT",
+    "description": "Crude post‑acetylation broth"
+  },
+  {
+    "material_code": "INT-PAR-02",
+    "material_name": "Quenched reaction broth",
+    "type": "INT",
+    "description": "Water‑quenched slurry pre‑crystallisation"
+  },
+  {
+    "material_code": "INT-PAR-03",
+    "material_name": "Paracetamol crystal slurry",
+    "type": "INT",
+    "description": "Primary crystals in mother liquor"
+  },
+  {
+    "material_code": "INT-PAR-04",
+    "material_name": "Paracetamol wet cake",
+    "type": "INT",
+    "description": "Washed centrifuge cake"
+  },
+  {
+    "material_code": "INT-PAR-05",
+    "material_name": "Paracetamol dried cake",
+    "type": "INT",
+    "description": "Post‑FBD low‑moisture solids"
+  },
+  {
+    "material_code": "INT-PAR-06",
+    "material_name": "Paracetamol milled PSD",
+    "type": "INT",
+    "description": "Final milled intermediate before packaging"
+  },
+
+  {
+    "material_code": "INT-IBU-01",
+    "material_name": "p‑Isobutylacetophenone·HF mix",
+    "type": "INT",
+    "description": "HF‑catalysed crude acylate"
+  },
+  {
+    "material_code": "INT-IBU-02",
+    "material_name": "Acetophenone phase (HF‑free)",
+    "type": "INT",
+    "description": "Organic layer post quench"
+  },
+  {
+    "material_code": "INT-IBU-03",
+    "material_name": "Ibuprofen alcohol intermediate",
+    "type": "INT",
+    "description": "Hydrogenated alcohol"
+  },
+  {
+    "material_code": "INT-IBU-04",
+    "material_name": "Ibuprofen acid crude",
+    "type": "INT",
+    "description": "Post‑oxidation crude acid"
+  },
+  {
+    "material_code": "INT-IBU-05",
+    "material_name": "DL‑Ibuprofen acid",
+    "type": "INT",
+    "description": "Racemic acid prior to resolution"
+  },
+  {
+    "material_code": "INT-IBU-06",
+    "material_name": "S‑Ibuprofen mandelate salt",
+    "type": "INT",
+    "description": "Enantiopure salt in EtOH"
+  },
+  {
+    "material_code": "INT-IBU-07",
+    "material_name": "S‑Ibuprofen crystals",
+    "type": "INT",
+    "description": "Wet crystals post‑heptane crash"
+  },
+  {
+    "material_code": "INT-IBU-08",
+    "material_name": "S‑Ibuprofen wet cake",
+    "type": "INT",
+    "description": "Centrifuged but undried solids"
+  },
+  {
+    "material_code": "INT-IBU-09",
+    "material_name": "S‑Ibuprofen dried cake",
+    "type": "INT",
+    "description": "Post‑tray‑drying material"
+  },
+  {
+    "material_code": "INT-IBU-10",
+    "material_name": "S‑Ibuprofen milled PSD",
+    "type": "INT",
+    "description": "Final PSD prior to release"
+  },
+
+  {
+    "material_code": "INT-ATC-01",
+    "material_name": "Hydrolysed acid INT‑A1",
+    "type": "INT",
+    "description": "Open‑ring acid"
+  },
+  {
+    "material_code": "INT-ATC-02",
+    "material_name": "Esterified INT‑A2",
+    "type": "INT",
+    "description": "Side‑chain ester attached"
+  },
+  {
+    "material_code": "INT-ATC-03",
+    "material_name": "Chiral base INT‑A3",
+    "type": "INT",
+    "description": "Optically active base"
+  },
+  {
+    "material_code": "INT-ATC-04",
+    "material_name": "Closed lactone INT‑A4",
+    "type": "INT",
+    "description": "Cyclised lactone"
+  },
+  {
+    "material_code": "INT-ATC-05",
+    "material_name": "Wet lactone crystals",
+    "type": "INT",
+    "description": "Crude lactone cake"
+  },
+  {
+    "material_code": "INT-ATC-06",
+    "material_name": "Washed lactone cake",
+    "type": "INT",
+    "description": "Post‑centrifuge cake"
+  },
+  {
+    "material_code": "INT-ATC-07",
+    "material_name": "Atorvastatin Ca slurry",
+    "type": "INT",
+    "description": "Calcium‑salt slurry"
+  },
+  {
+    "material_code": "INT-ATC-08",
+    "material_name": "Atorvastatin Ca crystals",
+    "type": "INT",
+    "description": "Re‑crystallised API solids"
+  },
+  {
+    "material_code": "INT-ATC-09",
+    "material_name": "Dried Atorvastatin Ca",
+    "type": "INT",
+    "description": "Vacuum‑dried solids"
+  },
+  {
+    "material_code": "INT-ATC-10",
+    "material_name": "Micronised Atorvastatin Ca",
+    "type": "INT",
+    "description": "Final PSD API"
+  },
+
+  {
+    "material_code": "INT-MET-01",
+    "material_name": "Biguanide base INT‑M1",
+    "type": "INT",
+    "description": "Condensed base before quench"
+  },
+  {
+    "material_code": "INT-MET-02",
+    "material_name": "Biguanide slurry INT‑M2",
+    "type": "INT",
+    "description": "Aqueous slurry post cool"
+  },
+  {
+    "material_code": "INT-MET-03",
+    "material_name": "Metformin HCl slurry",
+    "type": "INT",
+    "description": "Salted slurry"
+  },
+  {
+    "material_code": "INT-MET-04",
+    "material_name": "Wet Metformin crystals",
+    "type": "INT",
+    "description": "Crystals before dry"
+  },
+  {
+    "material_code": "INT-MET-05",
+    "material_name": "Metformin wet cake",
+    "type": "INT",
+    "description": "Centrifuged solids"
+  },
+  {
+    "material_code": "INT-MET-06",
+    "material_name": "Metformin dried cake",
+    "type": "INT",
+    "description": "Post‑oven solids"
+  },
+  {
+    "material_code": "INT-MET-07",
+    "material_name": "Blended Metformin HCl",
+    "type": "INT",
+    "description": "Final PSD adjusted API"
+  },
+
+  {
+    "material_code": "INT-AML-01",
+    "material_name": "DHP intermediate INT‑Aml‑1",
+    "type": "INT",
+    "description": "Dihydropyridine nucleus"
+  },
+  {
+    "material_code": "INT-AML-02",
+    "material_name": "Neutralised DHP slurry",
+    "type": "INT",
+    "description": "Post pH‑adjust slurry"
+  },
+  {
+    "material_code": "INT-AML-03",
+    "material_name": "Crude DHP crystals",
+    "type": "INT",
+    "description": "Wet cake"
+  },
+  {
+    "material_code": "INT-AML-04",
+    "material_name": "Washed DHP cake",
+    "type": "INT",
+    "description": "Washed pre‑hydrogenation"
+  },
+  {
+    "material_code": "INT-AML-05",
+    "material_name": "Amlodipine free base",
+    "type": "INT",
+    "description": "Post‑hydrogenation amine"
+  },
+  {
+    "material_code": "INT-AML-06",
+    "material_name": "Amlodipine besylate slurry",
+    "type": "INT",
+    "description": "Salt slurry"
+  },
+  {
+    "material_code": "INT-AML-07",
+    "material_name": "Amlodipine besylate crystals",
+    "type": "INT",
+    "description": "Wet recrystallised cake"
+  },
+  {
+    "material_code": "INT-AML-08",
+    "material_name": "Dried Amlodipine besylate",
+    "type": "INT",
+    "description": "Vacuum‑dried solids"
+  },
+  {
+    "material_code": "INT-AML-09",
+    "material_name": "Micronised Amlodipine besylate",
+    "type": "INT",
+    "description": "Final PSD API"
+  },
+
+  {
+    "material_code": "INT-SOF-01",
+    "material_name": "Silyl‑protected uridine",
+    "type": "INT",
+    "description": "INT‑S1 protected nucleoside"
+  },
+  {
+    "material_code": "INT-SOF-02",
+    "material_name": "Phosphoramidate INT‑S2",
+    "type": "INT",
+    "description": "Coupled nucleotide"
+  },
+  {
+    "material_code": "INT-SOF-03",
+    "material_name": "Fluorinated INT‑S3",
+    "type": "INT",
+    "description": "Stereoselective F‑intermediate"
+  },
+  {
+    "material_code": "INT-SOF-04",
+    "material_name": "Deprotected INT‑S4",
+    "type": "INT",
+    "description": "Free OH intermediate"
+  },
+  {
+    "material_code": "INT-SOF-05",
+    "material_name": "Sofosbuvir crude acid",
+    "type": "INT",
+    "description": "Post‑hydrolysis crude"
+  },
+  {
+    "material_code": "INT-SOF-06",
+    "material_name": "Purified aqueous layer",
+    "type": "INT",
+    "description": "Post extraction feed"
+  },
+  {
+    "material_code": "INT-SOF-07",
+    "material_name": "Sofosbuvir crystals (wet)",
+    "type": "INT",
+    "description": "Seeded crystallised slurry"
+  },
+  {
+    "material_code": "INT-SOF-08",
+    "material_name": "Sofosbuvir wet cake",
+    "type": "INT",
+    "description": "Centrifuged HPAPI"
+  },
+  {
+    "material_code": "INT-SOF-09",
+    "material_name": "Dried Sofosbuvir",
+    "type": "INT",
+    "description": "Contained dryer output"
+  },
+  {
+    "material_code": "INT-SOF-10",
+    "material_name": "Micronised Sofosbuvir",
+    "type": "INT",
+    "description": "Final PSD HPAPI"
+  },
+
+  {
+    "material_code": "INT-SIT-01",
+    "material_name": "Sitagliptin free base",
+    "type": "INT",
+    "description": "Post asymmetric H₂"
+  },
+  {
+    "material_code": "INT-SIT-02",
+    "material_name": "Clean organic layer",
+    "type": "INT",
+    "description": "Work‑up feed to de‑Boc"
+  },
+  {
+    "material_code": "INT-SIT-03",
+    "material_name": "Deboc intermediate",
+    "type": "INT",
+    "description": "Unprotected amine"
+  },
+  {
+    "material_code": "INT-SIT-04",
+    "material_name": "Free‑base crystals (wet)",
+    "type": "INT",
+    "description": "Seed crystallised cake"
+  },
+  {
+    "material_code": "INT-SIT-05",
+    "material_name": "Washed free‑base cake",
+    "type": "INT",
+    "description": "Centrifuged solids"
+  },
+  {
+    "material_code": "INT-SIT-06",
+    "material_name": "Sitagliptin phosphate slurry",
+    "type": "INT",
+    "description": "Salt slurry"
+  },
+  {
+    "material_code": "INT-SIT-07",
+    "material_name": "Pure Sitagliptin phosphate",
+    "type": "INT",
+    "description": "Wet recrystallised cake"
+  },
+  {
+    "material_code": "INT-SIT-08",
+    "material_name": "Dried Sitagliptin phosphate",
+    "type": "INT",
+    "description": "Vacuum‑dried solids"
+  },
+  {
+    "material_code": "INT-SIT-09",
+    "material_name": "Micronised Sitagliptin phosphate",
+    "type": "INT",
+    "description": "Final PSD API"
+  },
+
+  {
+    "material_code": "INT-OLA-01",
+    "material_name": "Nitrile INT‑O1",
+    "type": "INT",
+    "description": "Activated nitrile precursor"
+  },
+  {
+    "material_code": "INT-OLA-02",
+    "material_name": "Diazepine core INT‑O2",
+    "type": "INT",
+    "description": "Cyclised tricyclic core"
+  },
+  {
+    "material_code": "INT-OLA-03",
+    "material_name": "N‑Methyl diazepine INT‑O3",
+    "type": "INT",
+    "description": "Alkylated precursor"
+  },
+  {
+    "material_code": "INT-OLA-04",
+    "material_name": "Purified INT‑O3 layer",
+    "type": "INT",
+    "description": "DCM organic layer"
+  },
+  {
+    "material_code": "INT-OLA-05",
+    "material_name": "Olanzapine crystals (wet)",
+    "type": "INT",
+    "description": "Light‑protected crystals"
+  },
+  {
+    "material_code": "INT-OLA-06",
+    "material_name": "Washed Olanzapine cake",
+    "type": "INT",
+    "description": "Post centrifuge"
+  },
+  {
+    "material_code": "INT-OLA-07",
+    "material_name": "Dried Olanzapine",
+    "type": "INT",
+    "description": "Nitrogen‑purged dryer output"
+  },
+  {
+    "material_code": "INT-OLA-08",
+    "material_name": "Micronised Olanzapine",
+    "type": "INT",
+    "description": "Final PSD API"
+  },
+
+  {
+    "material_code": "RM-PAP",
+    "material_name": "p‑Aminophenol",
+    "type": "RM",
+    "description": "Starting amide for Paracetamol"
+  },
+  {
+    "material_code": "RM-ACAN",
+    "material_name": "Acetic Anhydride",
+    "type": "RM",
+    "description": "Acetylating agent"
+  },
+  {
+    "material_code": "BASE-NAOH",
+    "material_name": "Sodium Hydroxide 30 %",
+    "type": "BASE",
+    "description": "Strong base / pH control"
+  },
+  {
+    "material_code": "SOL-WATER",
+    "material_name": "Purified Water (DI/chilled)",
+    "type": "SOL",
+    "description": "General solvent / quench"
+  },
+  {
+    "material_code": "SOL-GAA",
+    "material_name": "Glacial Acetic Acid",
+    "type": "SOL",
+    "description": "Diluent & solvent"
+  },
+  {
+    "material_code": "SEED-PAR",
+    "material_name": "Paracetamol seed crystals",
+    "type": "SEED",
+    "description": "Seed for controlled nucleation"
+  },
+
+  {
+    "material_code": "RM-IBB",
+    "material_name": "Isobutylbenzene",
+    "type": "RM",
+    "description": "Aromatic starter (Ibuprofen)"
+  },
+  {
+    "material_code": "ACID-HF",
+    "material_name": "Hydrofluoric Acid (anhyd.)",
+    "type": "ACID",
+    "description": "Catalyst & solvent"
+  },
+  {
+    "material_code": "RM-ACCL",
+    "material_name": "Acetyl Chloride",
+    "type": "RM",
+    "description": "Acylating reagent"
+  },
+  {
+    "material_code": "CAT-RANEYNI",
+    "material_name": "Raney Nickel",
+    "type": "CAT",
+    "description": "Hydrogenation catalyst"
+  },
+  {
+    "material_code": "CAT-CRO3",
+    "material_name": "Chromium Trioxide",
+    "type": "CAT",
+    "description": "Oxidising agent"
+  },
+  {
+    "material_code": "SOL-AcOH",
+    "material_name": "Acetic Acid (glacial)",
+    "type": "SOL",
+    "description": "Solvent / medium"
+  },
+  {
+    "material_code": "RM-MANDEL",
+    "material_name": "(R)‑Mandelic Acid",
+    "type": "RM",
+    "description": "Chiral resolving acid"
+  },
+  {
+    "material_code": "SOL-ETOH",
+    "material_name": "Ethanol (anhyd.)",
+    "type": "SOL",
+    "description": "Solvent"
+  },
+  {
+    "material_code": "SOL-HEPT",
+    "material_name": "n‑Heptane",
+    "type": "SOL",
+    "description": "Anti‑solvent"
+  },
+  {
+    "material_code": "SOL-IPA",
+    "material_name": "Isopropanol (IPA)",
+    "type": "SOL",
+    "description": "Solvent / wash"
+  },
+
+  {
+    "material_code": "RM-PLAC",
+    "material_name": "Protected Lactone (Atorvastatin feed)",
+    "type": "RM",
+    "description": "Starting intermediate"
+  },
+  {
+    "material_code": "RM-IBAC",
+    "material_name": "Isobutyl Acyl Chloride",
+    "type": "RM",
+    "description": "Side‑chain donor"
+  },
+  {
+    "material_code": "BASE-PYR",
+    "material_name": "Pyridine",
+    "type": "BASE",
+    "description": "Base & HCl scavenger"
+  },
+  {
+    "material_code": "SOL-DCM",
+    "material_name": "Dichloromethane (DCM)",
+    "type": "SOL",
+    "description": "Organic solvent"
+  },
+  {
+    "material_code": "SOL-THF",
+    "material_name": "Tetrahydrofuran (THF)",
+    "type": "SOL",
+    "description": "Co‑solvent"
+  },
+  {
+    "material_code": "RM-DBA",
+    "material_name": "Dibenzylamine (DBA)",
+    "type": "RM",
+    "description": "Chiral auxiliary"
+  },
+  {
+    "material_code": "ACID-PTSA",
+    "material_name": "p‑Toluenesulfonic Acid",
+    "type": "ACID",
+    "description": "Strong organic acid / catalyst"
+  },
+  {
+    "material_code": "SALT-CAAC",
+    "material_name": "Calcium Acetate",
+    "type": "SALT",
+    "description": "Salt‑forming reagent"
+  },
+  {
+    "material_code": "SOL-ETOAC",
+    "material_name": "Ethyl Acetate",
+    "type": "SOL",
+    "description": "Solvent"
+  },
+  {
+    "material_code": "SOL-HEXANE",
+    "material_name": "n‑Hexane",
+    "type": "SOL",
+    "description": "Anti‑solvent"
+  },
+
+  {
+    "material_code": "RM-DCDA",
+    "material_name": "Dicyandiamide",
+    "type": "RM",
+    "description": "Metformin starter"
+  },
+  {
+    "material_code": "RM-DMA",
+    "material_name": "Dimethylamine (40 %)",
+    "type": "RM",
+    "description": "Reactant / base"
+  },
+  {
+    "material_code": "SOL-XYL",
+    "material_name": "Xylene",
+    "type": "SOL",
+    "description": "High‑boiling solvent"
+  },
+  {
+    "material_code": "ACID-HCl",
+    "material_name": "Hydrochloric Acid (conc.)",
+    "type": "ACID",
+    "description": "Salt former"
+  },
+  {
+    "material_code": "RM-SiO2",
+    "material_name": "Silicon Dioxide",
+    "type": "RM",
+    "description": "Flow aid / glidant"
+  },
+
+  {
+    "material_code": "RM-ENB",
+    "material_name": "3‑Ethoxy‑4‑nitrobenzaldehyde",
+    "type": "RM",
+    "description": "Condensation aldehyde"
+  },
+  {
+    "material_code": "RM-ACAC",
+    "material_name": "Acetylacetone",
+    "type": "RM",
+    "description": "β‑Ketoester"
+  },
+  {
+    "material_code": "SALT-AMAC",
+    "material_name": "Ammonium Acetate",
+    "type": "SALT",
+    "description": "Condensation promoter"
+  },
+  {
+    "material_code": "CAT-PDC",
+    "material_name": "Palladium on Carbon 10 %",
+    "type": "CAT",
+    "description": "Hydrogenation catalyst"
+  },
+  {
+    "material_code": "ACID-BSA",
+    "material_name": "Benzenesulfonic Acid",
+    "type": "ACID",
+    "description": "Besylate salt former"
+  },
+  {
+    "material_code": "SOL-MEOH",
+    "material_name": "Methanol",
+    "type": "SOL",
+    "description": "Solvent"
+  },
+
+  {
+    "material_code": "RM-URID",
+    "material_name": "Uridine",
+    "type": "RM",
+    "description": "Nucleoside starter"
+  },
+  {
+    "material_code": "RM-DMP",
+    "material_name": "2,2‑Dimethoxypropane",
+    "type": "RM",
+    "description": "Protecting reagent"
+  },
+  {
+    "material_code": "RM-LAIE",
+    "material_name": "L‑Alanine Isopropyl Ester",
+    "type": "RM",
+    "description": "Side‑chain donor"
+  },
+  {
+    "material_code": "RM-POCl3",
+    "material_name": "Phosphoryl Chloride",
+    "type": "RM",
+    "description": "Phosphorylation reagent"
+  },
+  {
+    "material_code": "BASE-TEA",
+    "material_name": "Triethylamine",
+    "type": "BASE",
+    "description": "Acid scavenger"
+  },
+  {
+    "material_code": "RM-DAST",
+    "material_name": "DAST (Diethylaminosulfur Trifluoride)",
+    "type": "RM",
+    "description": "Fluorinating reagent"
+  },
+  {
+    "material_code": "BASE-TBAF",
+    "material_name": "Tetrabutylammonium Fluoride",
+    "type": "BASE",
+    "description": "Silyl de‑protecting base"
+  },
+  {
+    "material_code": "SOL-ACET",
+    "material_name": "Acetone",
+    "type": "SOL",
+    "description": "Solvent / anti‑solvent"
+  },
+
+  {
+    "material_code": "RM-KETC",
+    "material_name": "Sitagliptin Ketone precursor",
+    "type": "RM",
+    "description": "Pro‑chiral ketone"
+  },
+  {
+    "material_code": "CAT-RHBINAP",
+    "material_name": "Rh–BINAP complex",
+    "type": "CAT",
+    "description": "Chiral hydrogenation catalyst"
+  },
+  {
+    "material_code": "ACID-TFA",
+    "material_name": "Trifluoroacetic Acid",
+    "type": "ACID",
+    "description": "Boc de‑protection acid"
+  },
+  {
+    "material_code": "ACID-H3PO4",
+    "material_name": "Phosphoric Acid",
+    "type": "ACID",
+    "description": "Salt‑forming acid"
+  },
+
+  {
+    "material_code": "RM-2M5MP",
+    "material_name": "2‑Mercapto‑5‑methylpyridine",
+    "type": "RM",
+    "description": "Heteroaryl starter (Olanzapine)"
+  },
+  {
+    "material_code": "SOL-DMF",
+    "material_name": "Dimethylformamide (DMF)",
+    "type": "SOL",
+    "description": "Polar solvent"
+  },
+  {
+    "material_code": "RM-NM4P",
+    "material_name": "N‑Methyl‑4‑piperidone",
+    "type": "RM",
+    "description": "Cyclisation reagent"
+  },
+  {
+    "material_code": "ACID-H2SO4",
+    "material_name": "Sulfuric Acid (conc.)",
+    "type": "ACID",
+    "description": "Cyclisation acid"
+  },
+  {
+    "material_code": "RM-MeI",
+    "material_name": "Methyl Iodide",
+    "type": "RM",
+    "description": "Alkylating agent"
+  },
+  {
+    "material_code": "BASE-K2CO3",
+    "material_name": "Potassium Carbonate",
+    "type": "BASE",
+    "description": "Base for methylation"
+  },
+
+  {
+    "material_code": "GAS-H2",
+    "material_name": "Hydrogen gas (99.9 %)",
+    "type": "GAS",
+    "description": "Reductive atmosphere"
+  },
+  {
+    "material_code": "GAS-N2",
+    "material_name": "Nitrogen gas (compressed)",
+    "type": "GAS",
+    "description": "Inert purge / drying"
+  }
+]

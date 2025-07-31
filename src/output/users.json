@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "688727aecf204543f1bbc90f",
+    "name": "John Smith",
+    "email": "john.smith@cdmo.com",
+    "role": "Operator"
+  },
+  {
+    "_id": "688727aecf204543f1bbc910",
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@cdmo.com",
+    "role": "Analyst"
+  },
+  {
+    "_id": "688727aecf204543f1bbc911",
+    "name": "Michael Chen",
+    "email": "michael.chen@cdmo.com",
+    "role": "QA"
+  },
+  {
+    "_id": "688727aecf204543f1bbc912",
+    "name": "Emily Davis",
+    "email": "emily.davis@cdmo.com",
+    "role": "Supervisor"
+  },
+  {
+    "_id": "688727aecf204543f1bbc913",
+    "name": "Robert Wilson",
+    "email": "robert.wilson@cdmo.com",
+    "role": "Admin"
+  },
+  {
+    "_id": "688727aecf204543f1bbc914",
+    "name": "Lisa Garcia",
+    "email": "lisa.garcia@cdmo.com",
+    "role": "Operator"
+  },
+  {
+    "_id": "688727aecf204543f1bbc915",
+    "name": "David Martinez",
+    "email": "david.martinez@cdmo.com",
+    "role": "Analyst"
+  },
+  {
+    "_id": "688727aecf204543f1bbc916",
+    "name": "Jennifer Brown",
+    "email": "jennifer.brown@cdmo.com",
+    "role": "QA"
+  },
+  {
+    "_id": "688727aecf204543f1bbc917",
+    "name": "Christopher Lee",
+    "email": "christopher.lee@cdmo.com",
+    "role": "Supervisor"
+  },
+  {
+    "_id": "688727aecf204543f1bbc918",
+    "name": "Amanda Taylor",
+    "email": "amanda.taylor@cdmo.com",
+    "role": "Operator"
+  }
+]
