@@ -57,6 +57,10 @@ export const getCustomerBatchSummary = async (req, res) => {
         $project: {
           name: 1,
           batches: 1,
+          country: 1,
+          contact_person: 1,
+          email: 1,
+          phone: 1,
           active_batches: {
             $size: {
               $filter: {
@@ -122,6 +126,10 @@ export const getCustomerBatchSummary = async (req, res) => {
     const formatted = results.map((r) => ({
       customer_id: r._id,
       customer_name: r.name,
+      contact_person: r.contact_person,
+      email: r.email,
+      phone: r.phone,
+      country: r.country,
       active_batches: r.active_batches,
       not_started: r.not_started,
       in_progress: r.in_progress,
@@ -131,7 +139,7 @@ export const getCustomerBatchSummary = async (req, res) => {
         ? formatDistanceToNow(new Date(r.last_updated), { addSuffix: true })
         : "No activity",
     }));
-
+    console.log(formatted);
     res.json(formatted);
   } catch (err) {
     console.error(err);
