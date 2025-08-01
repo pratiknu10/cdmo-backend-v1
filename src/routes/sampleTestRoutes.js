@@ -13,6 +13,12 @@ const sampleTestRoute = express.Router();
 
 // Main samples & tests overview for a batch
 sampleTestRoute.get(
+  "/samples/overview",
+  samplesTestsController.samplesOverview
+);
+
+
+sampleTestRoute.get(
   "/batches/:batchId/samples-tests",
   samplesTestsController.getBatchSamplesTests
 );

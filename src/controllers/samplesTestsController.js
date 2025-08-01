@@ -15,6 +15,155 @@ class SamplesTestsController {
   // Purpose: Main endpoint combining overview KPIs and test results
   // ================================
 
+  async samplesOverview(req, res) {
+    try {
+      // Find all samples and populate the necessary fields from other collections.
+      const samples = await SampleModel.find({})
+        .populate({
+          path: "batch",
+          select: "api_batch_id project customer",
+          populate: [
+            {
+              path: "project",
+              select: "project_name",
+            },
+            {
+              path: "customer",
+              select: "name",
+            },
+          ],
+        })
+        .populate({
+          path: "collected_by",
+          select: "name",
+        })
+        .populate({
+          path: "test_results", // Populate all test results to calculate progress and status
+        });
+
+      // Calculate stats for the stats object
+      const totalSamplesCount = samples.length;
+      let pendingTestingCount = 0;
+      let inProgressCount = 0;
+      let acceptedCount = 0;
+      let failedTestsCount = 0;
+
+      samples.forEach((sample) => {
+        const totalTests = sample.test_results.length;
+        const passedTests = sample.test_results.filter(
+          (test) => test.result === "Pass"
+        ).length;
+        const failedTests = sample.test_results.filter(
+          (test) => test.result === "Fail"
+        ).length;
+
+        if (totalTests === 0) {
+          pendingTestingCount++;
+        } else if (passedTests === totalTests) {
+          acceptedCount++;
+        } else if (failedTests > 0) {
+          failedTestsCount++;
+        } else {
+          inProgressCount++;
+        }
+      });
+
+      const stats = {
+        totalSamplesCount,
+        pendingTestingCount,
+        inProgressCount,
+        acceptedCount,
+        failedTestsCount,
+      };
+
+      // Format the data to match the desired response structure
+      const formattedSamples = samples.map((sample) => {
+        const batchApiId = sample.batch ? sample.batch.api_batch_id : "N/A";
+        const projectName =
+          sample.batch && sample.batch.project
+            ? sample.batch.project.project_name
+            : "N/A";
+        const customerName =
+          sample.batch && sample.batch.customer
+            ? sample.batch.customer.name
+            : "N/A";
+
+        // Calculate Test Progress
+        const totalTests = sample.test_results.length;
+        const passedTests = sample.test_results.filter(
+          (test) => test.result === "Pass"
+        ).length;
+        const testProgress =
+          totalTests > 0
+            ? `${passedTests}/${totalTests} passed`
+            : "No tests run";
+
+        // Logic for "Analyst" and "Pulled" date - this is not in the Sample schema,
+        // but is in the TestResult schema. We'll get the last analyst and date.
+        let analystName = "N/A";
+        let pulledDate = "N/A";
+        if (sample.test_results && sample.test_results.length > 0) {
+          // Find the most recent test result
+          const mostRecentTest = sample.test_results.reduce((prev, current) =>
+            prev.tested_at > current.tested_at ? prev : current
+          );
+          analystName = mostRecentTest.tested_by
+            ? mostRecentTest.tested_by.name
+            : "N/A";
+          pulledDate = mostRecentTest.tested_at
+            ? mostRecentTest.tested_at.toISOString().split("T")[0]
+            : "N/A";
+        }
+
+        // Logic for "Sub-Process & Location" - Placeholder, as this is not in the schema.
+        const subProcessLocation = "N/A";
+
+        // Logic for "Priority" - Placeholder.
+        const priority = "N/A";
+
+        // Logic for "Disposition" - Placeholder.
+        const disposition = "N/A";
+
+        return {
+          _id: sample._id, // Sample object ID
+          batch_id: sample.batch._id, // Batch object ID
+          sample_id: sample.sample_id,
+          api_batch_id: batchApiId,
+          type_and_status: sample.sample_type,
+          project_and_customer: {
+            product_name: projectName,
+            customer_name: customerName,
+            project_id: sample.batch.project,
+          },
+          sub_process_and_location: subProcessLocation,
+          test_progress: testProgress,
+          analyst: {
+            name: analystName,
+            pulled_date: pulledDate,
+            // 'By' is likely the user who performed the last test.
+            by: sample.collected_by ? sample.collected_by.name : "N/A",
+          },
+          priority: priority,
+          disposition: disposition,
+          storage_location: sample.storage_location,
+          actions: {
+            view_details: `/api/samples/${sample._id}`,
+            export_report: `/api/samples/${sample._id}/report`,
+          },
+        };
+      });
+
+      res.status(200).json({
+        count: formattedSamples.length,
+        samples: formattedSamples,
+        stats,
+      });
+    } catch (error) {
+      console.error("Error fetching samples overview:", error);
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
+
   async getBatchSamplesTests(req, res) {
     try {
       const { batchId } = req.params;
