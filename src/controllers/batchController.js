@@ -16,6 +16,130 @@ import { CapaModel } from "../models/capaModel.js";
 // Purpose: Get complete batch overview with all tabs data
 // ================================
 
+export const getBatchOverview = async (req, res) => {
+  try {
+    // Find all batches and populate the necessary fields from other collections.
+    // The populate calls are optimized to only retrieve the data needed for the overview.
+    const batches = await BatchModel.find({})
+      .populate({
+        path: "customer",
+        select: "name", // Only fetch the customer's name
+      })
+      .populate({
+        path: "project",
+        select: "project_name", // Only fetch the project's name for the 'Product' column
+      })
+      .populate({
+        path: "deviations",
+        select: "severity", // Only fetch the deviation's severity for counting
+      })
+      .populate({
+        path: "samples",
+        select: "_id", // Only fetch the sample's ID for counting
+      })
+      .populate({
+        path: "process_steps",
+        select: "end_timestamp", // Only fetch end_timestamp to calculate progress
+      });
+
+    // Calculate status counts for the new stats object
+    const totalBatchesCount = batches.length;
+    let notStartedCount = 0;
+    let inProgressCount = 0;
+    let qaHoldCount = 0;
+    let releasedCount = 0;
+    let awaitingCoaCount = 0;
+
+    batches.forEach((batch) => {
+      switch (batch.status) {
+        case "In-Process":
+          // Assuming "In-Process" is equivalent to "In Progress" in the UI
+          inProgressCount++;
+          break;
+        case "Released":
+          releasedCount++;
+          break;
+        case "On-Hold":
+          // Assuming "On-Hold" is equivalent to "QA Hold" in the UI
+          qaHoldCount++;
+          break;
+        case "Awaiting Coa":
+          // The model does not have a direct status for "Awaiting Coa".
+          // This is a placeholder count based on the UI.
+          // In a real application, you would derive this from the BatchComponent model.
+          awaitingCoaCount++;
+          break;
+        // Logic for "Not Started" - assuming a batch with no process steps has not started.
+        default:
+          if (batch.process_steps.length === 0) {
+            notStartedCount++;
+          }
+          break;
+      }
+    });
+
+    const stats = {
+      totalBatchesCount,
+      notStartedCount,
+      inProgressCount,
+      qaHoldCount,
+      releasedCount,
+      awaitingCoaCount,
+    };
+
+    // Format the data to match the desired response structure
+    const formattedBatches = batches.map((batch) => {
+      // Calculate progress percentage based on completed process steps
+      const totalSteps = batch.process_steps.length;
+      const completedSteps = batch.process_steps.filter(
+        (step) => step.end_timestamp
+      ).length;
+      const progress =
+        totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
+
+      // Count critical deviations
+      const criticalDeviations = batch.deviations.filter(
+        (d) => d.severity === "Critical"
+      ).length;
+      const nonCriticalDeviations = batch.deviations.filter(
+        (d) => d.severity !== "Critical"
+      ).length;
+
+      return {
+        _id: batch._id, // Include the batch _id as requested
+        api_batch_id: batch.api_batch_id,
+        product: batch.project ? batch.project.project_name : "N/A", // Use project_name as product
+        customer: batch.customer ? batch.customer.name : "N/A",
+        status: batch.status,
+        progress,
+        deviations: {
+          total: batch.deviations.length,
+          critical: criticalDeviations,
+          non_critical: nonCriticalDeviations,
+        },
+        samples: batch.samples.length,
+        // The image shows a "Target Release" date. This is not in the schema.
+        // I will add a placeholder for it here. In a real app, you would
+        // either add it to your schema or derive it from the project.
+        target_release: "N/A",
+        actions: {
+          view_details: `/api/batches/${batch._id}`,
+          export_report: `/api/batches/${batch._id}/report`,
+        },
+      };
+    });
+
+    // Send the structured response
+    res.status(200).json({
+      count: formattedBatches.length,
+      batches: formattedBatches,
+      stats, // Include the new stats object
+    });
+  } catch (error) {
+    console.error("Error fetching batch overview:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 export const batchDetailSummay = async (req, res) => {
   try {
     const { batchId } = req.params;
