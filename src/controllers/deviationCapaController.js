@@ -12,7 +12,140 @@ class DeviationCapaController {
   // Route: GET /api/batches/:batchId/deviations-capa
   // Purpose: Main endpoint combining summary KPIs and deviation mapping table
   // ================================
+  async deviationsOverview(req, res) {
+    try {
+      // Find all deviations and populate the necessary fields from other collections.
+      const deviations = await DeviationModel.find({})
+        .populate({
+          path: "batch",
+          select: "api_batch_id project",
+        })
+        .populate({
+          path: "raised_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.closed_by",
+          select: "name",
+        });
 
+      // Populate project and customer details after the initial query
+      const populatedDeviations = await Promise.all(
+        deviations.map(async (deviation) => {
+          if (deviation.batch && deviation.batch.project) {
+            const project = await ProjectModel.findById(
+              deviation.batch.project
+            ).populate("customer", "name");
+
+            // Add project and customer info to the deviation object
+            deviation._doc.project = project;
+            deviation._doc.customer = project ? project.customer : null;
+          }
+          return deviation;
+        })
+      );
+
+      // Calculate stats for the stats object
+      const totalDeviationsCount = populatedDeviations.length;
+      const openDeviationsCount = populatedDeviations.filter(
+        (d) => d.status === "Open"
+      ).length;
+      const criticalDeviationsCount = populatedDeviations.filter(
+        (d) => d.severity === "Critical"
+      ).length;
+      const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
+
+      // Calculate average age in days
+      let totalAgeInDays = 0;
+      populatedDeviations.forEach((d) => {
+        const raisedDate = d.raised_at;
+        if (raisedDate) {
+          const diffInMs = new Date() - raisedDate;
+          totalAgeInDays += diffInMs / (1000 * 60 * 60 * 24);
+        }
+      });
+      const averageAgeInDays =
+        totalDeviationsCount > 0
+          ? (totalAgeInDays / totalDeviationsCount).toFixed(2)
+          : 0;
+
+      const stats = {
+        totalDeviationsCount,
+        openDeviationsCount,
+        criticalDeviationsCount,
+        investigatingCount,
+        averageAgeInDays,
+      };
+
+      // Format the data to match the desired response structure, including the deviation and batch IDs
+      const formattedDeviations = populatedDeviations.map((deviation) => {
+        // Logic to determine "Assigned To". Your schema doesn't have a direct field,
+        // so we'll use a placeholder or assume it's the `raised_by` user for now.
+        const assignedTo = deviation.raised_by
+          ? deviation.raised_by.name
+          : "N/A";
+
+        // Logic to get the sub-process. This is not directly in the schema,
+        // so it will be a placeholder for now.
+        const subProcess = "N/A";
+
+        // Logic for "Age". We'll calculate it from `raised_at`
+        const ageInDays = deviation.raised_at
+          ? Math.floor(
+              (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
+            )
+          : "N/A";
+
+        // Logic for "Priority". This is not in the schema, so we'll map severity.
+        let priority;
+        switch (deviation.severity) {
+          case "Critical":
+            priority = "Urgent";
+            break;
+          case "Major":
+            priority = "High";
+            break;
+          case "Minor":
+            priority = "Low";
+            break;
+          default:
+            priority = "N/A";
+        }
+
+        return {
+          _id: deviation._id, // Deviation object ID
+          deviation_no: deviation.deviation_no,
+          batch_id: deviation.batch._id, // Batch object ID
+          api_batch_id: deviation.batch.api_batch_id,
+          title: deviation.title,
+          description: deviation.description,
+          project_name: deviation.project
+            ? deviation.project.project_name
+            : "N/A",
+          customer_name: deviation.customer ? deviation.customer.name : "N/A",
+          sub_process: subProcess,
+          severity: deviation.severity,
+          status: deviation.status,
+          priority: priority,
+          age: ageInDays,
+          raised_by: assignedTo, // Assuming raised_by is the assigned user
+          raised_at: deviation.raised_at,
+          actions: {
+            view_details: `/api/deviations/${deviation._id}`,
+          },
+        };
+      });
+
+      res.status(200).json({
+        count: formattedDeviations.length,
+        deviations: formattedDeviations,
+        stats,
+      });
+    } catch (error) {
+      console.error("Error fetching deviation overview:", error);
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
   async getBatchDeviationsCapa(req, res) {
     try {
       const { batchId } = req.params;

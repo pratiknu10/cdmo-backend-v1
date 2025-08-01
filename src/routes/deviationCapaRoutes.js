@@ -5,6 +5,10 @@ import deviationCapaController from "../controllers/deviationCapaController.js";
 
 const DeviationCapaRouter = express.Router();
 
+DeviationCapaRouter.get(
+  "/deviations/overview",
+  deviationCapaController.deviationsOverview
+);
 // Main deviation & CAPA overview for a batch
 DeviationCapaRouter.get(
   "/batches/:batchId/deviations-capa",
