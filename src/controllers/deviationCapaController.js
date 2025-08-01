@@ -5,7 +5,7 @@
 import mongoose from "mongoose";
 import { BatchModel } from "../models/batchModel.js";
 import { DeviationModel } from "../models/deviationModel.js";
-
+import { ProjectModel } from "../models/projectModel.js";
 class DeviationCapaController {
   // ================================
   // GET BATCH DEVIATIONS & CAPA OVERVIEW
@@ -18,7 +18,17 @@ class DeviationCapaController {
       const deviations = await DeviationModel.find({})
         .populate({
           path: "batch",
-          select: "api_batch_id project",
+          select: "api_batch_id project customer", // Select project and customer from the Batch model
+          populate: [
+            {
+              path: "project",
+              select: "project_name", // Populate the project's name
+            },
+            {
+              path: "customer",
+              select: "name", // Populate the customer's name
+            },
+          ],
         })
         .populate({
           path: "raised_by",
@@ -29,35 +39,22 @@ class DeviationCapaController {
           select: "name",
         });
 
-      // Populate project and customer details after the initial query
-      const populatedDeviations = await Promise.all(
-        deviations.map(async (deviation) => {
-          if (deviation.batch && deviation.batch.project) {
-            const project = await ProjectModel.findById(
-              deviation.batch.project
-            ).populate("customer", "name");
-
-            // Add project and customer info to the deviation object
-            deviation._doc.project = project;
-            deviation._doc.customer = project ? project.customer : null;
-          }
-          return deviation;
-        })
-      );
+      // The previous manual population of project and customer is no longer needed.
+      // The main query now handles this efficiently.
 
       // Calculate stats for the stats object
-      const totalDeviationsCount = populatedDeviations.length;
-      const openDeviationsCount = populatedDeviations.filter(
+      const totalDeviationsCount = deviations.length;
+      const openDeviationsCount = deviations.filter(
         (d) => d.status === "Open"
       ).length;
-      const criticalDeviationsCount = populatedDeviations.filter(
+      const criticalDeviationsCount = deviations.filter(
         (d) => d.severity === "Critical"
       ).length;
       const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
 
       // Calculate average age in days
       let totalAgeInDays = 0;
-      populatedDeviations.forEach((d) => {
+      deviations.forEach((d) => {
         const raisedDate = d.raised_at;
         if (raisedDate) {
           const diffInMs = new Date() - raisedDate;
@@ -78,7 +75,7 @@ class DeviationCapaController {
       };
 
       // Format the data to match the desired response structure, including the deviation and batch IDs
-      const formattedDeviations = populatedDeviations.map((deviation) => {
+      const formattedDeviations = deviations.map((deviation) => {
         // Logic to determine "Assigned To". Your schema doesn't have a direct field,
         // so we'll use a placeholder or assume it's the `raised_by` user for now.
         const assignedTo = deviation.raised_by
@@ -119,10 +116,14 @@ class DeviationCapaController {
           api_batch_id: deviation.batch.api_batch_id,
           title: deviation.title,
           description: deviation.description,
-          project_name: deviation.project
-            ? deviation.project.project_name
-            : "N/A",
-          customer_name: deviation.customer ? deviation.customer.name : "N/A",
+          project_name:
+            deviation.batch && deviation.batch.project
+              ? deviation.batch.project.project_name
+              : "N/A",
+          customer_name:
+            deviation.batch && deviation.batch.customer
+              ? deviation.batch.customer.name
+              : "N/A",
           sub_process: subProcess,
           severity: deviation.severity,
           status: deviation.status,
