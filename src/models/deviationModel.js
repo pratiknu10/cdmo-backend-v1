@@ -15,6 +15,7 @@ const LinkedEntitySchema = new Schema(
       ],
       required: true,
     },
+    entity_id: String,
     batch: { type: Schema.Types.ObjectId, ref: "Batch" },
     sample: { type: Schema.Types.ObjectId, ref: "Sample" },
     test_result: { type: Schema.Types.ObjectId, ref: "TestResult" },

@@ -16,10 +16,8 @@ class GenealogyController {
     try {
       const { batchId } = req.params;
 
-      // Validate batch exists and populate project/customer info
-      const batch = await BatchModel.findById(batchId)
-        .populate("customer", "name")
-        .populate("project", "project_name project_code");
+      // Validate batch exists without populating customer or project details
+      const batch = await BatchModel.findById(batchId);
 
       if (!batch) {
         return res.status(404).json({
@@ -110,8 +108,30 @@ class GenealogyController {
         {
           $lookup: {
             from: "deviations",
-            localField: "components._id",
-            foreignField: "linked_entity.batchComponent",
+            let: { componentId: "$components._id" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    // Only check for a match between componentId and linked_entity.entity_id
+                    $eq: [
+                      "$linked_entity.entity_id",
+                      { $toString: "$$componentId" },
+                    ],
+                  },
+                },
+              },
+              {
+                $project: {
+                  _id: 1,
+                  deviation_no: 1,
+                  status: 1,
+                  severity: 1,
+                  title: 1,
+                  entity_type: "$linked_entity.entity_type",
+                },
+              },
+            ],
             as: "components.deviations",
           },
         },
@@ -162,7 +182,7 @@ class GenealogyController {
           associatedBatch: entry.component_batch_id,
           // Check for deviations directly on the component
           hasDeviationLink: entry.deviations && entry.deviations.length > 0,
-          deviationInfo: entry.deviations[0] || null,
+          // Note: deviationInfo has been removed as per your request.
           stepSequence: processStep.step_sequence,
           batchId: processStep.batch,
           // Add the samples and deviations arrays to each entry for the pop-up UI
@@ -181,8 +201,6 @@ class GenealogyController {
             _id: batch._id,
             api_batch_id: batch.api_batch_id,
             status: batch.status,
-            customer: batch.customer?.name || "Unknown Customer",
-            project: batch.project?.project_name || "Unknown Project",
             batchId: batch._id,
           },
           genealogyTable: flattenedGenealogy,
