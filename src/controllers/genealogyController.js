@@ -218,6 +218,8 @@ class GenealogyController {
                       null,
                     ],
                   },
+                  // Add the batchId to each genealogy entry
+                  batchId: "$batch",
                 },
               },
             },
@@ -244,6 +246,8 @@ class GenealogyController {
             hasDeviationLink: entry.hasDeviationLink,
             deviationInfo: entry.deviationInfo,
             stepSequence: processStep.stepSequence,
+            // Add the batchId to the flattened object
+            batchId: entry.batchId,
           });
         });
       });
@@ -267,6 +271,8 @@ class GenealogyController {
             status: batch.status,
             customer: batch.customer?.name || "Unknown Customer",
             project: batch.project?.project_name || "Unknown Project",
+            // Add the batchId to the main batch object
+            batchId: batch._id,
           },
           genealogyTable: flattenedGenealogy,
           summary: {
