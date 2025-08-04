@@ -16,7 +16,7 @@ class GenealogyController {
     try {
       const { batchId } = req.params;
 
-      // Validate batch exists
+      // Validate batch exists and populate project/customer info
       const batch = await BatchModel.findById(batchId)
         .populate("customer", "name")
         .populate("project", "project_name project_code");
@@ -28,203 +28,105 @@ class GenealogyController {
         });
       }
 
-      // Get genealogy data with process steps and components
+      // Get genealogy data with all details in a single, optimized aggregation pipeline
       const genealogyData = await ProcessStepModel.aggregate([
+        // Match process steps for the given batch ID
         { $match: { batch: new mongoose.Types.ObjectId(batchId) } },
+        // Sort them by sequence number
         { $sort: { step_sequence: 1 } },
 
-        // Lookup batch components for this process step
+        // --- OPTIMIZED LOOKUP STAGES ---
+
+        // 1. Lookup batch components using the related_component_ids field
         {
           $lookup: {
             from: "batchcomponents",
-            let: {
-              batchId: "$batch",
-              stepSequence: "$step_sequence",
-            },
-            pipeline: [
-              {
-                $match: {
-                  $expr: { $eq: ["$batch", "$$batchId"] },
-                },
-              },
-              {
-                $project: {
-                  material_code_component: 1,
-                  component_name: 1,
-                  internal_lot_id: 1,
-                  supplier_name: 1,
-                  quantity_used: 1,
-                  uom: 1,
-                  component_batch_id: 1,
-                  component_type: 1,
-                  coa: 1,
-                  usage_ts: 1,
-                },
-              },
-            ],
+            localField: "related_component_ids",
+            foreignField: "_id",
             as: "components",
           },
         },
 
-        // Lookup associated batches (parent/child relationships)
+        // 2. Unwind the components array to process each component individually
         {
-          $lookup: {
-            from: "batches",
-            let: { currentBatchId: "$batch" },
-            pipeline: [
-              // This would need custom logic based on your batch relationship structure
-              // For now, using component_batch_id pattern matching
-              {
-                $lookup: {
-                  from: "batchcomponents",
-                  let: { batchId: "$_id" },
-                  pipeline: [
-                    {
-                      $match: {
-                        $expr: { $eq: ["$batch", "$$batchId"] },
-                      },
-                    },
-                  ],
-                  as: "batchComponents",
-                },
-              },
-              {
-                $match: {
-                  $expr: { $ne: ["$_id", "$$currentBatchId"] },
-                },
-              },
-              {
-                $project: {
-                  api_batch_id: 1,
-                  status: 1,
-                  createdAt: 1,
-                },
-              },
-            ],
-            as: "associatedBatches",
-          },
+          $unwind: "$components",
         },
 
-        // Check for deviation-linked batches
+        // 3. Lookup samples with their test results in a nested sub-pipeline
         {
           $lookup: {
-            from: "deviations",
-            let: { batchId: "$batch" },
+            from: "samples",
+            let: { componentId: "$components._id" },
             pipeline: [
               {
                 $match: {
-                  $expr: { $eq: ["$batch", "$$batchId"] },
+                  $expr: { $eq: ["$batch_component_ID", "$$componentId"] },
                 },
               },
+              // Lookup the test results data for each sample
               {
                 $lookup: {
-                  from: "samples",
-                  localField: "linked_entity.sample",
+                  from: "testresults",
+                  localField: "test_results",
                   foreignField: "_id",
-                  as: "linkedSamples",
+                  as: "test_results_data",
                 },
               },
+              // Calculate the status of each sample
+              {
+                $addFields: {
+                  status: {
+                    $cond: {
+                      if: { $eq: [{ $size: "$test_results_data" }, 0] },
+                      then: "Pending",
+                      else: {
+                        $cond: {
+                          if: {
+                            $in: ["Failed", "$test_results_data.status"],
+                          },
+                          then: "Failed",
+                          else: "Passed",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              // Final projection for the sample data
               {
                 $project: {
                   _id: 1,
-                  deviation_no: 1,
+                  sample_id: 1,
+                  sample_type: 1,
                   status: 1,
-                  severity: 1,
-                  linkedSamples: {
-                    _id: 1,
-                    sample_id: 1,
-                    batch: 1,
-                  },
                 },
               },
             ],
-            as: "deviations",
+            as: "components.samples",
           },
         },
 
-        // Format the genealogy table data
+        // 4. Lookup deviations for each component
+        {
+          $lookup: {
+            from: "deviations",
+            localField: "components._id",
+            foreignField: "linked_entity.batchComponent",
+            as: "components.deviations",
+          },
+        },
+
+        // --- FINAL PROJECT STAGE ---
+
+        // Project the data into a clean, combined document structure
         {
           $project: {
-            processName: "$step_name",
-            workOrderId: "$batch",
-            stepSequence: "$step_sequence",
-            genealogyEntries: {
-              $map: {
-                input: "$components",
-                as: "component",
-                in: {
-                  materialId: "$$component.material_code_component",
-                  materialName: "$$component.component_name",
-                  lotNumber: "$$component.internal_lot_id",
-                  supplier: {
-                    $ifNull: ["$$component.supplier_name", "Internal"],
-                  },
-                  quantityUsed: {
-                    $concat: [
-                      {
-                        $toString: {
-                          $ifNull: ["$$component.quantity_used", 0],
-                        },
-                      },
-                      " ",
-                      { $ifNull: ["$$component.uom", "units"] },
-                    ],
-                  },
-                  coaReport: {
-                    $cond: [
-                      { $eq: ["$$component.coa.received", true] },
-                      "Yes",
-                      "No",
-                    ],
-                  },
-                  batchDescription: {
-                    $switch: {
-                      branches: [
-                        {
-                          case: { $eq: ["$$component.component_type", "API"] },
-                          then: "Primary therapeutic compound for pharmaceutical treatment",
-                        },
-                        {
-                          case: {
-                            $eq: ["$$component.component_type", "Raw Material"],
-                          },
-                          then: "Raw material component for manufacturing process",
-                        },
-                        {
-                          case: {
-                            $eq: ["$$component.component_type", "Excipient"],
-                          },
-                          then: "Pharmaceutical excipient used as binder and disintegrant",
-                        },
-                        {
-                          case: {
-                            $eq: ["$$component.component_type", "Intermediate"],
-                          },
-                          then: "Intermediate product in manufacturing process",
-                        },
-                      ],
-                      default: "Manufacturing component",
-                    },
-                  },
-                  associatedBatch: "$$component.component_batch_id",
-                  // Check if this batch has deviation-linked samples
-                  hasDeviationLink: {
-                    $gt: [{ $size: "$deviations" }, 0],
-                  },
-                  deviationInfo: {
-                    $cond: [
-                      { $gt: [{ $size: "$deviations" }, 0] },
-                      { $arrayElemAt: ["$deviations", 0] },
-                      null,
-                    ],
-                  },
-                  // Add the batchId to each genealogy entry
-                  batchId: "$batch",
-                },
-              },
-            },
-            hasDeviations: { $gt: [{ $size: "$deviations" }, 0] },
-            deviations: "$deviations",
+            _id: "$_id",
+            step_name: "$step_name",
+            step_sequence: "$step_sequence",
+            batch: "$batch",
+            api_batch_id: "$api_batch_id",
+            components: "$components",
           },
         },
       ]);
@@ -232,35 +134,45 @@ class GenealogyController {
       // Flatten the genealogy entries for table display
       const flattenedGenealogy = [];
       genealogyData.forEach((processStep) => {
-        processStep.genealogyEntries.forEach((entry) => {
-          flattenedGenealogy.push({
-            processName: `${processStep.processName} (${processStep.workOrderId})`,
-            materialId: entry.materialId,
-            materialName: entry.materialName,
-            lotNumber: entry.lotNumber,
-            supplier: entry.supplier,
-            quantityUsed: entry.quantityUsed,
-            coaReport: entry.coaReport,
-            batchDescription: entry.batchDescription,
-            associatedBatch: entry.associatedBatch,
-            hasDeviationLink: entry.hasDeviationLink,
-            deviationInfo: entry.deviationInfo,
-            stepSequence: processStep.stepSequence,
-            // Add the batchId to the flattened object
-            batchId: entry.batchId,
-          });
+        // The aggregation now produces a flattened structure, so we can directly
+        // access the component data.
+        const entry = processStep.components;
+        flattenedGenealogy.push({
+          processName: `${processStep.step_name} (${processStep.api_batch_id})`,
+          componentId: entry._id, // Added component ID to the output
+          materialId: entry.material_code_component,
+          materialName: entry.component_name,
+          lotNumber: entry.internal_lot_id,
+          supplier: entry.supplier_name || "Internal",
+          quantityUsed: `${entry.quantity_used || 0} ${entry.uom || "units"}`,
+          coaReport: entry.coa?.received ? "Yes" : "No",
+          batchDescription: (() => {
+            // Self-invoking function to determine the description
+            switch (entry.component_type) {
+              case "API":
+                return "Primary therapeutic compound for pharmaceutical treatment";
+              case "Raw Material":
+              case "Excipient":
+              case "Intermediate":
+                return "Raw material component for manufacturing process";
+              default:
+                return "Manufacturing component";
+            }
+          })(),
+          associatedBatch: entry.component_batch_id,
+          // Check for deviations directly on the component
+          hasDeviationLink: entry.deviations && entry.deviations.length > 0,
+          deviationInfo: entry.deviations[0] || null,
+          stepSequence: processStep.step_sequence,
+          batchId: processStep.batch,
+          // Add the samples and deviations arrays to each entry for the pop-up UI
+          samples: entry.samples,
+          deviations: entry.deviations,
         });
       });
 
       // Sort by step sequence for chronological order
       flattenedGenealogy.sort((a, b) => a.stepSequence - b.stepSequence);
-
-      // Audit log
-      console.log(
-        `🧬 Genealogy accessed - Batch: ${batchId}, User: ${
-          req.headers["user-id"] || "anonymous"
-        }`
-      );
 
       res.json({
         success: true,
@@ -271,7 +183,6 @@ class GenealogyController {
             status: batch.status,
             customer: batch.customer?.name || "Unknown Customer",
             project: batch.project?.project_name || "Unknown Project",
-            // Add the batchId to the main batch object
             batchId: batch._id,
           },
           genealogyTable: flattenedGenealogy,
