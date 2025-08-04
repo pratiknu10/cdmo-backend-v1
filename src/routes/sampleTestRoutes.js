@@ -16,8 +16,12 @@ sampleTestRoute.get(
   "/samples/overview",
   samplesTestsController.samplesOverview
 );
+sampleTestRoute.get(
+  "/samples/lims/:batchId",
+  samplesTestsController.getLimsSample
+);
 
-
+// _________________________________________________________________________
 sampleTestRoute.get(
   "/batches/:batchId/samples-tests",
   samplesTestsController.getBatchSamplesTests
