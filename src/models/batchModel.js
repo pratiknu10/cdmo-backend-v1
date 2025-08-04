@@ -9,7 +9,12 @@ const BatchSchema = new Schema(
       enum: ["In-Process", "Released", "Rejected", "On-Hold"],
       default: "In-Process",
     },
-
+    plant_location: {
+      type: String,
+    },
+    target_yield: { type: Number },
+    actual_yield: { type: Number },
+    yield_unit: { type: String },
     customer: { type: Schema.Types.ObjectId, ref: "Customer", index: true },
     project: { type: Schema.Types.ObjectId, ref: "Project", index: true },
 

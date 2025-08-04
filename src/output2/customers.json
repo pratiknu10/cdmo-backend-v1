@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "689050077849264fcbb1e258",
+    "name": "Pharma Global Inc.",
+    "country": "USA",
+    "contact_person": "Dr. James Wilson",
+    "email": "james.wilson@pharmaglobal.com",
+    "phone": "+1-555-0123"
+  },
+  {
+    "_id": "689050077849264fcbb1e259",
+    "name": "European Medicines Ltd.",
+    "country": "Germany",
+    "contact_person": "Dr. Anna Mueller",
+    "email": "anna.mueller@euromed.de",
+    "phone": "+49-30-12345678"
+  },
+  {
+    "_id": "689050077849264fcbb1e25a",
+    "name": "Asia Pacific Pharma",
+    "country": "Japan",
+    "contact_person": "Dr. Hiroshi Tanaka",
+    "email": "hiroshi.tanaka@appharma.jp",
+    "phone": "+81-3-12345678"
+  },
+  {
+    "_id": "689050077849264fcbb1e25b",
+    "name": "Indian Pharmaceutical Co.",
+    "country": "India",
+    "contact_person": "Dr. Rajesh Sharma",
+    "email": "rajesh.sharma@indpharma.in",
+    "phone": "+91-11-12345678"
+  },
+  {
+    "_id": "689050077849264fcbb1e25c",
+    "name": "Canadian Health Solutions",
+    "country": "Canada",
+    "contact_person": "Dr. Marie Dubois",
+    "email": "marie.dubois@canhealth.ca",
+    "phone": "+1-416-555-0234"
+  }
+]

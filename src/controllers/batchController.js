@@ -152,10 +152,11 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // Find the batch and populate essential details
+    // Find the batch and populate essential details from the new schemas
     const batch = await BatchModel.findById(batchId)
       .populate("customer", "name")
-      .populate("project", "project_name project_code");
+      .populate("project", "project_name project_code")
+      .populate("process_steps");
 
     if (!batch) {
       return res.status(404).json({
@@ -164,15 +165,11 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // 1. Calculate Progress
-    // We assume progress is based on completed process steps.
-    const totalProcessSteps = await ProcessStepModel.countDocuments({
-      batch: batchId,
-    });
-    const completedProcessSteps = await ProcessStepModel.countDocuments({
-      batch: batchId,
-      status: "Completed", // Assuming a 'Completed' status on the process step model
-    });
+    // 1. Calculate Progress based on completed process steps
+    const totalProcessSteps = batch.process_steps.length;
+    const completedProcessSteps = batch.process_steps.filter(
+      (step) => step.end_timestamp
+    ).length;
     const progress =
       totalProcessSteps > 0
         ? (completedProcessSteps / totalProcessSteps) * 100
@@ -185,44 +182,36 @@ export const batchParentDetail = async (req, res) => {
     });
 
     // 3. Count Pending Samples
-    // We assume a 'pending' sample is one with no associated test results.
+    // We assume a 'pending' sample is one that has not been approved by QC.
+    // This logic relies on the SampleModel, which was not provided in the new schemas.
+    // I am assuming the SampleModel has a `qc_status` field.
     const pendingSamplesCount = await SampleModel.countDocuments({
       batch: batchId,
-      "test_results.0": { $exists: false }, // Finds documents where the 'test_results' array is empty
+      qc_status: "Pending", // This is an assumption based on the user's request.
     });
 
     // 4. Calculate Days to Release
     let daysToRelease = "N/A";
-    if (batch.target_release_date) {
+    if (batch.released_at) {
       const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
       const now = new Date();
-      const releaseDate = new Date(batch.target_release_date);
+      const releaseDate = new Date(batch.released_at);
       const diffDays = Math.round((releaseDate - now) / oneDay);
       daysToRelease = diffDays > 0 ? diffDays : 0;
     }
 
-    // 5. Get Parent Batch ID (This assumes a 'parent_batch' field on the BatchModel)
-    // If your schema does not have this, you would need to adjust the logic.
-    // For now, we will add a placeholder.
-    let parentBatchApiId = "N/A";
-    if (batch.parent_batch) {
-      const parentBatch = await BatchModel.findById(batch.parent_batch);
-      parentBatchApiId = parentBatch ? parentBatch.api_batch_id : "N/A";
-    }
-
-    // Construct the response
+    // Construct the response using the new schema fields
     const responseData = {
       batch: {
         _id: batch._id,
         api_batch_id: batch.api_batch_id,
-        parent_batch_api_id: parentBatchApiId,
-        product_name: batch.product_name,
+        product_name: batch.product_name, // This field is not in the new schema, but I will keep it for compatibility with the image.
         product_code: batch.project ? batch.project.project_code : "N/A",
         customer: batch.customer ? batch.customer.name : "N/A",
-        manufacturing_site: batch.manufacturing_site || "N/A",
+        manufacturing_site: batch.plant_location || "N/A",
         created_date: batch.createdAt,
         last_updated: batch.updatedAt,
-        target_release: batch.target_release_date,
+        target_release: batch.released_at,
       },
       stats: {
         progress: `${Math.round(progress)}%`,

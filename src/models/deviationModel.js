@@ -5,13 +5,21 @@ const LinkedEntitySchema = new Schema(
   {
     entity_type: {
       type: String,
-      enum: ["Batch", "Sample", "Test", "ProcessStep", "Equipment"],
+      enum: [
+        "Batch",
+        "Sample",
+        "TestResult",
+        "ProcessStep",
+        "Equipment",
+        "BatchComponent",
+      ],
       required: true,
     },
     batch: { type: Schema.Types.ObjectId, ref: "Batch" },
     sample: { type: Schema.Types.ObjectId, ref: "Sample" },
     test_result: { type: Schema.Types.ObjectId, ref: "TestResult" },
     process_step: { type: Schema.Types.ObjectId, ref: "ProcessStep" },
+    batch_component: { type: Schema.Types.ObjectId, ref: "BatchComponent" },
     equipment: { type: String, ref: "Equipment" },
   },
   { _id: false }

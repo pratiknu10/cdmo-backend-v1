@@ -14,7 +14,7 @@ const BatchComponentSchema = new Schema(
     component_batch_id: { type: String, required: true, index: true },
     component_type: {
       type: String,
-      enum: ["Raw Material", "Intermediate", "Excipient", "API"],
+      // enum: ["Raw Material", "Intermediate", "Excipient", "API","Base"],
       required: true,
     },
     component_name: { type: String, required: true },

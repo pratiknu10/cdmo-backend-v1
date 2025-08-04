@@ -43,7 +43,12 @@ const ProcessStepSchema = new Schema(
     end_timestamp: { type: Date, required: true },
 
     equipment: [EquipmentStatusSchema],
-
+    related_component_ids: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "BatchComponent",
+      },
+    ],
     qa_approval_status: {
       type: String,
       enum: ["Approved", "Rejected", "Hold"],

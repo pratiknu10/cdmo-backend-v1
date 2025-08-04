@@ -9,6 +9,7 @@ const SampleSchema = new Schema(
       required: true,
       index: true,
     },
+    batch_component_ID: { type: Schema.Types.ObjectId, ref: "BatchComponent" },
     api_batch_id: { type: String, required: true, index: true },
 
     sample_id: { type: String, unique: true, required: true, index: true },

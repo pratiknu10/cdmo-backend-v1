@@ -1,0 +1,2091 @@
+[
+  {
+    "_id": "689050077849264fcbb1e28e",
+    "batch": "689050077849264fcbb1e26c",
+    "api_batch_id": "API-PAR-0000015",
+    "sample_id": "API-PAR-0000015-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e26f",
+    "collected_at": "2020-02-16T22:01:33.383Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e28f"
+    ],
+    "createdAt": "2020-02-16T22:01:33.383Z",
+    "updatedAt": "2020-02-17T22:01:33.383Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e290",
+    "batch": "689050077849264fcbb1e26c",
+    "api_batch_id": "API-PAR-0000015",
+    "sample_id": "API-PAR-0000015-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e271",
+    "collected_at": "2020-02-17T22:01:33.383Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-10",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e291"
+    ],
+    "createdAt": "2020-02-17T22:01:33.383Z",
+    "updatedAt": "2020-02-18T22:01:33.383Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e292",
+    "batch": "689050077849264fcbb1e26c",
+    "api_batch_id": "API-PAR-0000015",
+    "sample_id": "API-PAR-0000015-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e273",
+    "collected_at": "2020-02-18T22:01:33.383Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-16",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e293"
+    ],
+    "createdAt": "2020-02-18T22:01:33.383Z",
+    "updatedAt": "2020-02-19T22:01:33.383Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e294",
+    "batch": "689050077849264fcbb1e26c",
+    "api_batch_id": "API-PAR-0000015",
+    "sample_id": "API-PAR-0000015-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e274",
+    "collected_at": "2020-02-19T22:01:33.383Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-10",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e295",
+      "689050077849264fcbb1e296",
+      "689050077849264fcbb1e297",
+      "689050077849264fcbb1e298",
+      "689050077849264fcbb1e299"
+    ],
+    "createdAt": "2020-02-19T22:01:33.383Z",
+    "updatedAt": "2020-02-20T22:01:33.383Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e2f0",
+    "batch": "689050077849264fcbb1e2ce",
+    "api_batch_id": "API-PAR-0000030",
+    "sample_id": "API-PAR-0000030-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e2d1",
+    "collected_at": "2023-01-02T21:41:22.518Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e2f1"
+    ],
+    "createdAt": "2023-01-02T21:41:22.518Z",
+    "updatedAt": "2023-01-03T21:41:22.518Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e2f2",
+    "batch": "689050077849264fcbb1e2ce",
+    "api_batch_id": "API-PAR-0000030",
+    "sample_id": "API-PAR-0000030-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e2d3",
+    "collected_at": "2023-01-03T21:41:22.518Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-10",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e2f3"
+    ],
+    "createdAt": "2023-01-03T21:41:22.518Z",
+    "updatedAt": "2023-01-04T21:41:22.518Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e2f4",
+    "batch": "689050077849264fcbb1e2ce",
+    "api_batch_id": "API-PAR-0000030",
+    "sample_id": "API-PAR-0000030-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e2d5",
+    "collected_at": "2023-01-04T21:41:22.518Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e2f5"
+    ],
+    "createdAt": "2023-01-04T21:41:22.518Z",
+    "updatedAt": "2023-01-05T21:41:22.518Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e2f6",
+    "batch": "689050077849264fcbb1e2ce",
+    "api_batch_id": "API-PAR-0000030",
+    "sample_id": "API-PAR-0000030-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e2d6",
+    "collected_at": "2023-01-05T21:41:22.518Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e2f7",
+      "689050077849264fcbb1e2f8",
+      "689050077849264fcbb1e2f9",
+      "689050077849264fcbb1e2fa",
+      "689050077849264fcbb1e2fb"
+    ],
+    "createdAt": "2023-01-05T21:41:22.518Z",
+    "updatedAt": "2023-01-06T21:41:22.518Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e352",
+    "batch": "689050077849264fcbb1e330",
+    "api_batch_id": "API-PAR-0000045",
+    "sample_id": "API-PAR-0000045-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e333",
+    "collected_at": "2020-12-08T17:51:51.749Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e353"
+    ],
+    "createdAt": "2020-12-08T17:51:51.749Z",
+    "updatedAt": "2020-12-09T17:51:51.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e354",
+    "batch": "689050077849264fcbb1e330",
+    "api_batch_id": "API-PAR-0000045",
+    "sample_id": "API-PAR-0000045-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e335",
+    "collected_at": "2020-12-09T17:51:51.749Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-17",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e355"
+    ],
+    "createdAt": "2020-12-09T17:51:51.749Z",
+    "updatedAt": "2020-12-10T17:51:51.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e356",
+    "batch": "689050077849264fcbb1e330",
+    "api_batch_id": "API-PAR-0000045",
+    "sample_id": "API-PAR-0000045-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e337",
+    "collected_at": "2020-12-10T17:51:51.749Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e357"
+    ],
+    "createdAt": "2020-12-10T17:51:51.749Z",
+    "updatedAt": "2020-12-11T17:51:51.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e358",
+    "batch": "689050077849264fcbb1e330",
+    "api_batch_id": "API-PAR-0000045",
+    "sample_id": "API-PAR-0000045-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e338",
+    "collected_at": "2020-12-11T17:51:51.749Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e359",
+      "689050077849264fcbb1e35a",
+      "689050077849264fcbb1e35b",
+      "689050077849264fcbb1e35c",
+      "689050077849264fcbb1e35d"
+    ],
+    "createdAt": "2020-12-11T17:51:51.749Z",
+    "updatedAt": "2020-12-12T17:51:51.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e3b4",
+    "batch": "689050077849264fcbb1e392",
+    "api_batch_id": "API-PAR-0000060",
+    "sample_id": "API-PAR-0000060-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e395",
+    "collected_at": "2020-07-11T22:47:55.214Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-19",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e3b5"
+    ],
+    "createdAt": "2020-07-11T22:47:55.214Z",
+    "updatedAt": "2020-07-12T22:47:55.214Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e3b6",
+    "batch": "689050077849264fcbb1e392",
+    "api_batch_id": "API-PAR-0000060",
+    "sample_id": "API-PAR-0000060-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e397",
+    "collected_at": "2020-07-12T22:47:55.214Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e3b7"
+    ],
+    "createdAt": "2020-07-12T22:47:55.214Z",
+    "updatedAt": "2020-07-13T22:47:55.214Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e3b8",
+    "batch": "689050077849264fcbb1e392",
+    "api_batch_id": "API-PAR-0000060",
+    "sample_id": "API-PAR-0000060-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e399",
+    "collected_at": "2020-07-13T22:47:55.214Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e3b9"
+    ],
+    "createdAt": "2020-07-13T22:47:55.214Z",
+    "updatedAt": "2020-07-14T22:47:55.214Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e3ba",
+    "batch": "689050077849264fcbb1e392",
+    "api_batch_id": "API-PAR-0000060",
+    "sample_id": "API-PAR-0000060-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e39a",
+    "collected_at": "2020-07-14T22:47:55.214Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e3bb",
+      "689050077849264fcbb1e3bc",
+      "689050077849264fcbb1e3bd",
+      "689050077849264fcbb1e3be",
+      "689050077849264fcbb1e3bf"
+    ],
+    "createdAt": "2020-07-14T22:47:55.214Z",
+    "updatedAt": "2020-07-15T22:47:55.214Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e422",
+    "batch": "689050077849264fcbb1e3f4",
+    "api_batch_id": "API-IBU-0000085",
+    "sample_id": "API-IBU-0000085-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e3f7",
+    "collected_at": "2025-06-18T19:38:16.582Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-13",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e423"
+    ],
+    "createdAt": "2025-06-18T19:38:16.582Z",
+    "updatedAt": "2025-06-19T19:38:16.582Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e424",
+    "batch": "689050077849264fcbb1e3f4",
+    "api_batch_id": "API-IBU-0000085",
+    "sample_id": "API-IBU-0000085-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e3f8",
+    "collected_at": "2025-06-19T19:38:16.582Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e425"
+    ],
+    "createdAt": "2025-06-19T19:38:16.582Z",
+    "updatedAt": "2025-06-20T19:38:16.582Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e426",
+    "batch": "689050077849264fcbb1e3f4",
+    "api_batch_id": "API-IBU-0000085",
+    "sample_id": "API-IBU-0000085-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e3fa",
+    "collected_at": "2025-06-20T19:38:16.582Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 6",
+    "test_results": [
+      "689050077849264fcbb1e427"
+    ],
+    "createdAt": "2025-06-20T19:38:16.582Z",
+    "updatedAt": "2025-06-21T19:38:16.582Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e428",
+    "batch": "689050077849264fcbb1e3f4",
+    "api_batch_id": "API-IBU-0000085",
+    "sample_id": "API-IBU-0000085-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e3fd",
+    "collected_at": "2025-06-21T19:38:16.582Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e429",
+      "689050077849264fcbb1e42a"
+    ],
+    "createdAt": "2025-06-21T19:38:16.582Z",
+    "updatedAt": "2025-06-22T19:38:16.582Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e42b",
+    "batch": "689050077849264fcbb1e3f4",
+    "api_batch_id": "API-IBU-0000085",
+    "sample_id": "API-IBU-0000085-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e3fe",
+    "collected_at": "2025-06-22T19:38:16.582Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e42c",
+      "689050077849264fcbb1e42d",
+      "689050077849264fcbb1e42e",
+      "689050077849264fcbb1e42f",
+      "689050077849264fcbb1e430"
+    ],
+    "createdAt": "2025-06-22T19:38:16.582Z",
+    "updatedAt": "2025-06-23T19:38:16.582Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e495",
+    "batch": "689050077849264fcbb1e467",
+    "api_batch_id": "API-IBU-0000110",
+    "sample_id": "API-IBU-0000110-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e46a",
+    "collected_at": "2020-02-02T07:37:12.529Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e496"
+    ],
+    "createdAt": "2020-02-02T07:37:12.529Z",
+    "updatedAt": "2020-02-03T07:37:12.529Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e497",
+    "batch": "689050077849264fcbb1e467",
+    "api_batch_id": "API-IBU-0000110",
+    "sample_id": "API-IBU-0000110-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e46b",
+    "collected_at": "2020-02-03T07:37:12.529Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e498"
+    ],
+    "createdAt": "2020-02-03T07:37:12.529Z",
+    "updatedAt": "2020-02-04T07:37:12.529Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e499",
+    "batch": "689050077849264fcbb1e467",
+    "api_batch_id": "API-IBU-0000110",
+    "sample_id": "API-IBU-0000110-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e46d",
+    "collected_at": "2020-02-04T07:37:12.529Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 6",
+    "test_results": [
+      "689050077849264fcbb1e49a"
+    ],
+    "createdAt": "2020-02-04T07:37:12.529Z",
+    "updatedAt": "2020-02-05T07:37:12.529Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e49b",
+    "batch": "689050077849264fcbb1e467",
+    "api_batch_id": "API-IBU-0000110",
+    "sample_id": "API-IBU-0000110-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e470",
+    "collected_at": "2020-02-05T07:37:12.529Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e49c",
+      "689050077849264fcbb1e49d"
+    ],
+    "createdAt": "2020-02-05T07:37:12.529Z",
+    "updatedAt": "2020-02-06T07:37:12.529Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e49e",
+    "batch": "689050077849264fcbb1e467",
+    "api_batch_id": "API-IBU-0000110",
+    "sample_id": "API-IBU-0000110-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e471",
+    "collected_at": "2020-02-06T07:37:12.529Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-10",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e49f",
+      "689050077849264fcbb1e4a0",
+      "689050077849264fcbb1e4a1",
+      "689050077849264fcbb1e4a2",
+      "689050077849264fcbb1e4a3"
+    ],
+    "createdAt": "2020-02-06T07:37:12.529Z",
+    "updatedAt": "2020-02-07T07:37:12.529Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e502",
+    "batch": "689050077849264fcbb1e4da",
+    "api_batch_id": "API-ATC-0000129",
+    "sample_id": "API-ATC-0000129-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e4dc",
+    "collected_at": "2022-04-24T06:16:09.509Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e503"
+    ],
+    "createdAt": "2022-04-24T06:16:09.509Z",
+    "updatedAt": "2022-04-25T06:16:09.509Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e504",
+    "batch": "689050077849264fcbb1e4da",
+    "api_batch_id": "API-ATC-0000129",
+    "sample_id": "API-ATC-0000129-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e4de",
+    "collected_at": "2022-04-25T06:16:09.509Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e505"
+    ],
+    "createdAt": "2022-04-25T06:16:09.509Z",
+    "updatedAt": "2022-04-26T06:16:09.509Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e506",
+    "batch": "689050077849264fcbb1e4da",
+    "api_batch_id": "API-ATC-0000129",
+    "sample_id": "API-ATC-0000129-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e4e1",
+    "collected_at": "2022-04-26T06:16:09.509Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e507"
+    ],
+    "createdAt": "2022-04-26T06:16:09.509Z",
+    "updatedAt": "2022-04-27T06:16:09.509Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e508",
+    "batch": "689050077849264fcbb1e4da",
+    "api_batch_id": "API-ATC-0000129",
+    "sample_id": "API-ATC-0000129-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e4e3",
+    "collected_at": "2022-04-27T06:16:09.509Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-13",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e509"
+    ],
+    "createdAt": "2022-04-27T06:16:09.509Z",
+    "updatedAt": "2022-04-28T06:16:09.509Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e50a",
+    "batch": "689050077849264fcbb1e4da",
+    "api_batch_id": "API-ATC-0000129",
+    "sample_id": "API-ATC-0000129-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e4e4",
+    "collected_at": "2022-04-28T06:16:09.509Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e50b",
+      "689050077849264fcbb1e50c",
+      "689050077849264fcbb1e50d",
+      "689050077849264fcbb1e50e"
+    ],
+    "createdAt": "2022-04-28T06:16:09.509Z",
+    "updatedAt": "2022-04-29T06:16:09.509Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e56f",
+    "batch": "689050077849264fcbb1e547",
+    "api_batch_id": "API-ATC-0000148",
+    "sample_id": "API-ATC-0000148-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e549",
+    "collected_at": "2024-12-07T06:04:30.207Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-12",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e570"
+    ],
+    "createdAt": "2024-12-07T06:04:30.207Z",
+    "updatedAt": "2024-12-08T06:04:30.207Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e571",
+    "batch": "689050077849264fcbb1e547",
+    "api_batch_id": "API-ATC-0000148",
+    "sample_id": "API-ATC-0000148-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e54b",
+    "collected_at": "2024-12-08T06:04:30.207Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e572"
+    ],
+    "createdAt": "2024-12-08T06:04:30.207Z",
+    "updatedAt": "2024-12-09T06:04:30.207Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e573",
+    "batch": "689050077849264fcbb1e547",
+    "api_batch_id": "API-ATC-0000148",
+    "sample_id": "API-ATC-0000148-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e54e",
+    "collected_at": "2024-12-09T06:04:30.207Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-14",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e574"
+    ],
+    "createdAt": "2024-12-09T06:04:30.207Z",
+    "updatedAt": "2024-12-10T06:04:30.207Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e575",
+    "batch": "689050077849264fcbb1e547",
+    "api_batch_id": "API-ATC-0000148",
+    "sample_id": "API-ATC-0000148-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e550",
+    "collected_at": "2024-12-10T06:04:30.207Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e576"
+    ],
+    "createdAt": "2024-12-10T06:04:30.207Z",
+    "updatedAt": "2024-12-11T06:04:30.207Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e577",
+    "batch": "689050077849264fcbb1e547",
+    "api_batch_id": "API-ATC-0000148",
+    "sample_id": "API-ATC-0000148-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e551",
+    "collected_at": "2024-12-11T06:04:30.207Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e578",
+      "689050077849264fcbb1e579",
+      "689050077849264fcbb1e57a",
+      "689050077849264fcbb1e57b"
+    ],
+    "createdAt": "2024-12-11T06:04:30.207Z",
+    "updatedAt": "2024-12-12T06:04:30.207Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e5dc",
+    "batch": "689050077849264fcbb1e5b4",
+    "api_batch_id": "API-ATC-0000167",
+    "sample_id": "API-ATC-0000167-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e5b6",
+    "collected_at": "2023-07-22T00:31:20.650Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-12",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e5dd"
+    ],
+    "createdAt": "2023-07-22T00:31:20.650Z",
+    "updatedAt": "2023-07-23T00:31:20.650Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e5de",
+    "batch": "689050077849264fcbb1e5b4",
+    "api_batch_id": "API-ATC-0000167",
+    "sample_id": "API-ATC-0000167-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e5b8",
+    "collected_at": "2023-07-23T00:31:20.650Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e5df"
+    ],
+    "createdAt": "2023-07-23T00:31:20.650Z",
+    "updatedAt": "2023-07-24T00:31:20.650Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e5e0",
+    "batch": "689050077849264fcbb1e5b4",
+    "api_batch_id": "API-ATC-0000167",
+    "sample_id": "API-ATC-0000167-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e5bb",
+    "collected_at": "2023-07-24T00:31:20.650Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-12",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e5e1"
+    ],
+    "createdAt": "2023-07-24T00:31:20.650Z",
+    "updatedAt": "2023-07-25T00:31:20.650Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e5e2",
+    "batch": "689050077849264fcbb1e5b4",
+    "api_batch_id": "API-ATC-0000167",
+    "sample_id": "API-ATC-0000167-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e5bd",
+    "collected_at": "2023-07-25T00:31:20.650Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-19",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e5e3"
+    ],
+    "createdAt": "2023-07-25T00:31:20.650Z",
+    "updatedAt": "2023-07-26T00:31:20.650Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e5e4",
+    "batch": "689050077849264fcbb1e5b4",
+    "api_batch_id": "API-ATC-0000167",
+    "sample_id": "API-ATC-0000167-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e5be",
+    "collected_at": "2023-07-26T00:31:20.650Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-12",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e5e5",
+      "689050077849264fcbb1e5e6",
+      "689050077849264fcbb1e5e7",
+      "689050077849264fcbb1e5e8"
+    ],
+    "createdAt": "2023-07-26T00:31:20.650Z",
+    "updatedAt": "2023-07-27T00:31:20.650Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e649",
+    "batch": "689050077849264fcbb1e621",
+    "api_batch_id": "API-ATC-0000186",
+    "sample_id": "API-ATC-0000186-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e623",
+    "collected_at": "2019-12-05T01:59:27.032Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e64a"
+    ],
+    "createdAt": "2019-12-05T01:59:27.032Z",
+    "updatedAt": "2019-12-06T01:59:27.032Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e64b",
+    "batch": "689050077849264fcbb1e621",
+    "api_batch_id": "API-ATC-0000186",
+    "sample_id": "API-ATC-0000186-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e625",
+    "collected_at": "2019-12-06T01:59:27.032Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 4",
+    "test_results": [
+      "689050077849264fcbb1e64c"
+    ],
+    "createdAt": "2019-12-06T01:59:27.032Z",
+    "updatedAt": "2019-12-07T01:59:27.032Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e64d",
+    "batch": "689050077849264fcbb1e621",
+    "api_batch_id": "API-ATC-0000186",
+    "sample_id": "API-ATC-0000186-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e628",
+    "collected_at": "2019-12-07T01:59:27.032Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e64e"
+    ],
+    "createdAt": "2019-12-07T01:59:27.032Z",
+    "updatedAt": "2019-12-08T01:59:27.032Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e64f",
+    "batch": "689050077849264fcbb1e621",
+    "api_batch_id": "API-ATC-0000186",
+    "sample_id": "API-ATC-0000186-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e62a",
+    "collected_at": "2019-12-08T01:59:27.032Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e650"
+    ],
+    "createdAt": "2019-12-08T01:59:27.032Z",
+    "updatedAt": "2019-12-09T01:59:27.032Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e651",
+    "batch": "689050077849264fcbb1e621",
+    "api_batch_id": "API-ATC-0000186",
+    "sample_id": "API-ATC-0000186-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e62b",
+    "collected_at": "2019-12-09T01:59:27.032Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-12",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e652",
+      "689050077849264fcbb1e653",
+      "689050077849264fcbb1e654",
+      "689050077849264fcbb1e655"
+    ],
+    "createdAt": "2019-12-09T01:59:27.032Z",
+    "updatedAt": "2019-12-10T01:59:27.032Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e6af",
+    "batch": "689050077849264fcbb1e68e",
+    "api_batch_id": "API-MET-0000200",
+    "sample_id": "API-MET-0000200-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e690",
+    "collected_at": "2021-04-15T23:16:14.932Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e6b0"
+    ],
+    "createdAt": "2021-04-15T23:16:14.932Z",
+    "updatedAt": "2021-04-16T23:16:14.932Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e6b1",
+    "batch": "689050077849264fcbb1e68e",
+    "api_batch_id": "API-MET-0000200",
+    "sample_id": "API-MET-0000200-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e693",
+    "collected_at": "2021-04-16T23:16:14.932Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e6b2"
+    ],
+    "createdAt": "2021-04-16T23:16:14.932Z",
+    "updatedAt": "2021-04-17T23:16:14.932Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e6b3",
+    "batch": "689050077849264fcbb1e68e",
+    "api_batch_id": "API-MET-0000200",
+    "sample_id": "API-MET-0000200-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e696",
+    "collected_at": "2021-04-18T23:16:14.932Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e6b4"
+    ],
+    "createdAt": "2021-04-18T23:16:14.932Z",
+    "updatedAt": "2021-04-19T23:16:14.932Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e6b5",
+    "batch": "689050077849264fcbb1e68e",
+    "api_batch_id": "API-MET-0000200",
+    "sample_id": "API-MET-0000200-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e697",
+    "collected_at": "2021-04-18T23:16:14.932Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-14",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e6b6",
+      "689050077849264fcbb1e6b7",
+      "689050077849264fcbb1e6b8",
+      "689050077849264fcbb1e6b9"
+    ],
+    "createdAt": "2021-04-18T23:16:14.932Z",
+    "updatedAt": "2021-04-19T23:16:14.932Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e715",
+    "batch": "689050077849264fcbb1e6f4",
+    "api_batch_id": "API-MET-0000214",
+    "sample_id": "API-MET-0000214-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e6f6",
+    "collected_at": "2019-09-23T08:11:20.749Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-13",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e716"
+    ],
+    "createdAt": "2019-09-23T08:11:20.749Z",
+    "updatedAt": "2019-09-24T08:11:20.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e717",
+    "batch": "689050077849264fcbb1e6f4",
+    "api_batch_id": "API-MET-0000214",
+    "sample_id": "API-MET-0000214-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e6f9",
+    "collected_at": "2019-09-24T08:11:20.749Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e718"
+    ],
+    "createdAt": "2019-09-24T08:11:20.749Z",
+    "updatedAt": "2019-09-25T08:11:20.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e719",
+    "batch": "689050077849264fcbb1e6f4",
+    "api_batch_id": "API-MET-0000214",
+    "sample_id": "API-MET-0000214-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e6fc",
+    "collected_at": "2019-09-26T08:11:20.749Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e71a"
+    ],
+    "createdAt": "2019-09-26T08:11:20.749Z",
+    "updatedAt": "2019-09-27T08:11:20.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e71b",
+    "batch": "689050077849264fcbb1e6f4",
+    "api_batch_id": "API-MET-0000214",
+    "sample_id": "API-MET-0000214-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e6fd",
+    "collected_at": "2019-09-26T08:11:20.749Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e71c",
+      "689050077849264fcbb1e71d",
+      "689050077849264fcbb1e71e",
+      "689050077849264fcbb1e71f"
+    ],
+    "createdAt": "2019-09-26T08:11:20.749Z",
+    "updatedAt": "2019-09-27T08:11:20.749Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e77b",
+    "batch": "689050077849264fcbb1e75a",
+    "api_batch_id": "API-MET-0000228",
+    "sample_id": "API-MET-0000228-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e75c",
+    "collected_at": "2019-05-23T08:41:05.179Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1e77c"
+    ],
+    "createdAt": "2019-05-23T08:41:05.179Z",
+    "updatedAt": "2019-05-24T08:41:05.179Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e77d",
+    "batch": "689050077849264fcbb1e75a",
+    "api_batch_id": "API-MET-0000228",
+    "sample_id": "API-MET-0000228-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e75f",
+    "collected_at": "2019-05-24T08:41:05.179Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e77e"
+    ],
+    "createdAt": "2019-05-24T08:41:05.179Z",
+    "updatedAt": "2019-05-25T08:41:05.179Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e77f",
+    "batch": "689050077849264fcbb1e75a",
+    "api_batch_id": "API-MET-0000228",
+    "sample_id": "API-MET-0000228-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e762",
+    "collected_at": "2019-05-26T08:41:05.179Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1e780"
+    ],
+    "createdAt": "2019-05-26T08:41:05.179Z",
+    "updatedAt": "2019-05-27T08:41:05.179Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e781",
+    "batch": "689050077849264fcbb1e75a",
+    "api_batch_id": "API-MET-0000228",
+    "sample_id": "API-MET-0000228-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e763",
+    "collected_at": "2019-05-26T08:41:05.179Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e782",
+      "689050077849264fcbb1e783",
+      "689050077849264fcbb1e784",
+      "689050077849264fcbb1e785"
+    ],
+    "createdAt": "2019-05-26T08:41:05.179Z",
+    "updatedAt": "2019-05-27T08:41:05.179Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e7e4",
+    "batch": "689050077849264fcbb1e7c0",
+    "api_batch_id": "API-AML-0000243",
+    "sample_id": "API-AML-0000243-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e7c3",
+    "collected_at": "2023-02-23T18:11:40.335Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e7e5"
+    ],
+    "createdAt": "2023-02-23T18:11:40.335Z",
+    "updatedAt": "2023-02-24T18:11:40.335Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e7e6",
+    "batch": "689050077849264fcbb1e7c0",
+    "api_batch_id": "API-AML-0000243",
+    "sample_id": "API-AML-0000243-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e7c5",
+    "collected_at": "2023-02-24T18:11:40.335Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e7e7"
+    ],
+    "createdAt": "2023-02-24T18:11:40.335Z",
+    "updatedAt": "2023-02-25T18:11:40.335Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e7e8",
+    "batch": "689050077849264fcbb1e7c0",
+    "api_batch_id": "API-AML-0000243",
+    "sample_id": "API-AML-0000243-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e7c7",
+    "collected_at": "2023-02-25T18:11:40.335Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-13",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e7e9"
+    ],
+    "createdAt": "2023-02-25T18:11:40.335Z",
+    "updatedAt": "2023-02-26T18:11:40.335Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e7ea",
+    "batch": "689050077849264fcbb1e7c0",
+    "api_batch_id": "API-AML-0000243",
+    "sample_id": "API-AML-0000243-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e7c9",
+    "collected_at": "2023-02-26T18:11:40.335Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-6",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e7eb"
+    ],
+    "createdAt": "2023-02-26T18:11:40.335Z",
+    "updatedAt": "2023-02-27T18:11:40.335Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e7ec",
+    "batch": "689050077849264fcbb1e7c0",
+    "api_batch_id": "API-AML-0000243",
+    "sample_id": "API-AML-0000243-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e7ca",
+    "collected_at": "2023-02-27T18:11:40.335Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e7ed",
+      "689050077849264fcbb1e7ee",
+      "689050077849264fcbb1e7ef",
+      "689050077849264fcbb1e7f0"
+    ],
+    "createdAt": "2023-02-27T18:11:40.335Z",
+    "updatedAt": "2023-02-28T18:11:40.335Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e851",
+    "batch": "689050077849264fcbb1e82d",
+    "api_batch_id": "API-AML-0000258",
+    "sample_id": "API-AML-0000258-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e830",
+    "collected_at": "2022-07-01T18:35:44.402Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e852"
+    ],
+    "createdAt": "2022-07-01T18:35:44.402Z",
+    "updatedAt": "2022-07-02T18:35:44.402Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e853",
+    "batch": "689050077849264fcbb1e82d",
+    "api_batch_id": "API-AML-0000258",
+    "sample_id": "API-AML-0000258-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e832",
+    "collected_at": "2022-07-02T18:35:44.402Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e854"
+    ],
+    "createdAt": "2022-07-02T18:35:44.402Z",
+    "updatedAt": "2022-07-03T18:35:44.402Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e855",
+    "batch": "689050077849264fcbb1e82d",
+    "api_batch_id": "API-AML-0000258",
+    "sample_id": "API-AML-0000258-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e834",
+    "collected_at": "2022-07-03T18:35:44.402Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-8",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e856"
+    ],
+    "createdAt": "2022-07-03T18:35:44.402Z",
+    "updatedAt": "2022-07-04T18:35:44.402Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e857",
+    "batch": "689050077849264fcbb1e82d",
+    "api_batch_id": "API-AML-0000258",
+    "sample_id": "API-AML-0000258-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e836",
+    "collected_at": "2022-07-04T18:35:44.402Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-17",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e858"
+    ],
+    "createdAt": "2022-07-04T18:35:44.402Z",
+    "updatedAt": "2022-07-05T18:35:44.402Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e859",
+    "batch": "689050077849264fcbb1e82d",
+    "api_batch_id": "API-AML-0000258",
+    "sample_id": "API-AML-0000258-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e837",
+    "collected_at": "2022-07-05T18:35:44.402Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-19",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e85a",
+      "689050077849264fcbb1e85b",
+      "689050077849264fcbb1e85c",
+      "689050077849264fcbb1e85d"
+    ],
+    "createdAt": "2022-07-05T18:35:44.402Z",
+    "updatedAt": "2022-07-06T18:35:44.402Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e8be",
+    "batch": "689050077849264fcbb1e89a",
+    "api_batch_id": "API-AML-0000273",
+    "sample_id": "API-AML-0000273-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e89d",
+    "collected_at": "2020-08-26T12:24:45.442Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e8bf"
+    ],
+    "createdAt": "2020-08-26T12:24:45.442Z",
+    "updatedAt": "2020-08-27T12:24:45.442Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e8c0",
+    "batch": "689050077849264fcbb1e89a",
+    "api_batch_id": "API-AML-0000273",
+    "sample_id": "API-AML-0000273-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e89f",
+    "collected_at": "2020-08-27T12:24:45.442Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e8c1"
+    ],
+    "createdAt": "2020-08-27T12:24:45.442Z",
+    "updatedAt": "2020-08-28T12:24:45.442Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e8c2",
+    "batch": "689050077849264fcbb1e89a",
+    "api_batch_id": "API-AML-0000273",
+    "sample_id": "API-AML-0000273-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e8a1",
+    "collected_at": "2020-08-28T12:24:45.442Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1e8c3"
+    ],
+    "createdAt": "2020-08-28T12:24:45.442Z",
+    "updatedAt": "2020-08-29T12:24:45.442Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e8c4",
+    "batch": "689050077849264fcbb1e89a",
+    "api_batch_id": "API-AML-0000273",
+    "sample_id": "API-AML-0000273-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e8a3",
+    "collected_at": "2020-08-29T12:24:45.442Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e8c5"
+    ],
+    "createdAt": "2020-08-29T12:24:45.442Z",
+    "updatedAt": "2020-08-30T12:24:45.442Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e8c6",
+    "batch": "689050077849264fcbb1e89a",
+    "api_batch_id": "API-AML-0000273",
+    "sample_id": "API-AML-0000273-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e8a4",
+    "collected_at": "2020-08-30T12:24:45.442Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e8c7",
+      "689050077849264fcbb1e8c8",
+      "689050077849264fcbb1e8c9",
+      "689050077849264fcbb1e8ca"
+    ],
+    "createdAt": "2020-08-30T12:24:45.442Z",
+    "updatedAt": "2020-08-31T12:24:45.442Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e92d",
+    "batch": "689050077849264fcbb1e907",
+    "api_batch_id": "API-SOF-0000290",
+    "sample_id": "API-SOF-0000290-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e908",
+    "collected_at": "2019-03-02T18:38:00.806Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 1",
+    "test_results": [
+      "689050077849264fcbb1e92e"
+    ],
+    "createdAt": "2019-03-02T18:38:00.806Z",
+    "updatedAt": "2019-03-03T18:38:00.806Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e92f",
+    "batch": "689050077849264fcbb1e907",
+    "api_batch_id": "API-SOF-0000290",
+    "sample_id": "API-SOF-0000290-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e90a",
+    "collected_at": "2019-03-03T18:38:00.806Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e930"
+    ],
+    "createdAt": "2019-03-03T18:38:00.806Z",
+    "updatedAt": "2019-03-04T18:38:00.806Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e931",
+    "batch": "689050077849264fcbb1e907",
+    "api_batch_id": "API-SOF-0000290",
+    "sample_id": "API-SOF-0000290-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e90c",
+    "collected_at": "2019-03-04T18:38:00.806Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e932"
+    ],
+    "createdAt": "2019-03-04T18:38:00.806Z",
+    "updatedAt": "2019-03-05T18:38:00.806Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e933",
+    "batch": "689050077849264fcbb1e907",
+    "api_batch_id": "API-SOF-0000290",
+    "sample_id": "API-SOF-0000290-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e910",
+    "collected_at": "2019-03-06T18:38:00.806Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e934"
+    ],
+    "createdAt": "2019-03-06T18:38:00.806Z",
+    "updatedAt": "2019-03-07T18:38:00.806Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e935",
+    "batch": "689050077849264fcbb1e907",
+    "api_batch_id": "API-SOF-0000290",
+    "sample_id": "API-SOF-0000290-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e911",
+    "collected_at": "2019-03-07T18:38:00.806Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-17",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e936",
+      "689050077849264fcbb1e937",
+      "689050077849264fcbb1e938",
+      "689050077849264fcbb1e939"
+    ],
+    "createdAt": "2019-03-07T18:38:00.806Z",
+    "updatedAt": "2019-03-08T18:38:00.806Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e99e",
+    "batch": "689050077849264fcbb1e978",
+    "api_batch_id": "API-SOF-0000307",
+    "sample_id": "API-SOF-0000307-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e979",
+    "collected_at": "2023-01-05T17:44:57.874Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-16",
+    "remarks": "Sample collected during step 1",
+    "test_results": [
+      "689050077849264fcbb1e99f"
+    ],
+    "createdAt": "2023-01-05T17:44:57.874Z",
+    "updatedAt": "2023-01-06T17:44:57.874Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e9a0",
+    "batch": "689050077849264fcbb1e978",
+    "api_batch_id": "API-SOF-0000307",
+    "sample_id": "API-SOF-0000307-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e97b",
+    "collected_at": "2023-01-06T17:44:57.874Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1e9a1"
+    ],
+    "createdAt": "2023-01-06T17:44:57.874Z",
+    "updatedAt": "2023-01-07T17:44:57.874Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e9a2",
+    "batch": "689050077849264fcbb1e978",
+    "api_batch_id": "API-SOF-0000307",
+    "sample_id": "API-SOF-0000307-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e97d",
+    "collected_at": "2023-01-07T17:44:57.874Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1e9a3"
+    ],
+    "createdAt": "2023-01-07T17:44:57.874Z",
+    "updatedAt": "2023-01-08T17:44:57.874Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e9a4",
+    "batch": "689050077849264fcbb1e978",
+    "api_batch_id": "API-SOF-0000307",
+    "sample_id": "API-SOF-0000307-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e981",
+    "collected_at": "2023-01-09T17:44:57.874Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1e9a5"
+    ],
+    "createdAt": "2023-01-09T17:44:57.874Z",
+    "updatedAt": "2023-01-10T17:44:57.874Z"
+  },
+  {
+    "_id": "689050077849264fcbb1e9a6",
+    "batch": "689050077849264fcbb1e978",
+    "api_batch_id": "API-SOF-0000307",
+    "sample_id": "API-SOF-0000307-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e982",
+    "collected_at": "2023-01-10T17:44:57.874Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-14",
+    "remarks": "Sample collected during step 10",
+    "test_results": [
+      "689050077849264fcbb1e9a7",
+      "689050077849264fcbb1e9a8",
+      "689050077849264fcbb1e9a9",
+      "689050077849264fcbb1e9aa"
+    ],
+    "createdAt": "2023-01-10T17:44:57.874Z",
+    "updatedAt": "2023-01-11T17:44:57.874Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea0b",
+    "batch": "689050077849264fcbb1e9e9",
+    "api_batch_id": "API-SIT-0000322",
+    "sample_id": "API-SIT-0000322-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e9ea",
+    "collected_at": "2021-11-14T02:03:31.753Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 1",
+    "test_results": [
+      "689050077849264fcbb1ea0c"
+    ],
+    "createdAt": "2021-11-14T02:03:31.753Z",
+    "updatedAt": "2021-11-15T02:03:31.753Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea0d",
+    "batch": "689050077849264fcbb1e9e9",
+    "api_batch_id": "API-SIT-0000322",
+    "sample_id": "API-SIT-0000322-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e9ec",
+    "collected_at": "2021-11-15T02:03:31.753Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1ea0e"
+    ],
+    "createdAt": "2021-11-15T02:03:31.753Z",
+    "updatedAt": "2021-11-16T02:03:31.753Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea0f",
+    "batch": "689050077849264fcbb1e9e9",
+    "api_batch_id": "API-SIT-0000322",
+    "sample_id": "API-SIT-0000322-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e9ef",
+    "collected_at": "2021-11-17T02:03:31.753Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 6",
+    "test_results": [
+      "689050077849264fcbb1ea10"
+    ],
+    "createdAt": "2021-11-17T02:03:31.753Z",
+    "updatedAt": "2021-11-18T02:03:31.753Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea11",
+    "batch": "689050077849264fcbb1e9e9",
+    "api_batch_id": "API-SIT-0000322",
+    "sample_id": "API-SIT-0000322-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e9f1",
+    "collected_at": "2021-11-18T02:03:31.753Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1ea12"
+    ],
+    "createdAt": "2021-11-18T02:03:31.753Z",
+    "updatedAt": "2021-11-19T02:03:31.753Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea13",
+    "batch": "689050077849264fcbb1e9e9",
+    "api_batch_id": "API-SIT-0000322",
+    "sample_id": "API-SIT-0000322-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1e9f2",
+    "collected_at": "2021-11-18T02:03:31.753Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-15",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1ea14",
+      "689050077849264fcbb1ea15",
+      "689050077849264fcbb1ea16",
+      "689050077849264fcbb1ea17"
+    ],
+    "createdAt": "2021-11-18T02:03:31.753Z",
+    "updatedAt": "2021-11-19T02:03:31.753Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea7a",
+    "batch": "689050077849264fcbb1ea58",
+    "api_batch_id": "API-SIT-0000337",
+    "sample_id": "API-SIT-0000337-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ea59",
+    "collected_at": "2022-06-14T06:21:12.772Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 1",
+    "test_results": [
+      "689050077849264fcbb1ea7b"
+    ],
+    "createdAt": "2022-06-14T06:21:12.772Z",
+    "updatedAt": "2022-06-15T06:21:12.772Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea7c",
+    "batch": "689050077849264fcbb1ea58",
+    "api_batch_id": "API-SIT-0000337",
+    "sample_id": "API-SIT-0000337-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ea5b",
+    "collected_at": "2022-06-15T06:21:12.772Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1ea7d"
+    ],
+    "createdAt": "2022-06-15T06:21:12.772Z",
+    "updatedAt": "2022-06-16T06:21:12.772Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea7e",
+    "batch": "689050077849264fcbb1ea58",
+    "api_batch_id": "API-SIT-0000337",
+    "sample_id": "API-SIT-0000337-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ea5e",
+    "collected_at": "2022-06-17T06:21:12.772Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 6",
+    "test_results": [
+      "689050077849264fcbb1ea7f"
+    ],
+    "createdAt": "2022-06-17T06:21:12.772Z",
+    "updatedAt": "2022-06-18T06:21:12.772Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea80",
+    "batch": "689050077849264fcbb1ea58",
+    "api_batch_id": "API-SIT-0000337",
+    "sample_id": "API-SIT-0000337-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ea60",
+    "collected_at": "2022-06-18T06:21:12.772Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-19",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1ea81"
+    ],
+    "createdAt": "2022-06-18T06:21:12.772Z",
+    "updatedAt": "2022-06-19T06:21:12.772Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ea82",
+    "batch": "689050077849264fcbb1ea58",
+    "api_batch_id": "API-SIT-0000337",
+    "sample_id": "API-SIT-0000337-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ea61",
+    "collected_at": "2022-06-18T06:21:12.772Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1ea83",
+      "689050077849264fcbb1ea84",
+      "689050077849264fcbb1ea85",
+      "689050077849264fcbb1ea86"
+    ],
+    "createdAt": "2022-06-18T06:21:12.772Z",
+    "updatedAt": "2022-06-19T06:21:12.772Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eae9",
+    "batch": "689050077849264fcbb1eac7",
+    "api_batch_id": "API-SIT-0000352",
+    "sample_id": "API-SIT-0000352-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eac8",
+    "collected_at": "2024-04-14T23:14:53.266Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-15",
+    "remarks": "Sample collected during step 1",
+    "test_results": [
+      "689050077849264fcbb1eaea"
+    ],
+    "createdAt": "2024-04-14T23:14:53.266Z",
+    "updatedAt": "2024-04-15T23:14:53.266Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eaeb",
+    "batch": "689050077849264fcbb1eac7",
+    "api_batch_id": "API-SIT-0000352",
+    "sample_id": "API-SIT-0000352-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eaca",
+    "collected_at": "2024-04-15T23:14:53.266Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1eaec"
+    ],
+    "createdAt": "2024-04-15T23:14:53.266Z",
+    "updatedAt": "2024-04-16T23:14:53.266Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eaed",
+    "batch": "689050077849264fcbb1eac7",
+    "api_batch_id": "API-SIT-0000352",
+    "sample_id": "API-SIT-0000352-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eacd",
+    "collected_at": "2024-04-17T23:14:53.266Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 6",
+    "test_results": [
+      "689050077849264fcbb1eaee"
+    ],
+    "createdAt": "2024-04-17T23:14:53.266Z",
+    "updatedAt": "2024-04-18T23:14:53.266Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eaef",
+    "batch": "689050077849264fcbb1eac7",
+    "api_batch_id": "API-SIT-0000352",
+    "sample_id": "API-SIT-0000352-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eacf",
+    "collected_at": "2024-04-18T23:14:53.266Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1eaf0"
+    ],
+    "createdAt": "2024-04-18T23:14:53.266Z",
+    "updatedAt": "2024-04-19T23:14:53.266Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eaf1",
+    "batch": "689050077849264fcbb1eac7",
+    "api_batch_id": "API-SIT-0000352",
+    "sample_id": "API-SIT-0000352-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ead0",
+    "collected_at": "2024-04-18T23:14:53.266Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 9",
+    "test_results": [
+      "689050077849264fcbb1eaf2",
+      "689050077849264fcbb1eaf3",
+      "689050077849264fcbb1eaf4",
+      "689050077849264fcbb1eaf5"
+    ],
+    "createdAt": "2024-04-18T23:14:53.266Z",
+    "updatedAt": "2024-04-19T23:14:53.266Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eb56",
+    "batch": "689050077849264fcbb1eb36",
+    "api_batch_id": "API-OLA-0000365",
+    "sample_id": "API-OLA-0000365-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eb38",
+    "collected_at": "2020-07-22T17:10:37.107Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1eb57"
+    ],
+    "createdAt": "2020-07-22T17:10:37.107Z",
+    "updatedAt": "2020-07-23T17:10:37.107Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eb58",
+    "batch": "689050077849264fcbb1eb36",
+    "api_batch_id": "API-OLA-0000365",
+    "sample_id": "API-OLA-0000365-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eb39",
+    "collected_at": "2020-07-22T17:10:37.107Z",
+    "collected_by": "689050077849264fcbb1e253",
+    "storage_location": "Storage-4",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1eb59"
+    ],
+    "createdAt": "2020-07-22T17:10:37.107Z",
+    "updatedAt": "2020-07-23T17:10:37.107Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eb5a",
+    "batch": "689050077849264fcbb1eb36",
+    "api_batch_id": "API-OLA-0000365",
+    "sample_id": "API-OLA-0000365-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eb3b",
+    "collected_at": "2020-07-23T17:10:37.107Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-5",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1eb5b"
+    ],
+    "createdAt": "2020-07-23T17:10:37.107Z",
+    "updatedAt": "2020-07-24T17:10:37.107Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eb5c",
+    "batch": "689050077849264fcbb1eb36",
+    "api_batch_id": "API-OLA-0000365",
+    "sample_id": "API-OLA-0000365-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eb3d",
+    "collected_at": "2020-07-24T17:10:37.107Z",
+    "collected_by": "689050077849264fcbb1e256",
+    "storage_location": "Storage-14",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1eb5d"
+    ],
+    "createdAt": "2020-07-24T17:10:37.107Z",
+    "updatedAt": "2020-07-25T17:10:37.107Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eb5e",
+    "batch": "689050077849264fcbb1eb36",
+    "api_batch_id": "API-OLA-0000365",
+    "sample_id": "API-OLA-0000365-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eb3e",
+    "collected_at": "2020-07-25T17:10:37.107Z",
+    "collected_by": "689050077849264fcbb1e24e",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1eb5f",
+      "689050077849264fcbb1eb60",
+      "689050077849264fcbb1eb61",
+      "689050077849264fcbb1eb62"
+    ],
+    "createdAt": "2020-07-25T17:10:37.107Z",
+    "updatedAt": "2020-07-26T17:10:37.107Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ebc5",
+    "batch": "689050077849264fcbb1eba5",
+    "api_batch_id": "API-OLA-0000378",
+    "sample_id": "API-OLA-0000378-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eba7",
+    "collected_at": "2019-01-23T04:29:43.600Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-17",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1ebc6"
+    ],
+    "createdAt": "2019-01-23T04:29:43.600Z",
+    "updatedAt": "2019-01-24T04:29:43.600Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ebc7",
+    "batch": "689050077849264fcbb1eba5",
+    "api_batch_id": "API-OLA-0000378",
+    "sample_id": "API-OLA-0000378-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1eba8",
+    "collected_at": "2019-01-23T04:29:43.600Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-10",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1ebc8"
+    ],
+    "createdAt": "2019-01-23T04:29:43.600Z",
+    "updatedAt": "2019-01-24T04:29:43.600Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ebc9",
+    "batch": "689050077849264fcbb1eba5",
+    "api_batch_id": "API-OLA-0000378",
+    "sample_id": "API-OLA-0000378-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ebaa",
+    "collected_at": "2019-01-24T04:29:43.600Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-11",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1ebca"
+    ],
+    "createdAt": "2019-01-24T04:29:43.600Z",
+    "updatedAt": "2019-01-25T04:29:43.600Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ebcb",
+    "batch": "689050077849264fcbb1eba5",
+    "api_batch_id": "API-OLA-0000378",
+    "sample_id": "API-OLA-0000378-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ebac",
+    "collected_at": "2019-01-25T04:29:43.600Z",
+    "collected_by": "689050077849264fcbb1e250",
+    "storage_location": "Storage-17",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1ebcc"
+    ],
+    "createdAt": "2019-01-25T04:29:43.600Z",
+    "updatedAt": "2019-01-26T04:29:43.600Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ebcd",
+    "batch": "689050077849264fcbb1eba5",
+    "api_batch_id": "API-OLA-0000378",
+    "sample_id": "API-OLA-0000378-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ebad",
+    "collected_at": "2019-01-26T04:29:43.600Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1ebce",
+      "689050077849264fcbb1ebcf",
+      "689050077849264fcbb1ebd0",
+      "689050077849264fcbb1ebd1"
+    ],
+    "createdAt": "2019-01-26T04:29:43.600Z",
+    "updatedAt": "2019-01-27T04:29:43.600Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ec34",
+    "batch": "689050077849264fcbb1ec14",
+    "api_batch_id": "API-OLA-0000391",
+    "sample_id": "API-OLA-0000391-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec16",
+    "collected_at": "2025-06-05T10:27:09.014Z",
+    "collected_by": "689050077849264fcbb1e24f",
+    "storage_location": "Storage-18",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1ec35"
+    ],
+    "createdAt": "2025-06-05T10:27:09.014Z",
+    "updatedAt": "2025-06-06T10:27:09.014Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ec36",
+    "batch": "689050077849264fcbb1ec14",
+    "api_batch_id": "API-OLA-0000391",
+    "sample_id": "API-OLA-0000391-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec17",
+    "collected_at": "2025-06-05T10:27:09.014Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-1",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1ec37"
+    ],
+    "createdAt": "2025-06-05T10:27:09.014Z",
+    "updatedAt": "2025-06-06T10:27:09.014Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ec38",
+    "batch": "689050077849264fcbb1ec14",
+    "api_batch_id": "API-OLA-0000391",
+    "sample_id": "API-OLA-0000391-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec19",
+    "collected_at": "2025-06-06T10:27:09.014Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1ec39"
+    ],
+    "createdAt": "2025-06-06T10:27:09.014Z",
+    "updatedAt": "2025-06-07T10:27:09.014Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ec3a",
+    "batch": "689050077849264fcbb1ec14",
+    "api_batch_id": "API-OLA-0000391",
+    "sample_id": "API-OLA-0000391-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec1b",
+    "collected_at": "2025-06-07T10:27:09.014Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-13",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1ec3b"
+    ],
+    "createdAt": "2025-06-07T10:27:09.014Z",
+    "updatedAt": "2025-06-08T10:27:09.014Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ec3c",
+    "batch": "689050077849264fcbb1ec14",
+    "api_batch_id": "API-OLA-0000391",
+    "sample_id": "API-OLA-0000391-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec1c",
+    "collected_at": "2025-06-08T10:27:09.014Z",
+    "collected_by": "689050077849264fcbb1e254",
+    "storage_location": "Storage-2",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1ec3d",
+      "689050077849264fcbb1ec3e",
+      "689050077849264fcbb1ec3f",
+      "689050077849264fcbb1ec40"
+    ],
+    "createdAt": "2025-06-08T10:27:09.014Z",
+    "updatedAt": "2025-06-09T10:27:09.014Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eca3",
+    "batch": "689050077849264fcbb1ec83",
+    "api_batch_id": "API-OLA-0000404",
+    "sample_id": "API-OLA-0000404-S001",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec85",
+    "collected_at": "2024-09-07T04:48:16.136Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-3",
+    "remarks": "Sample collected during step 2",
+    "test_results": [
+      "689050077849264fcbb1eca4"
+    ],
+    "createdAt": "2024-09-07T04:48:16.136Z",
+    "updatedAt": "2024-09-08T04:48:16.136Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eca5",
+    "batch": "689050077849264fcbb1ec83",
+    "api_batch_id": "API-OLA-0000404",
+    "sample_id": "API-OLA-0000404-S002",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec86",
+    "collected_at": "2024-09-07T04:48:16.136Z",
+    "collected_by": "689050077849264fcbb1e255",
+    "storage_location": "Storage-7",
+    "remarks": "Sample collected during step 3",
+    "test_results": [
+      "689050077849264fcbb1eca6"
+    ],
+    "createdAt": "2024-09-07T04:48:16.136Z",
+    "updatedAt": "2024-09-08T04:48:16.136Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eca7",
+    "batch": "689050077849264fcbb1ec83",
+    "api_batch_id": "API-OLA-0000404",
+    "sample_id": "API-OLA-0000404-S003",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec88",
+    "collected_at": "2024-09-08T04:48:16.136Z",
+    "collected_by": "689050077849264fcbb1e252",
+    "storage_location": "Storage-9",
+    "remarks": "Sample collected during step 5",
+    "test_results": [
+      "689050077849264fcbb1eca8"
+    ],
+    "createdAt": "2024-09-08T04:48:16.136Z",
+    "updatedAt": "2024-09-09T04:48:16.136Z"
+  },
+  {
+    "_id": "689050077849264fcbb1eca9",
+    "batch": "689050077849264fcbb1ec83",
+    "api_batch_id": "API-OLA-0000404",
+    "sample_id": "API-OLA-0000404-S004",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec8a",
+    "collected_at": "2024-09-09T04:48:16.136Z",
+    "collected_by": "689050077849264fcbb1e257",
+    "storage_location": "Storage-20",
+    "remarks": "Sample collected during step 7",
+    "test_results": [
+      "689050077849264fcbb1ecaa"
+    ],
+    "createdAt": "2024-09-09T04:48:16.136Z",
+    "updatedAt": "2024-09-10T04:48:16.136Z"
+  },
+  {
+    "_id": "689050077849264fcbb1ecab",
+    "batch": "689050077849264fcbb1ec83",
+    "api_batch_id": "API-OLA-0000404",
+    "sample_id": "API-OLA-0000404-S005",
+    "sample_type": "In-Process",
+    "batch_component_ID": "689050077849264fcbb1ec8b",
+    "collected_at": "2024-09-10T04:48:16.136Z",
+    "collected_by": "689050077849264fcbb1e251",
+    "storage_location": "Storage-14",
+    "remarks": "Sample collected during step 8",
+    "test_results": [
+      "689050077849264fcbb1ecac",
+      "689050077849264fcbb1ecad",
+      "689050077849264fcbb1ecae",
+      "689050077849264fcbb1ecaf"
+    ],
+    "createdAt": "2024-09-10T04:48:16.136Z",
+    "updatedAt": "2024-09-11T04:48:16.136Z"
+  }
+]

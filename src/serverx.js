@@ -37,7 +37,7 @@ app.use(errorHandler);
 async function readJSON(path) {
   return JSON.parse(fs.readFileSync(path, "utf-8"));
 }
-connectDB("cdmo3");
+connectDB("cdmo4");
 async function seedData() {
   connectDB("cdmo3");
 
@@ -45,18 +45,18 @@ async function seedData() {
 
   // Load JSON seeds
   const inserts = [
-    [CustomerModel, "./src/output/customers.json"],
-    [UserModel, "./src/output/users.json"],
-    [ProjectModel, "./src/output/projects.json"],
-    [EquipmentModel, "./src/output/equipment.json"],
-    [BatchModel, "./src/output/batches.json"],
-    [BatchComponentModel, "./src/output/batchComponents.json"],
-    [DeviationModel, "./src/output/deviations.json"],
-    [CapaModel, "./src/output/capas.json"],
-    [SampleModel, "./src/output/samples.json"],
-    [TestResultModel, "./src/output/testResults.json"],
-    [ProcessStepModel, "./src/output/processSteps.json"],
-    [EquipmentEventModel, "./src/output/equipmentEvents.json"],
+    [CustomerModel, "./src/output2/customers.json"],
+    [UserModel, "./src/output2/users.json"],
+    [ProjectModel, "./src/output2/projects.json"],
+    [EquipmentModel, "./src/output2/equipment.json"],
+    [BatchModel, "./src/output2/batches.json"],
+    [BatchComponentModel, "./src/output2/batchComponents.json"],
+    [DeviationModel, "./src/output2/deviations.json"],
+    [CapaModel, "./src/output2/capas.json"],
+    [SampleModel, "./src/output2/samples.json"],
+    [TestResultModel, "./src/output2/testResults.json"],
+    [ProcessStepModel, "./src/output2/processSteps.json"],
+    [EquipmentEventModel, "./src/output2/equipmentEvents.json"],
   ];
   for (const [Model, file] of inserts) {
     const data = await readJSON(file);
