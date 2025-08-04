@@ -140,6 +140,113 @@ export const getBatchOverview = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+export const batchParentDetail = async (req, res) => {
+  try {
+    const { batchId } = req.params;
+
+    // Validate that the provided ID is a valid Mongoose ObjectId
+    if (!mongoose.Types.ObjectId.isValid(batchId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Batch ID format",
+      });
+    }
+
+    // Find the batch and populate essential details
+    const batch = await BatchModel.findById(batchId)
+      .populate("customer", "name")
+      .populate("project", "project_name project_code");
+
+    if (!batch) {
+      return res.status(404).json({
+        success: false,
+        message: "Batch not found",
+      });
+    }
+
+    // 1. Calculate Progress
+    // We assume progress is based on completed process steps.
+    const totalProcessSteps = await ProcessStepModel.countDocuments({
+      batch: batchId,
+    });
+    const completedProcessSteps = await ProcessStepModel.countDocuments({
+      batch: batchId,
+      status: "Completed", // Assuming a 'Completed' status on the process step model
+    });
+    const progress =
+      totalProcessSteps > 0
+        ? (completedProcessSteps / totalProcessSteps) * 100
+        : 0;
+
+    // 2. Count Open Deviations
+    const openDeviationsCount = await DeviationModel.countDocuments({
+      batch: batchId,
+      status: "Open",
+    });
+
+    // 3. Count Pending Samples
+    // We assume a 'pending' sample is one with no associated test results.
+    const pendingSamplesCount = await SampleModel.countDocuments({
+      batch: batchId,
+      "test_results.0": { $exists: false }, // Finds documents where the 'test_results' array is empty
+    });
+
+    // 4. Calculate Days to Release
+    let daysToRelease = "N/A";
+    if (batch.target_release_date) {
+      const oneDay = 24 * 60 * 60 * 1000; // milliseconds in a day
+      const now = new Date();
+      const releaseDate = new Date(batch.target_release_date);
+      const diffDays = Math.round((releaseDate - now) / oneDay);
+      daysToRelease = diffDays > 0 ? diffDays : 0;
+    }
+
+    // 5. Get Parent Batch ID (This assumes a 'parent_batch' field on the BatchModel)
+    // If your schema does not have this, you would need to adjust the logic.
+    // For now, we will add a placeholder.
+    let parentBatchApiId = "N/A";
+    if (batch.parent_batch) {
+      const parentBatch = await BatchModel.findById(batch.parent_batch);
+      parentBatchApiId = parentBatch ? parentBatch.api_batch_id : "N/A";
+    }
+
+    // Construct the response
+    const responseData = {
+      batch: {
+        _id: batch._id,
+        api_batch_id: batch.api_batch_id,
+        parent_batch_api_id: parentBatchApiId,
+        product_name: batch.product_name,
+        product_code: batch.project ? batch.project.project_code : "N/A",
+        customer: batch.customer ? batch.customer.name : "N/A",
+        manufacturing_site: batch.manufacturing_site || "N/A",
+        created_date: batch.createdAt,
+        last_updated: batch.updatedAt,
+        target_release: batch.target_release_date,
+      },
+      stats: {
+        progress: `${Math.round(progress)}%`,
+        open_deviations: openDeviationsCount,
+        pending_samples: pendingSamplesCount,
+        days_to_release: daysToRelease,
+      },
+    };
+
+    console.log(`📊 Dashboard accessed for Batch: ${batchId}`);
+
+    res.status(200).json({
+      success: true,
+      data: responseData,
+    });
+  } catch (error) {
+    console.error("❌ Error fetching batch dashboard data:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
 export const batchDetailSummay = async (req, res) => {
   try {
     const { batchId } = req.params;

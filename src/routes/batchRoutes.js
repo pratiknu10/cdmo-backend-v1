@@ -3,6 +3,7 @@ import express from "express";
 import {
   batchDetailSummay,
   batchGenealogy,
+  batchParentDetail,
   getBatchOverview,
   getDeviationsCapa,
   getEquipmentsDetailsByID,
@@ -13,6 +14,7 @@ import {
 // # user-story 11
 const batchRouter = express.Router();
 //  overview tab and summary table data
+batchRouter.get("/batches/parent-detail/:batchId", batchParentDetail);
 batchRouter.get("/batches/:batchId/detailed-summary", batchDetailSummay);
 batchRouter.get("/batches/overview", getBatchOverview);
 //  genealogy tab
