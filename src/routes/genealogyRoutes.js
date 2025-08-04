@@ -30,8 +30,8 @@ genealogyRouter.get(
 
 // Deviation details for popup
 genealogyRouter.get(
-  "/deviations/:deviationId/details",
-  genealogyController.getDeviationDetails
+  "/deviations/popup/:deviationId/details",
+  genealogyController.getBatchPopupDetails
 );
 
 // Batch hierarchy/lineage

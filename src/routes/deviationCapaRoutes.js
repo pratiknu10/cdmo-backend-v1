@@ -9,6 +9,17 @@ DeviationCapaRouter.get(
   "/deviations/overview",
   deviationCapaController.deviationsOverview
 );
+DeviationCapaRouter.get(
+  "/deviations/:deviationNo",
+  deviationCapaController.getCapaDeviationDetails
+);
+
+DeviationCapaRouter.get(
+  "/deviations",
+  deviationCapaController.getCapaDeviations
+);
+
+// _______________________________________________________________
 // Main deviation & CAPA overview for a batch
 DeviationCapaRouter.get(
   "/batches/:batchId/deviations-capa",
@@ -34,16 +45,16 @@ DeviationCapaRouter.get(
 );
 
 // Individual deviation details (read-only panel)
-DeviationCapaRouter.get(
-  "/deviations/:deviationId/details",
-  deviationCapaController.getDeviationDetails
-);
+// DeviationCapaRouter.get(
+//   "/deviations/:deviationId/details",
+//   deviationCapaController.getDeviationDetails
+// );
 
 // CAPA details linked to deviation
-DeviationCapaRouter.get(
-  "/deviations/:deviationId/capa",
-  deviationCapaController.getDeviationCapa
-);
+// DeviationCapaRouter.get(
+//   "/deviations/:deviationId/capa",
+//   deviationCapaController.getDeviationCapa
+// );
 
 // Export deviations data
 DeviationCapaRouter.get(

@@ -147,6 +147,165 @@ class DeviationCapaController {
       res.status(500).json({ message: "Server error", error: error.message });
     }
   }
+  async getCapaDeviations(req, res) {
+    try {
+      // Return a summary of all deviations with stats
+      const allDeviations = await DeviationModel.find({})
+        .populate({
+          path: "batch",
+          select: "api_batch_id",
+        })
+        .populate({
+          path: "raised_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.linked_capa",
+          select: "_id", // Just to check if a CAPA exists
+        });
+
+      // Calculate stats
+      const totalDeviations = allDeviations.length;
+      const criticalOpen = allDeviations.filter(
+        (d) => d.severity === "Critical" && d.status === "Open"
+      ).length;
+      const majorOpen = allDeviations.filter(
+        (d) => d.severity === "Major" && d.status === "Open"
+      ).length;
+      const capaCount = allDeviations.filter(
+        (d) => d.resolution.linked_capa
+      ).length;
+
+      let totalAgeInDays = 0;
+      allDeviations.forEach((d) => {
+        if (d.raised_at) {
+          const diffInMs = new Date() - d.raised_at;
+          totalAgeInDays += diffInMs / (1000 * 60 * 60 * 24);
+        }
+      });
+      const avgAgeInDays =
+        totalDeviations > 0 ? (totalAgeInDays / totalDeviations).toFixed(2) : 0;
+
+      const stats = {
+        totalDeviations,
+        criticalOpen,
+        majorOpen,
+        capaCount,
+        avgAgeInDays,
+      };
+
+      // Format the overview data to match the image
+      const formattedDeviations = allDeviations.map((deviation) => ({
+        _id: deviation._id,
+        deviation_no: deviation.deviation_no,
+        severity: deviation.severity,
+        status: deviation.status,
+        type: deviation.linked_entity
+          ? deviation.linked_entity.entity_type
+          : "N/A", // Assuming type from linked_entity
+        title: deviation.title,
+        description: deviation.description,
+        capa_status: deviation.resolution.linked_capa ? "Linked" : "N/A",
+        reported_by: deviation.raised_by ? deviation.raised_by.name : "N/A",
+        date: deviation.raised_at
+          ? deviation.raised_at.toISOString().split("T")[0]
+          : "N/A",
+        age_in_days: deviation.raised_at
+          ? Math.floor(
+              (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
+            )
+          : "N/A",
+        actions: {
+          view_details: `/api/deviations/${deviation.deviation_no}`,
+        },
+      }));
+
+      return res.status(200).json({
+        stats,
+        deviations: formattedDeviations,
+      });
+    } catch (error) {
+      console.error("Error fetching deviation overview data:", error);
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
+  async getCapaDeviationDetails(req, res) {
+    try {
+      const { deviationNo } = req.params;
+
+      // Fetch a single deviation with all details
+      const deviation = await DeviationModel.findOne({
+        deviation_no: deviationNo,
+      })
+        .populate({
+          path: "batch",
+          select: "api_batch_id project customer",
+          populate: [
+            {
+              path: "project",
+              select: "project_name",
+            },
+            {
+              path: "customer",
+              select: "name",
+            },
+          ],
+        })
+        .populate({
+          path: "raised_by",
+          select: "name role",
+        })
+        .populate({
+          path: "resolution.closed_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.linked_capa",
+          select: "status",
+        })
+        .populate({
+          path: "linked_entity.batch linked_entity.sample linked_entity.test_result linked_entity.process_step linked_entity.equipment",
+        });
+
+      if (!deviation) {
+        return res.status(404).json({ message: "Deviation not found" });
+      }
+
+      // Format the single deviation response
+      const result = {
+        _id: deviation._id,
+        deviation_no: deviation.deviation_no,
+        title: deviation.title,
+        description: deviation.description,
+        batch_id: deviation.batch ? deviation.batch._id : "N/A",
+        api_batch_id: deviation.batch ? deviation.batch.api_batch_id : "N/A",
+        severity: deviation.severity,
+        status: deviation.status,
+        reported_by: deviation.raised_by ? deviation.raised_by.name : "N/A",
+        reported_by_role: deviation.raised_by
+          ? deviation.raised_by.role
+          : "N/A",
+        date: deviation.raised_at,
+        age_in_days: deviation.raised_at
+          ? Math.floor(
+              (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
+            )
+          : "N/A",
+        linked_capa: deviation.resolution.linked_capa
+          ? deviation.resolution.linked_capa.status
+          : "N/A",
+        actions: {
+          view_details: `/api/deviations/${deviation._id}`,
+        },
+      };
+
+      return res.status(200).json(result);
+    } catch (error) {
+      console.error("Error fetching single deviation data:", error);
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
+
   async getBatchDeviationsCapa(req, res) {
     try {
       const { batchId } = req.params;
