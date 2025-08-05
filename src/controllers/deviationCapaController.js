@@ -87,6 +87,7 @@ class DeviationCapaController {
         return {
           _id: deviation._id,
           deviation_no: deviation.deviation_no,
+          api_batch_id: deviation.batch ? deviation.batch.api_batch_id : "N/A", // Added api_batch_id
           severity: deviation.severity,
           status: deviation.status,
           source_system: "MES", // Placeholder as it's not in schema, assuming a default
