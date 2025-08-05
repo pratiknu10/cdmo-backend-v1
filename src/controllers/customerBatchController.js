@@ -7,7 +7,7 @@ import { TestResultModel } from "../models/testResultModel.js";
 
 export const getBatchSummaryByCustomerId = async (req, res) => {
   try {
-    const { customerId } = req.params;
+    const { customerId } = req.params; // Assuming customerId is passed as a URL parameter
     const {
       page = 1,
       limit = 10,
@@ -70,95 +70,136 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
       },
       { $unwind: { path: "$project", preserveNullAndEmptyArrays: true } },
 
-      // Lookup samples count (optimized)
+      // Optimized Lookup for samples count
       {
         $lookup: {
           from: "samples",
-          let: { batchId: "$_id" },
+          localField: "_id",
+          foreignField: "batch",
+          as: "samplesData",
+          pipeline: [{ $count: "count" }],
+        },
+      },
+      {
+        $addFields: {
+          samplesCount: {
+            $ifNull: [{ $arrayElemAt: ["$samplesData.count", 0] }, 0],
+          },
+        },
+      },
+
+      // Optimized Lookup for deviations and count critical/non-critical
+      {
+        $lookup: {
+          from: "deviations",
+          localField: "_id",
+          foreignField: "batch",
+          as: "deviationsAggregatedData",
           pipeline: [
-            { $match: { $expr: { $eq: ["$batch", "$batchId"] } } },
             {
-              $lookup: {
-                from: "testresults",
-                let: { sampleId: "$_id" },
-                pipeline: [
-                  {
-                    $match: {
-                      $expr: {
-                        $and: [
-                          { $eq: ["$sample", "$sampleId"] },
-                          { $in: ["$result", ["Pending", "In-Progress"]] },
-                        ],
-                      },
-                    },
-                  },
-                  { $count: "pendingCount" },
-                ],
-                as: "pendingTests",
+              $group: {
+                _id: null, // Group all deviations for the batch into a single document
+                total: { $sum: 1 },
+                critical: {
+                  $sum: { $cond: [{ $eq: ["$severity", "Critical"] }, 1, 0] },
+                },
+                non_critical: {
+                  $sum: { $cond: [{ $ne: ["$severity", "Critical"] }, 1, 0] },
+                },
               },
             },
             {
               $project: {
-                hasPendingTests: {
-                  $gt: [{ $size: "$pendingTests" }, 0],
-                },
+                _id: 0,
+                total: 1,
+                critical: 1,
+                non_critical: 1,
               },
             },
+            { $limit: 1 }, // Ensure only one aggregated document is returned per batch
           ],
-          as: "sampleData",
         },
       },
-
-      // Lookup open deviations count (optimized)
-      {
-        $lookup: {
-          from: "deviations",
-          let: { batchId: "$_id" },
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [
-                    { $eq: ["$batch", "$batchId"] },
-                    { $in: ["$status", ["Open", "In-Progress"]] },
-                  ],
-                },
-              },
-            },
-            { $count: "openCount" },
-          ],
-          as: "openDeviations",
-        },
-      },
-
-      // Add computed fields
       {
         $addFields: {
-          // Ensure project exists with defaults
-          project: {
+          // Extract counts from the single object in deviationsAggregatedData array
+          // These are intermediate fields to be used in the final $project
+          totalDeviationsCount: {
             $ifNull: [
-              "$project",
-              {
-                project_name: "Unknown Product",
-                project_code: "N/A",
-              },
+              { $arrayElemAt: ["$deviationsAggregatedData.total", 0] },
+              0,
             ],
           },
+          criticalDeviationsCount: {
+            $ifNull: [
+              { $arrayElemAt: ["$deviationsAggregatedData.critical", 0] },
+              0,
+            ],
+          },
+          nonCriticalDeviationsCount: {
+            $ifNull: [
+              { $arrayElemAt: ["$deviationsAggregatedData.non_critical", 0] },
+              0,
+            ],
+          },
+        },
+      },
 
-          openSamplesCount: {
-            $size: {
-              $filter: {
-                input: "$sampleData",
-                cond: { $eq: ["$this.hasPendingTests", true] },
+      // Optimized Lookup for process steps and progress calculation
+      {
+        $lookup: {
+          from: "processsteps",
+          localField: "_id",
+          foreignField: "batch",
+          as: "processStepsData",
+          pipeline: [
+            {
+              $group: {
+                _id: null,
+                total: { $sum: 1 },
+                completed: { $sum: { $cond: ["$end_timestamp", 1, 0] } },
               },
             },
+            {
+              $project: {
+                _id: 0,
+                total: 1,
+                completed: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          totalProcessSteps: {
+            $ifNull: [{ $arrayElemAt: ["$processStepsData.total", 0] }, 0],
           },
-
-          openDeviationsCount: {
-            $ifNull: [{ $arrayElemAt: ["$openDeviations.openCount", 0] }, 0],
+          completedProcessSteps: {
+            $ifNull: [{ $arrayElemAt: ["$processStepsData.completed", 0] }, 0],
           },
+        },
+      },
+      {
+        $addFields: {
+          progress: {
+            $cond: [
+              { $gt: ["$totalProcessSteps", 0] },
+              {
+                $multiply: [
+                  { $divide: ["$completedProcessSteps", "$totalProcessSteps"] },
+                  100,
+                ],
+              },
+              0,
+            ],
+          },
+        },
+      },
 
-          // Map status for UI
+      // Add computed fields for UI display
+      {
+        $addFields: {
           displayStatus: {
             $switch: {
               branches: [
@@ -173,7 +214,6 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
               default: { $ifNull: ["$status", "Unknown"] },
             },
           },
-
           statusColor: {
             $switch: {
               branches: [
@@ -185,6 +225,8 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
               default: "orange",
             },
           },
+          // Placeholder for Target Release - assuming it's a field in BatchModel or derived
+          target_release: { $ifNull: ["$released_at", "N/A"] },
         },
       },
     ];
@@ -239,14 +281,24 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
           api_batch_id: 1,
           displayStatus: 1,
           statusColor: 1,
-          openSamplesCount: 1,
-          openDeviationsCount: 1,
+          // Project the calculated counts for deviations and samples
+          deviations: {
+            // Directly use the aggregated object from the lookup result
+            $ifNull: [
+              { $arrayElemAt: ["$deviationsAggregatedData", 0] },
+              { total: 0, critical: 0, non_critical: 0 }, // Default if no deviations found
+            ],
+          },
+          samples: "$samplesCount",
+          progress: { $round: ["$progress", 0] }, // Round progress to whole number
           createdAt: 1,
           released_at: 1,
           project: {
             project_name: 1,
             project_code: 1,
           },
+          customer: "$project.customer.name", // Assuming customer name is populated under project
+          // Removed explicit exclusions to avoid the "Cannot do exclusion on field... in inclusion projection" error
         },
       },
     ]);
