@@ -14,7 +14,243 @@ class SamplesTestsController {
   // Route: GET /api/batches/:batchId/samples-tests
   // Purpose: Main endpoint combining overview KPIs and test results
   // ================================
+  // async _getSampleOverviewData(batchId) {
+  //   const overviewData = await SampleModel.aggregate([
+  //     { $match: { batch: new mongoose.Types.ObjectId(batchId) } },
 
+  //     {
+  //       $lookup: {
+  //         from: "testresults",
+  //         localField: "_id",
+  //         foreignField: "sample",
+  //         as: "testResults",
+  //       },
+  //     },
+
+  //     {
+  //       $lookup: {
+  //         from: "deviations",
+  //         let: { sampleId: "$_id" },
+  //         pipeline: [
+  //           {
+  //             $match: {
+  //               $expr: { $eq: ["$linked_entity.sample", "$$sampleId"] },
+  //             },
+  //           },
+  //         ],
+  //         as: "deviations",
+  //       },
+  //     },
+
+  //     {
+  //       $group: {
+  //         _id: null,
+  //         totalSamples: { $sum: 1 },
+  //         samplesWithTests: {
+  //           $sum: {
+  //             $cond: [{ $gt: [{ $size: "$testResults" }, 0] }, 1, 0],
+  //           },
+  //         },
+  //         samplesWithDeviations: {
+  //           $sum: {
+  //             $cond: [{ $gt: [{ $size: "$deviations" }, 0] }, 1, 0],
+  //           },
+  //         },
+  //         totalTests: { $sum: { $size: "$testResults" } },
+  //         passedTests: {
+  //           $sum: {
+  //             $size: {
+  //               $filter: {
+  //                 input: "$testResults",
+  //                 cond: { $eq: ["$$this.result", "Pass"] },
+  //               },
+  //             },
+  //           },
+  //         },
+  //         failedTests: {
+  //           $sum: {
+  //             $size: {
+  //               $filter: {
+  //                 input: "$testResults",
+  //                 cond: { $eq: ["$$this.result", "Fail"] },
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+
+  //     {
+  //       $project: {
+  //         totalSamplesNeeded: 6, // This could be dynamic based on batch requirements
+  //         samplesTaken: "$totalSamples",
+  //         completionPercentage: {
+  //           $multiply: [{ $divide: ["$totalSamples", 6] }, 100],
+  //         },
+  //         samplesWithDeviations: "$samplesWithDeviations",
+  //         additionalMetrics: {
+  //           totalTests: "$totalTests",
+  //           passedTests: "$passedTests",
+  //           failedTests: "$failedTests",
+  //           passRate: {
+  //             $cond: [
+  //               { $gt: ["$totalTests", 0] },
+  //               {
+  //                 $multiply: [
+  //                   { $divide: ["$passedTests", "$totalTests"] },
+  //                   100,
+  //                 ],
+  //               },
+  //               0,
+  //             ],
+  //           },
+  //         },
+  //       },
+  //     },
+  //   ]);
+
+  //   return (
+  //     overviewData[0] || {
+  //       totalSamplesNeeded: 6,
+  //       samplesTaken: 0,
+  //       completionPercentage: 0,
+  //       samplesWithDeviations: 0,
+  //       additionalMetrics: {
+  //         totalTests: 0,
+  //         passedTests: 0,
+  //         failedTests: 0,
+  //         passRate: 0,
+  //       },
+  //     }
+  //   );
+  // }
+
+  // async _getTestResultsData(batchId, options) {
+  //   const { page, limit, status, search, sortBy, sortOrder } = options;
+
+  //   // Build filter conditions
+  //   const matchConditions = {
+  //     "sample.batch": new mongoose.Types.ObjectId(batchId),
+  //   };
+
+  //   if (status) {
+  //     matchConditions.result = status;
+  //   }
+
+  //   // Build aggregation pipeline
+  //   const pipeline = [
+  //     {
+  //       $lookup: {
+  //         from: "samples",
+  //         localField: "sample",
+  //         foreignField: "_id",
+  //         as: "sample",
+  //       },
+  //     },
+  //     { $unwind: "$sample" },
+
+  //     { $match: matchConditions },
+
+  //     {
+  //       $lookup: {
+  //         from: "users",
+  //         localField: "tested_by",
+  //         foreignField: "_id",
+  //         as: "analyst",
+  //       },
+  //     },
+  //   ];
+
+  //   // Add search filter
+  //   if (search) {
+  //     pipeline.push({
+  //       $match: {
+  //         $or: [
+  //           { "sample.sample_id": { $regex: search, $options: "i" } },
+  //           { parameter: { $regex: search, $options: "i" } },
+  //           { method_id: { $regex: search, $options: "i" } },
+  //         ],
+  //       },
+  //     });
+  //   }
+
+  //   // Add projection
+  //   pipeline.push({
+  //     $project: {
+  //       sampleId: "$sample.sample_id",
+  //       testName: "$parameter",
+  //       method: "$method_id",
+  //       result: {
+  //         $cond: [
+  //           { $eq: [{ $type: "$value" }, "number"] },
+  //           {
+  //             $concat: [
+  //               { $toString: "$value" },
+  //               " ",
+  //               { $ifNull: ["$unit", ""] },
+  //             ],
+  //           },
+  //           { $toString: "$value" },
+  //         ],
+  //       },
+  //       lowerSpec: { $ifNull: ["$lower_spec", "N/A"] },
+  //       upperSpec: { $ifNull: ["$upper_spec", "N/A"] },
+  //       status: "$result",
+  //       analyst: {
+  //         $ifNull: [{ $arrayElemAt: ["$analyst.name", 0] }, "Unknown"],
+  //       },
+  //       date: {
+  //         $dateToString: {
+  //           format: "%Y-%m-%d",
+  //           date: "$tested_at",
+  //         },
+  //       },
+  //       tested_at: "$tested_at",
+  //       // For color coding in UI
+  //       statusColor: {
+  //         $switch: {
+  //           branches: [
+  //             { case: { $eq: ["$result", "Pass"] }, then: "green" },
+  //             { case: { $eq: ["$result", "Fail"] }, then: "red" },
+  //             {
+  //               case: { $in: ["$result", ["Pending", "In-Progress"]] },
+  //               then: "yellow",
+  //             },
+  //           ],
+  //           default: "gray",
+  //         },
+  //       },
+  //     },
+  //   });
+
+  //   // Get total count for pagination
+  //   const totalCountPipeline = [...pipeline];
+  //   totalCountPipeline.push({ $count: "total" });
+  //   const [totalCountResult] = await TestResultModel.aggregate(
+  //     totalCountPipeline
+  //   );
+  //   const totalCount = totalCountResult?.total || 0;
+
+  //   // Add sorting and pagination
+  //   pipeline.push({ $sort: { [sortBy]: sortOrder === "desc" ? -1 : 1 } });
+  //   pipeline.push({ $skip: (page - 1) * limit });
+  //   pipeline.push({ $limit: limit });
+
+  //   const results = await TestResultModel.aggregate(pipeline);
+
+  //   return {
+  //     results,
+  //     totalCount,
+  //     pagination: {
+  //       currentPage: page,
+  //       totalPages: Math.ceil(totalCount / limit),
+  //       totalRecords: totalCount,
+  //       hasNext: page < Math.ceil(totalCount / limit),
+  //       hasPrev: page > 1,
+  //       limit,
+  //     },
+  //   };
+  // }
   async samplesOverview(req, res) {
     try {
       // Find all samples and populate the necessary fields from other collections.
@@ -38,7 +274,7 @@ class SamplesTestsController {
           select: "name",
         })
         .populate({
-          path: "test_results", // Populate all test results to calculate progress and status
+          path: "test_results", // Populate all test results for detailed display
         });
 
       // Calculate stats for the stats object
@@ -98,22 +334,13 @@ class SamplesTestsController {
             ? `${passedTests}/${totalTests} passed`
             : "No tests run";
 
-        // Logic for "Analyst" and "Pulled" date - this is not in the Sample schema,
-        // but is in the TestResult schema. We'll get the last analyst and date.
-        let analystName = "N/A";
-        let pulledDate = "N/A";
-        if (sample.test_results && sample.test_results.length > 0) {
-          // Find the most recent test result
-          const mostRecentTest = sample.test_results.reduce((prev, current) =>
-            prev.tested_at > current.tested_at ? prev : current
-          );
-          analystName = mostRecentTest.tested_by
-            ? mostRecentTest.tested_by.name
-            : "N/A";
-          pulledDate = mostRecentTest.tested_at
-            ? mostRecentTest.tested_at.toISOString().split("T")[0]
-            : "N/A";
-        }
+        // Logic for "Analyst" and "Pulled" date (from collected_by and collected_at)
+        const analystName = sample.collected_by
+          ? sample.collected_by.name
+          : "N/A";
+        const pulledDate = sample.collected_at
+          ? new Date(sample.collected_at).toISOString().split("T")[0]
+          : "N/A";
 
         // Logic for "Sub-Process & Location" - Placeholder, as this is not in the schema.
         const subProcessLocation = "N/A";
@@ -123,6 +350,23 @@ class SamplesTestsController {
 
         // Logic for "Disposition" - Placeholder.
         const disposition = "N/A";
+
+        // Format the detailed test results for this sample
+        const detailedTests = sample.test_results.map((testResult) => ({
+          _id: testResult._id,
+          testId: testResult.test_id || "N/A",
+          testName: testResult.parameter || "N/A", // Using 'parameter' as Test Name
+          testMethod: testResult.method_id || "N/A", // Using 'method_id' as Test Method
+          resultValue: testResult.value || "N/A",
+          resultUnit: testResult.unit || "N/A",
+          resultStatus: testResult.result || "N/A", // 'Pass', 'Fail', 'NA'
+          specificationRange: "N/A", // Not directly in schema, placeholder
+          testTimestamp: testResult.tested_at
+            ? new Date(testResult.tested_at).toISOString().split("T")[0]
+            : "N/A",
+          analystId: testResult.tested_by ? testResult.tested_by.name : "N/A", // Assuming tested_by is User ObjectId
+          approvalStatus: "N/A", // Not directly in schema, placeholder
+        }));
 
         return {
           _id: sample._id, // Sample object ID
@@ -140,7 +384,6 @@ class SamplesTestsController {
           analyst: {
             name: analystName,
             pulled_date: pulledDate,
-            // 'By' is likely the user who performed the last test.
             by: sample.collected_by ? sample.collected_by.name : "N/A",
           },
           priority: priority,
@@ -150,6 +393,7 @@ class SamplesTestsController {
             view_details: `/api/samples/${sample._id}`,
             export_report: `/api/samples/${sample._id}/report`,
           },
+          tests: detailedTests, // Include the detailed test results here
         };
       });
 
@@ -164,74 +408,74 @@ class SamplesTestsController {
     }
   }
 
-  async getBatchSamplesTests(req, res) {
-    try {
-      const { batchId } = req.params;
-      const {
-        page = 1,
-        limit = 10,
-        status = "",
-        search = "",
-        sortBy = "tested_at",
-        sortOrder = "desc",
-      } = req.query;
+  // async getBatchSamplesTests(req, res) {
+  //   try {
+  //     const { batchId } = req.params;
+  //     const {
+  //       page = 1,
+  //       limit = 10,
+  //       status = "",
+  //       search = "",
+  //       sortBy = "tested_at",
+  //       sortOrder = "desc",
+  //     } = req.query;
 
-      // Validate batch exists
-      const batch = await BatchModel.findById(batchId)
-        .populate("customer", "name")
-        .populate("project", "project_name");
+  //     // Validate batch exists
+  //     const batch = await BatchModel.findById(batchId)
+  //       .populate("customer", "name")
+  //       .populate("project", "project_name");
 
-      if (!batch) {
-        return res.status(404).json({
-          success: false,
-          message: "Batch not found",
-        });
-      }
+  //     if (!batch) {
+  //       return res.status(404).json({
+  //         success: false,
+  //         message: "Batch not found",
+  //       });
+  //     }
 
-      // Get sample overview KPIs
-      const sampleOverview = await this._getSampleOverviewData(batchId);
+  //     // Get sample overview KPIs
+  //     const sampleOverview = await this._getSampleOverviewData(batchId);
 
-      // Get test results with filtering
-      const testResults = await this._getTestResultsData(batchId, {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        status,
-        search,
-        sortBy,
-        sortOrder,
-      });
+  //     // Get test results with filtering
+  //     const testResults = await this._getTestResultsData(batchId, {
+  //       page: parseInt(page),
+  //       limit: parseInt(limit),
+  //       status,
+  //       search,
+  //       sortBy,
+  //       sortOrder,
+  //     });
 
-      // Audit log
-      console.log(
-        `📊 Samples & Tests accessed - Batch: ${batchId}, User: ${
-          req.headers["user-id"] || "anonymous"
-        }`
-      );
+  //     // Audit log
+  //     console.log(
+  //       `📊 Samples & Tests accessed - Batch: ${batchId}, User: ${
+  //         req.headers["user-id"] || "anonymous"
+  //       }`
+  //     );
 
-      res.json({
-        success: true,
-        data: {
-          batch: {
-            _id: batch._id,
-            api_batch_id: batch.api_batch_id,
-            status: batch.status,
-            customer: batch.customer?.name || "Unknown Customer",
-            project: batch.project?.project_name || "Unknown Project",
-          },
-          sampleOverview,
-          testResults: testResults.results,
-          pagination: testResults.pagination,
-        },
-      });
-    } catch (error) {
-      console.error("❌ Error fetching samples & tests:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      });
-    }
-  }
+  //     res.json({
+  //       success: true,
+  //       data: {
+  //         batch: {
+  //           _id: batch._id,
+  //           api_batch_id: batch.api_batch_id,
+  //           status: batch.status,
+  //           customer: batch.customer?.name || "Unknown Customer",
+  //           project: batch.project?.project_name || "Unknown Project",
+  //         },
+  //         sampleOverview,
+  //         testResults: testResults.results,
+  //         pagination: testResults.pagination,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error fetching samples & tests:", error);
+  //     res.status(500).json({
+  //       success: false,
+  //       message: "Internal server error",
+  //       error: error.message,
+  //     });
+  //   }
+  // }
 
   // ================================
   // GET SAMPLE OVERVIEW KPIs
@@ -239,25 +483,25 @@ class SamplesTestsController {
   // Purpose: Get sample overview panel metrics
   // ================================
 
-  async getSampleOverview(req, res) {
-    try {
-      const { batchId } = req.params;
+  // async getSampleOverview(req, res) {
+  //   try {
+  //     const { batchId } = req.params;
 
-      const overviewData = await this._getSampleOverviewData(batchId);
+  //     const overviewData = await this._getSampleOverviewData(batchId);
 
-      res.json({
-        success: true,
-        data: overviewData,
-      });
-    } catch (error) {
-      console.error("❌ Error fetching sample overview:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-        error: error.message,
-      });
-    }
-  }
+  //     res.json({
+  //       success: true,
+  //       data: overviewData,
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error fetching sample overview:", error);
+  //     res.status(500).json({
+  //       success: false,
+  //       message: "Internal server error",
+  //       error: error.message,
+  //     });
+  //   }
+  // }
 
   // ================================
   // GET TEST RESULTS TABLE
@@ -879,243 +1123,6 @@ class SamplesTestsController {
   // PRIVATE HELPER METHODS
   // ================================
 
-  async _getSampleOverviewData(batchId) {
-    const overviewData = await SampleModel.aggregate([
-      { $match: { batch: new mongoose.Types.ObjectId(batchId) } },
-
-      {
-        $lookup: {
-          from: "testresults",
-          localField: "_id",
-          foreignField: "sample",
-          as: "testResults",
-        },
-      },
-
-      {
-        $lookup: {
-          from: "deviations",
-          let: { sampleId: "$_id" },
-          pipeline: [
-            {
-              $match: {
-                $expr: { $eq: ["$linked_entity.sample", "$$sampleId"] },
-              },
-            },
-          ],
-          as: "deviations",
-        },
-      },
-
-      {
-        $group: {
-          _id: null,
-          totalSamples: { $sum: 1 },
-          samplesWithTests: {
-            $sum: {
-              $cond: [{ $gt: [{ $size: "$testResults" }, 0] }, 1, 0],
-            },
-          },
-          samplesWithDeviations: {
-            $sum: {
-              $cond: [{ $gt: [{ $size: "$deviations" }, 0] }, 1, 0],
-            },
-          },
-          totalTests: { $sum: { $size: "$testResults" } },
-          passedTests: {
-            $sum: {
-              $size: {
-                $filter: {
-                  input: "$testResults",
-                  cond: { $eq: ["$$this.result", "Pass"] },
-                },
-              },
-            },
-          },
-          failedTests: {
-            $sum: {
-              $size: {
-                $filter: {
-                  input: "$testResults",
-                  cond: { $eq: ["$$this.result", "Fail"] },
-                },
-              },
-            },
-          },
-        },
-      },
-
-      {
-        $project: {
-          totalSamplesNeeded: 6, // This could be dynamic based on batch requirements
-          samplesTaken: "$totalSamples",
-          completionPercentage: {
-            $multiply: [{ $divide: ["$totalSamples", 6] }, 100],
-          },
-          samplesWithDeviations: "$samplesWithDeviations",
-          additionalMetrics: {
-            totalTests: "$totalTests",
-            passedTests: "$passedTests",
-            failedTests: "$failedTests",
-            passRate: {
-              $cond: [
-                { $gt: ["$totalTests", 0] },
-                {
-                  $multiply: [
-                    { $divide: ["$passedTests", "$totalTests"] },
-                    100,
-                  ],
-                },
-                0,
-              ],
-            },
-          },
-        },
-      },
-    ]);
-
-    return (
-      overviewData[0] || {
-        totalSamplesNeeded: 6,
-        samplesTaken: 0,
-        completionPercentage: 0,
-        samplesWithDeviations: 0,
-        additionalMetrics: {
-          totalTests: 0,
-          passedTests: 0,
-          failedTests: 0,
-          passRate: 0,
-        },
-      }
-    );
-  }
-
-  async _getTestResultsData(batchId, options) {
-    const { page, limit, status, search, sortBy, sortOrder } = options;
-
-    // Build filter conditions
-    const matchConditions = {
-      "sample.batch": new mongoose.Types.ObjectId(batchId),
-    };
-
-    if (status) {
-      matchConditions.result = status;
-    }
-
-    // Build aggregation pipeline
-    const pipeline = [
-      {
-        $lookup: {
-          from: "samples",
-          localField: "sample",
-          foreignField: "_id",
-          as: "sample",
-        },
-      },
-      { $unwind: "$sample" },
-
-      { $match: matchConditions },
-
-      {
-        $lookup: {
-          from: "users",
-          localField: "tested_by",
-          foreignField: "_id",
-          as: "analyst",
-        },
-      },
-    ];
-
-    // Add search filter
-    if (search) {
-      pipeline.push({
-        $match: {
-          $or: [
-            { "sample.sample_id": { $regex: search, $options: "i" } },
-            { parameter: { $regex: search, $options: "i" } },
-            { method_id: { $regex: search, $options: "i" } },
-          ],
-        },
-      });
-    }
-
-    // Add projection
-    pipeline.push({
-      $project: {
-        sampleId: "$sample.sample_id",
-        testName: "$parameter",
-        method: "$method_id",
-        result: {
-          $cond: [
-            { $eq: [{ $type: "$value" }, "number"] },
-            {
-              $concat: [
-                { $toString: "$value" },
-                " ",
-                { $ifNull: ["$unit", ""] },
-              ],
-            },
-            { $toString: "$value" },
-          ],
-        },
-        lowerSpec: { $ifNull: ["$lower_spec", "N/A"] },
-        upperSpec: { $ifNull: ["$upper_spec", "N/A"] },
-        status: "$result",
-        analyst: {
-          $ifNull: [{ $arrayElemAt: ["$analyst.name", 0] }, "Unknown"],
-        },
-        date: {
-          $dateToString: {
-            format: "%Y-%m-%d",
-            date: "$tested_at",
-          },
-        },
-        tested_at: "$tested_at",
-        // For color coding in UI
-        statusColor: {
-          $switch: {
-            branches: [
-              { case: { $eq: ["$result", "Pass"] }, then: "green" },
-              { case: { $eq: ["$result", "Fail"] }, then: "red" },
-              {
-                case: { $in: ["$result", ["Pending", "In-Progress"]] },
-                then: "yellow",
-              },
-            ],
-            default: "gray",
-          },
-        },
-      },
-    });
-
-    // Get total count for pagination
-    const totalCountPipeline = [...pipeline];
-    totalCountPipeline.push({ $count: "total" });
-    const [totalCountResult] = await TestResultModel.aggregate(
-      totalCountPipeline
-    );
-    const totalCount = totalCountResult?.total || 0;
-
-    // Add sorting and pagination
-    pipeline.push({ $sort: { [sortBy]: sortOrder === "desc" ? -1 : 1 } });
-    pipeline.push({ $skip: (page - 1) * limit });
-    pipeline.push({ $limit: limit });
-
-    const results = await TestResultModel.aggregate(pipeline);
-
-    return {
-      results,
-      totalCount,
-      pagination: {
-        currentPage: page,
-        totalPages: Math.ceil(totalCount / limit),
-        totalRecords: totalCount,
-        hasNext: page < Math.ceil(totalCount / limit),
-        hasPrev: page > 1,
-        limit,
-      },
-    };
-  }
   async getLimsSample(req, res) {
     try {
       const { batchId } = req.params;
