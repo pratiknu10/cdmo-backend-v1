@@ -6,6 +6,11 @@ import mongoose from "mongoose";
 import { BatchModel } from "../models/batchModel.js";
 import { DeviationModel } from "../models/deviationModel.js";
 import { ProjectModel } from "../models/projectModel.js";
+import { BatchComponentModel } from "../models/batchComponentModel.js";
+import { EquipmentModel } from "../models/equipmentModel.js";
+import { TestResultModel } from "../models/testResultModel.js";
+import { ProcessStepModel } from "../models/processStepModel.js";
+import { SampleModel } from "../models/sampleModel.js";
 class DeviationCapaController {
   // ================================
   // GET BATCH DEVIATIONS & CAPA OVERVIEW
@@ -14,8 +19,9 @@ class DeviationCapaController {
   // ================================
   async deviationsOverview(req, res) {
     try {
-      // Find all deviations and populate the necessary fields from other collections.
-      const deviations = await DeviationModel.find({})
+      // Return a summary of all deviations with stats
+      // Increased maxTimeMS to prevent timeout for large datasets
+      const allDeviations = await DeviationModel.find({})
         .populate({
           path: "batch",
           select: "api_batch_id project customer", // Select project and customer from the Batch model
@@ -37,113 +43,89 @@ class DeviationCapaController {
         .populate({
           path: "resolution.closed_by",
           select: "name",
-        });
+        })
+        .populate({
+          path: "resolution.linked_capa",
+          select: "_id closed_at", // Populate CAPA to get its _id and closed_at for resolved_on
+        })
+        .maxTimeMS(30000); // Set timeout to 30 seconds
 
-      // The previous manual population of project and customer is no longer needed.
-      // The main query now handles this efficiently.
-
-      // Calculate stats for the stats object
-      const totalDeviationsCount = deviations.length;
-      const openDeviationsCount = deviations.filter(
+      // Calculate stats
+      const totalDeviations = allDeviations.length;
+      const openDeviationsCount = allDeviations.filter(
         (d) => d.status === "Open"
       ).length;
-      const criticalDeviationsCount = deviations.filter(
+      const criticalDeviationsCount = allDeviations.filter(
         (d) => d.severity === "Critical"
       ).length;
       const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
 
-      // Calculate average age in days
       let totalAgeInDays = 0;
-      deviations.forEach((d) => {
-        const raisedDate = d.raised_at;
-        if (raisedDate) {
-          const diffInMs = new Date() - raisedDate;
+      allDeviations.forEach((d) => {
+        if (d.raised_at) {
+          const diffInMs = new Date() - d.raised_at;
           totalAgeInDays += diffInMs / (1000 * 60 * 60 * 24);
         }
       });
       const averageAgeInDays =
-        totalDeviationsCount > 0
-          ? (totalAgeInDays / totalDeviationsCount).toFixed(2)
-          : 0;
+        totalDeviations > 0 ? (totalAgeInDays / totalDeviations).toFixed(2) : 0;
 
       const stats = {
-        totalDeviationsCount,
+        totalDeviations,
         openDeviationsCount,
         criticalDeviationsCount,
         investigatingCount,
         averageAgeInDays,
       };
 
-      // Format the data to match the desired response structure, including the deviation and batch IDs
-      const formattedDeviations = deviations.map((deviation) => {
-        // Logic to determine "Assigned To". Your schema doesn't have a direct field,
-        // so we'll use a placeholder or assume it's the `raised_by` user for now.
-        const assignedTo = deviation.raised_by
-          ? deviation.raised_by.name
-          : "N/A";
-
-        // Logic to get the sub-process. This is not directly in the schema,
-        // so it will be a placeholder for now.
-        const subProcess = "N/A";
-
-        // Logic for "Age". We'll calculate it from `raised_at`
-        const ageInDays = deviation.raised_at
-          ? Math.floor(
-              (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
-            )
-          : "N/A";
-
-        // Logic for "Priority". This is not in the schema, so we'll map severity.
-        let priority;
-        switch (deviation.severity) {
-          case "Critical":
-            priority = "Urgent";
-            break;
-          case "Major":
-            priority = "High";
-            break;
-          case "Minor":
-            priority = "Low";
-            break;
-          default:
-            priority = "N/A";
-        }
+      // Format the overview data to match the image
+      // linked_details will NOT be populated here. It will be an empty object.
+      const formattedDeviations = allDeviations.map((deviation) => {
+        const entityType = deviation.linked_entity?.entity_type;
+        const entityId = deviation.linked_entity?.entity_id; // This is the raw ID (string or ObjectId)
 
         return {
-          _id: deviation._id, // Deviation object ID
+          _id: deviation._id,
           deviation_no: deviation.deviation_no,
-          batch_id: deviation.batch._id, // Batch object ID
-          api_batch_id: deviation.batch.api_batch_id,
-          title: deviation.title,
-          description: deviation.description,
-          project_name:
-            deviation.batch && deviation.batch.project
-              ? deviation.batch.project.project_name
-              : "N/A",
-          customer_name:
-            deviation.batch && deviation.batch.customer
-              ? deviation.batch.customer.name
-              : "N/A",
-          sub_process: subProcess,
           severity: deviation.severity,
           status: deviation.status,
-          priority: priority,
-          age: ageInDays,
-          raised_by: assignedTo, // Assuming raised_by is the assigned user
-          raised_at: deviation.raised_at,
+          source_system: "MES", // Placeholder as it's not in schema, assuming a default
+          deviation_type: entityType || "N/A",
+          linked_entity_id: entityId || "N/A", // Keep the original entityId
+          resolved_on: deviation.resolution?.closed_at
+            ? new Date(deviation.resolution.closed_at)
+                .toISOString()
+                .split("T")[0]
+            : "N/A",
+          CAPA_id: deviation.resolution?.linked_capa?._id || "N/A",
+          type: entityType || "N/A",
+          title: deviation.title,
+          description: deviation.description,
+          capa_status: deviation.resolution.linked_capa ? "Linked" : "N/A",
+          reported_by: deviation.raised_by ? deviation.raised_by.name : "N/A",
+          date: deviation.raised_at
+            ? new Date(deviation.raised_at).toISOString().split("T")[0]
+            : "N/A",
+          age_in_days: deviation.raised_at
+            ? Math.floor(
+                (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
+              )
+            : "N/A",
           actions: {
-            view_details: `/api/deviations/${deviation._id}`,
+            view_details: `/api/deviations/${deviation.deviation_no}`, // Link to single deviation details
+            // This will be the new API endpoint for linked details, using deviation._id
+            view_linked_details: `/api/deviations/linked-details/${deviation._id}`,
           },
+          linked_details: {}, // This will be an empty object in the overview
         };
       });
 
-      res.status(200).json({
-        count: formattedDeviations.length,
-        deviations: formattedDeviations,
+      return res.status(200).json({
         stats,
+        deviations: formattedDeviations,
       });
     } catch (error) {
-      console.error("Error fetching deviation overview:", error);
+      console.error("Error fetching deviation overview data:", error);
       res.status(500).json({ message: "Server error", error: error.message });
     }
   }
