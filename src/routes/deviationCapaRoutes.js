@@ -5,9 +5,21 @@ import deviationCapaController from "../controllers/deviationCapaController.js";
 
 const DeviationCapaRouter = express.Router();
 
+// ___ FOR FETCHING ALL DEVIATIONS WITHOUT LINKED ENTITES _____
 DeviationCapaRouter.get(
   "/deviations/overview",
   deviationCapaController.deviationsOverview
+);
+// ___ FOR FETCHING DEVIATION LINKED ENTITES  _____
+
+DeviationCapaRouter.get(
+  "/deviations/linked/:deviationNo",
+  deviationCapaController.deviationLinkedEntity
+);
+// ___ FOR EXPORTING ALL DEVIATIONS WITH LINKED ENTITES _____
+DeviationCapaRouter.get(
+  "/deviations/overview/export",
+  deviationCapaController.exportDeviationsOverview
 );
 DeviationCapaRouter.get(
   "/deviations/:deviationNo",
