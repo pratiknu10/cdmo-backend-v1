@@ -389,14 +389,11 @@ export const releaseReport = async (req, res) => {
     // --- Data Fetching for Report Sections ---
 
     // Manufacturing Summary Data
-    // Get unique equipment IDs from equipment_events
     const uniqueEquipmentIds = [
       ...new Set(
         batch.equipment_events.map((event) => event.equipment).filter(Boolean)
       ),
     ];
-
-    // Fetch actual Equipment documents based on these IDs
     const equipmentDetails = await EquipmentModel.find({
       _id: { $in: uniqueEquipmentIds },
     });
@@ -404,14 +401,11 @@ export const releaseReport = async (req, res) => {
       equipmentDetails.map((eq) => [eq._id, eq])
     );
 
-    let equipmentUsedList = uniqueEquipmentIds; // List of equipment IDs used
-    let operatorIds = new Set(); // Assuming operator_id might be on ProcessStep or Batch
-
-    // Fetch process steps to get operator info and confirm equipment usage if needed
+    let equipmentUsedList = uniqueEquipmentIds;
+    let operatorIds = new Set();
     const processSteps = await ProcessStepModel.find({ batch: batch._id });
     processSteps.forEach((step) => {
       if (step.operator_id) {
-        // Assuming operator_id might be on ProcessStep
         operatorIds.add(step.operator_id);
       }
     });
@@ -419,16 +413,15 @@ export const releaseReport = async (req, res) => {
     let criticalParametersMet = "Yes"; // Placeholder
     let process = "Direct Compression"; // Placeholder
 
-    // Fetch deviations for the batch
-    const deviations = await DeviationModel.find({ batch: batch._id }).populate(
-      {
-        path: "resolution.linked_capa",
-        populate: {
-          path: "owner", // Populate the CAPA owner (assuming this is the QA approver)
-          select: "name",
-        },
-      }
-    );
+    const deviations = await DeviationModel.find({
+      batch: batch._id,
+    }).populate({
+      path: "resolution.linked_capa",
+      populate: {
+        path: "owner",
+        select: "name",
+      },
+    });
 
     const closedDeviationsCount = deviations.filter(
       (d) => d.status === "Closed"
@@ -438,7 +431,7 @@ export const releaseReport = async (req, res) => {
     const samples = await SampleModel.find({ batch: batch._id }).populate({
       path: "test_results",
       populate: {
-        path: "tested_by", // Assuming tested_by is a user reference on TestResult
+        path: "tested_by",
         select: "name",
       },
     });
@@ -459,25 +452,25 @@ export const releaseReport = async (req, res) => {
             : "N/A",
           resultEntryTime: testResult.updatedAt
             ? dateFns.format(new Date(testResult.updatedAt), "yyyy-MM-dd HH:mm")
-            : "N/A", // Assuming result entry time is testResult's updatedAt
-          instrument: testResult.instrument_id || "N/A", // Assuming instrument_id field on TestResult
-          status: testResult.result || "N/A", // 'Pass', 'Fail', etc.
+            : "N/A",
+          instrument: testResult.instrument_id || "N/A",
+          status: testResult.result || "N/A",
         });
       }
     }
 
-    // Deviation & CAPA Summary Data (already fetched 'deviations' above)
+    // Deviation & CAPA Summary Data
     const deviationCapaSummary = deviations.map((dev) => ({
       deviationId: dev.deviation_no || "N/A",
       description: dev.description || "N/A",
-      rootCause: dev.root_cause || "N/A", // Assuming root_cause field on Deviation
-      capa: dev.resolution?.linked_capa?._id || "N/A", // Use CAPA _id as capa number
+      rootCause: dev.root_cause || "N/A",
+      capa: dev.resolution?.linked_capa?._id || "N/A",
       implementedOn: dev.resolution?.linked_capa?.closed_at
         ? dateFns.format(
             new Date(dev.resolution.linked_capa.closed_at),
             "yyyy-MM-dd HH:mm"
           )
-        : "N/A", // Use CAPA closed_at as implemented_at
+        : "N/A",
       qaApproval: dev.resolution?.linked_capa?.owner
         ? `${dev.resolution.linked_capa.owner.name} (${
             dev.resolution.linked_capa.closed_at
@@ -487,7 +480,7 @@ export const releaseReport = async (req, res) => {
                 )
               : "N/A"
           })`
-        : "N/A", // Use CAPA owner as approver and closed_at as approval date
+        : "N/A",
       status: dev.status || "N/A",
     }));
 
@@ -498,15 +491,14 @@ export const releaseReport = async (req, res) => {
       if (equipment) {
         let nextDueOn = "N/A";
         if (equipment.last_calibrated_on) {
-          // Assuming next due is 1 year after last calibrated
           nextDueOn = dateFns.format(
             dateFns.addYears(new Date(equipment.last_calibrated_on), 1),
             "yyyy-MM-dd"
           );
         }
         equipmentQualificationSummary.push({
-          equipmentId: equipment._id, // Use _id as equipmentId
-          type: equipment.type || "N/A", // Assuming 'type' field on EquipmentModel
+          equipmentId: equipment._id,
+          type: equipment.type || "N/A",
           lastCalibrated: equipment.last_calibrated_on
             ? dateFns.format(
                 new Date(equipment.last_calibrated_on),
@@ -519,7 +511,7 @@ export const releaseReport = async (req, res) => {
                 new Date(equipment.qa_approved_on),
                 "yyyy-MM-dd HH:mm"
               )
-            : "N/A", // Assuming qa_approved_on on EquipmentModel
+            : "N/A",
           status: equipment.status || "N/A",
         });
       }
@@ -535,112 +527,171 @@ export const releaseReport = async (req, res) => {
     const justification =
       "All parameters met; deviations closed and approved. All instruments calibrated and QA-signed."; // Placeholder
 
-    // --- Generate Report Content (Markdown) ---
-    let reportContent = `# Batch Release Report\n\n`;
-    reportContent += `*Generated on: ${dateFns.format(
-      new Date(),
-      "yyyy-MM-dd HH:mm:ss"
-    )}*\n\n`;
-
-    // 1. Batch Information
-    reportContent += `## 1. Batch Information\n\n`;
-    reportContent += `| Field             | Details                                       |\n`;
-    reportContent += `| :---------------- | :-------------------------------------------- |\n`;
-    reportContent += `| Product Name      | ${
-      batch.project ? batch.project.project_name : "N/A"
-    } |\n`;
-    reportContent += `| Batch ID          | ${
-      batch.api_batch_id || "N/A"
-    }                |\n`;
-    reportContent += `| Batch Size        | ${
-      batch.batch_size || "10000 Tablets"
-    }        |\n`; // Placeholder
-    reportContent += `| Manufacturing Site| ${
-      batch.plant_location || "Pharma Corp – Factory 1"
-    } |\n`; // Use plant_location from batch, fallback to placeholder
-    reportContent += `| Manufacturing Date| ${
-      batch.createdAt
-        ? dateFns.format(new Date(batch.createdAt), "MMMM dd, yyyy")
-        : "N/A"
-    } |\n`;
-    reportContent += `| Packaging Date    | ${
-      batch.packaging_date
-        ? dateFns.format(new Date(batch.packaging_date), "MMMM dd, yyyy")
-        : "January 27, 2025"
-    } |\n\n`; // Placeholder
-
-    // 2. Manufacturing Summary
-    reportContent += `## 2. Manufacturing Summary\n\n`;
-    reportContent += `| Parameter           | Details                                       |\n`;
-    reportContent += `| :------------------ | :-------------------------------------------- |\n`;
-    reportContent += `| Process             | ${process}                                    |\n`;
-    reportContent += `| Critical Parameters Met | ${criticalParametersMet}                     |\n`;
-    reportContent += `| Equipment Used      | ${
-      equipmentUsedList.length > 0 ? equipmentUsedList.join(", ") : "N/A"
-    } |\n`;
-    reportContent += `| Operator ID         | ${
-      operatorIds.size > 0 ? Array.from(operatorIds).join(", ") : "MFG001"
-    } |\n`; // Placeholder
-    reportContent += `| Process Deviations  | ${closedDeviationsCount} (Closed)             |\n\n`;
-
-    // 3. Quality Control Testing Summary (From LIMS)
-    reportContent += `## 3. Quality Control Testing Summary (From LIMS)\n\n`;
-    reportContent += `| Test      | Method    | Specification    | Result  | Analyst   | Test Time           | Result Entry Time   | Instrument | Status |\n`;
-    reportContent += `| :-------- | :-------- | :--------------- | :------ | :-------- | :------------------ | :------------------ | :--------- | :----- |\n`;
-    qcTestResults.forEach((test) => {
-      reportContent += `| ${test.test} | ${test.method} | ${test.specification} | ${test.result} | ${test.analyst} | ${test.testTime} | ${test.resultEntryTime} | ${test.instrument} | ${test.status} |\n`;
-    });
-    reportContent += `\n`;
-
-    // 4. Deviation & CAPA Summary (From QMS)
-    reportContent += `## 4. Deviation & CAPA Summary (From QMS)\n\n`;
-    if (deviationCapaSummary.length > 0) {
-      reportContent += `| Deviation ID | Description          | Root Cause    | CAPA      | Implemented On      | QA Approval                 | Status |\n`;
-      reportContent += `| :----------- | :------------------- | :------------ | :-------- | :------------------ | :-------------------------- | :----- |\n`;
-      deviationCapaSummary.forEach((dev) => {
-        reportContent += `| ${dev.deviationId} | ${dev.description} | ${dev.rootCause} | ${dev.capa} | ${dev.implementedOn} | ${dev.qaApproval} | ${dev.status} |\n`;
-      });
-    } else {
-      reportContent += `No deviations or CAPAs recorded for this batch.\n`;
-    }
-    reportContent += `\n`;
-
-    // 5. Equipment Qualification Summary (From CMMS)
-    reportContent += `## 5. Equipment Qualification Summary (From CMMS)\n\n`;
-    if (equipmentQualificationSummary.length > 0) {
-      reportContent += `| Equipment ID | Type           | Last Calibrated | Next Due    | QA Approved On      | Status   |\n`;
-      reportContent += `| :----------- | :------------- | :-------------- | :---------- | :------------------ | :------- |\n`;
-      equipmentQualificationSummary.forEach((eq) => {
-        reportContent += `| ${eq.equipmentId} | ${eq.type} | ${eq.lastCalibrated} | ${eq.nextDue} | ${eq.qaApprovedOn} | ${eq.status} |\n`;
-      });
-    } else {
-      reportContent += `No equipment qualification data available for equipment used in this batch.\n`;
-    }
-    reportContent += `\n`;
-
-    // 6. Final Summary
-    reportContent += `## 6. Final Summary\n\n`;
-    reportContent += `| Field             | Detail                                        |\n`;
-    reportContent += `| :---------------- | :-------------------------------------------- |\n`;
-    reportContent += `| Review Outcome    | ${reviewOutcome}                              |\n`;
-    reportContent += `| Release Status    | ${releaseStatus}                              |\n`;
-    reportContent += `| Final Approver    | ${finalApprover}                              |\n`;
-    reportContent += `| Digital Signature | ![Signature Placeholder](https://placehold.co/150x50/cccccc/000000?text=Signature) |\n`;
-    reportContent += `| Release Timestamp | ${releaseTimestamp}                           |\n`;
-    reportContent += `| Justification     | ${justification}                             |\n\n`;
-
-    // Regulatory Best Practices Notes
-    reportContent += `**Notes (Regulatory Best Practices)**\n\n`;
-    reportContent += `* All actions and fields must be audit-logged and digitally signed.\n`;
-    reportContent += `* Timestamps are mandatory for audit and traceability.\n`;
-    reportContent += `* Output report must be 21 CFR Part 11 compliant.\n\n`;
+    // --- Construct Report Content as JSON Object ---
+    const reportContentJson = {
+      reportTitle: "Batch Release Report",
+      generatedOn: dateFns.format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      sections: {
+        batchInformation: {
+          title: "Batch Information",
+          data: [
+            {
+              field: "Product Name",
+              details: batch.project ? batch.project.project_name : "N/A",
+            },
+            { field: "Batch ID", details: batch.api_batch_id || "N/A" },
+            {
+              field: "Batch Size",
+              details: batch.batch_size || "10000 Tablets",
+            },
+            {
+              field: "Manufacturing Site",
+              details: batch.plant_location || "Pharma Corp – Factory 1",
+            },
+            {
+              field: "Manufacturing Date",
+              details: batch.createdAt
+                ? dateFns.format(new Date(batch.createdAt), "MMMM dd, yyyy")
+                : "N/A",
+            },
+            {
+              field: "Packaging Date",
+              details: batch.packaging_date
+                ? dateFns.format(
+                    new Date(batch.packaging_date),
+                    "MMMM dd, yyyy"
+                  )
+                : "January 27, 2025",
+            },
+          ],
+        },
+        manufacturingSummary: {
+          title: "Manufacturing Summary",
+          data: [
+            { parameter: "Process", details: process },
+            {
+              parameter: "Critical Parameters Met",
+              details: criticalParametersMet,
+            },
+            {
+              parameter: "Equipment Used",
+              details:
+                equipmentUsedList.length > 0
+                  ? equipmentUsedList.join(", ")
+                  : "N/A",
+            },
+            {
+              parameter: "Operator ID",
+              details:
+                operatorIds.size > 0
+                  ? Array.from(operatorIds).join(", ")
+                  : "MFG001",
+            },
+            {
+              parameter: "Process Deviations",
+              details: `${closedDeviationsCount} (Closed)`,
+            },
+          ],
+        },
+        qualityControlTestingSummary: {
+          title: "Quality Control Testing Summary (From LIMS)",
+          headers: [
+            "Test",
+            "Method",
+            "Specification",
+            "Result",
+            "Analyst",
+            "Test Time",
+            "Result Entry Time",
+            "Instrument",
+            "Status",
+          ],
+          data: qcTestResults.map((test) => [
+            test.test,
+            test.method,
+            test.specification,
+            test.result,
+            test.analyst,
+            test.testTime,
+            test.resultEntryTime,
+            test.instrument,
+            test.status,
+          ]),
+        },
+        deviationCapaSummary: {
+          title: "Deviation & CAPA Summary (From QMS)",
+          headers: [
+            "Deviation ID",
+            "Description",
+            "Root Cause",
+            "CAPA",
+            "Implemented On",
+            "QA Approval",
+            "Status",
+          ],
+          data:
+            deviationCapaSummary.length > 0
+              ? deviationCapaSummary.map((dev) => [
+                  dev.deviationId,
+                  dev.description,
+                  dev.rootCause,
+                  dev.capa,
+                  dev.implementedOn,
+                  dev.qaApproval,
+                  dev.status,
+                ])
+              : [],
+        },
+        equipmentQualificationSummary: {
+          title: "Equipment Qualification Summary (From CMMS)",
+          headers: [
+            "Equipment ID",
+            "Type",
+            "Last Calibrated",
+            "Next Due",
+            "QA Approved On",
+            "Status",
+          ],
+          data:
+            equipmentQualificationSummary.length > 0
+              ? equipmentQualificationSummary.map((eq) => [
+                  eq.equipmentId,
+                  eq.type,
+                  eq.lastCalibrated,
+                  eq.nextDue,
+                  eq.qaApprovedOn,
+                  eq.status,
+                ])
+              : [],
+        },
+        finalSummary: {
+          title: "Final Summary",
+          data: [
+            { field: "Review Outcome", detail: reviewOutcome },
+            { field: "Release Status", detail: releaseStatus },
+            { field: "Final Approver", detail: finalApprover },
+            { field: "Digital Signature", detail: "Signature Placeholder" }, // Placeholder for UI rendering
+            { field: "Release Timestamp", detail: releaseTimestamp },
+            { field: "Justification", detail: justification },
+          ],
+        },
+        notes: {
+          title: "Notes (Regulatory Best Practices)",
+          data: [
+            "All actions and fields must be audit-logged and digitally signed.",
+            "Timestamps are mandatory for audit and traceability.",
+            "Output report must be 21 CFR Part 11 compliant.",
+          ],
+        },
+      },
+    };
 
     // 7. Send the generated report
     res.status(200).json({
       success: true,
       data: {
-        report_content: reportContent,
-        report_format: "markdown",
+        report_content: reportContentJson,
+        report_format: "json",
         digital_signature_status: "Unsigned",
         batch_id: batch._id,
         api_batch_id: batch.api_batch_id,
