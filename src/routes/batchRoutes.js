@@ -17,7 +17,7 @@ import {
 // # user-story 11
 const batchRouter = express.Router();
 //  overview tab and summary table data
-batchRouter.get("/batches/:batchId/stability-report", stabilityReport);
+batchRouter.get("/batches/stability-report/:apiBatchId", stabilityReport);
 batchRouter.get("/batches/release-report/:apiBatchId", releaseReport);
 batchRouter.get("/batches/api-ids", GET_ALL_API_BATCH_ID);
 batchRouter.get("/batches/parent-detail/:batchId", batchParentDetail);

@@ -168,25 +168,17 @@ export const GET_ALL_API_BATCH_ID = async (req, res) => {
 };
 export const stabilityReport = async (req, res) => {
   try {
-    const { batchId } = req.params;
+    const { apiBatchId } = req.params; // Changed from batchId to apiBatchId
 
-    // 1. Validate Batch ID
-    if (!mongoose.Types.ObjectId.isValid(batchId)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Batch ID format",
-      });
-    }
-
-    // 2. Fetch Batch and related data
-    const batch = await BatchModel.findById(batchId)
+    // 1. Fetch Batch and related data using api_batch_id
+    const batch = await BatchModel.findOne({ api_batch_id: apiBatchId }) // Changed findById to findOne
       .populate("customer", "name")
       .populate("project", "project_name project_code");
 
     if (!batch) {
       return res.status(404).json({
         success: false,
-        message: "Batch not found",
+        message: `Batch with API Batch ID '${apiBatchId}' not found.`, // Updated message
       });
     }
 
@@ -199,20 +191,21 @@ export const stabilityReport = async (req, res) => {
     }
 
     // 3. Derive Stability Study Information (no DB lookup for StabilityStudyModel)
-    const studyType = "General Stability Study"; // Placeholder value
+    const studyType = "General Stability Study (Accelerated & Long-Term)"; // Placeholder value
     const storageConditions =
       "25°C/60% RH (Long-Term), 40°C/75% RH (Accelerated)"; // Placeholder value
     const studyStartDate = batch.createdAt; // Using batch creation date as study start date
+    const studyDuration = "12 Months"; // Placeholder value
+    const numberOfSamples = await SampleModel.countDocuments({
+      batch: batch._id,
+    }); // Use batch._id for countDocuments
 
     // 4. Fetch Stability Test Results
-    // Find all samples linked to this batch and populate their test results
     const stabilitySamples = await SampleModel.find({
-      batch: batchId,
-      // Optional: Add a filter here if only specific sample types are considered stability samples
-      // e.g., sample_type: 'Stability'
+      batch: batch._id, // Use batch._id for finding samples
     }).populate("test_results");
 
-    const groupedTests = {}; // { 'Test Name': { '0M': [], '3M': [] }, ... }
+    const groupedTests = {}; // { 'Test Name': { method, specification, timepoints: { '0M': [], '3M': [] } }, ... }
     let allTestsPassed = true; // Flag for conclusion
 
     for (const sample of stabilitySamples) {
@@ -224,8 +217,8 @@ export const stabilityReport = async (req, res) => {
         }`;
         const resultValue = testResult.value || "N/A";
         const resultStatus = testResult.result === "Pass"; // Assuming 'Pass' or 'Fail'
+        const remarks = testResult.remarks || "No specific remarks."; // Placeholder for remarks
 
-        // Calculate timepoint in months from study start date (batch.createdAt)
         let timepointLabel = "N/A";
         if (studyStartDate && testResult.tested_at) {
           const monthsDiff = dateFns.differenceInMonths(
@@ -234,7 +227,6 @@ export const stabilityReport = async (req, res) => {
           );
           timepointLabel = `${monthsDiff}M`;
         } else if (testResult.tested_at) {
-          // Fallback if studyStartDate is missing, just use the test date
           timepointLabel = dateFns.format(
             new Date(testResult.tested_at),
             "yyyy-MM-dd"
@@ -243,8 +235,8 @@ export const stabilityReport = async (req, res) => {
 
         if (!groupedTests[testName]) {
           groupedTests[testName] = {
-            method: method, // Assuming method is consistent for a given testName
-            specification: specification, // Assuming specification is consistent for a given testName
+            method: method,
+            specification: specification,
             timepoints: {},
           };
         }
@@ -254,6 +246,7 @@ export const stabilityReport = async (req, res) => {
         groupedTests[testName].timepoints[timepointLabel].push({
           value: resultValue,
           status: resultStatus,
+          remarks: remarks,
         });
 
         if (!resultStatus) {
@@ -262,53 +255,10 @@ export const stabilityReport = async (req, res) => {
       }
     }
 
-    // 5. Generate Report Content (Markdown)
-    let reportContent = `# Stability Study Report\n\n`;
-
-    // Product Information
-    reportContent += `## 1. Product Information\n\n`;
-    reportContent += `| Column Name       | Column Description                                |\n`;
-    reportContent += `| :---------------- | :------------------------------------------------ |\n`;
-    reportContent += `| Product Name      | ${
-      batch.project ? batch.project.project_name : "N/A"
-    } |\n`;
-    reportContent += `| Batch Number      | ${
-      batch.api_batch_id || "N/A"
-    }                        |\n`;
-    reportContent += `| Manufacturing Date| ${
-      batch.createdAt
-        ? dateFns.format(new Date(batch.createdAt), "yyyy-MM-dd")
-        : "N/A"
-    } |\n`;
-    reportContent += `| Manufacturer      | ${
-      batch.customer ? batch.customer.name : "N/A"
-    }       |\n\n`;
-
-    // Stability Study Information
-    reportContent += `## 2. Stability Study Information\n\n`;
-    reportContent += `| Column Name       | Column Description                       |\n`;
-    reportContent += `| :---------------- | :--------------------------------------- |\n`;
-    reportContent += `| Study Type        | ${studyType}                                |\n`;
-    reportContent += `| Storage Conditions| ${storageConditions}                        |\n`;
-    reportContent += `| Study Start Date  | ${
-      studyStartDate
-        ? dateFns.format(new Date(studyStartDate), "yyyy-MM-dd")
-        : "N/A"
-    } |\n`;
-    reportContent += `| Report Date       | ${dateFns.format(
-      new Date(),
-      "yyyy-MM-dd"
-    )}       |\n\n`;
-
-    // Test Methods and Results
-    reportContent += `## 3. Test Methods and Results\n\n`;
+    // --- Construct Report Content as JSON Object ---
+    const testResultsFormatted = [];
     for (const testName in groupedTests) {
       const testData = groupedTests[testName];
-      reportContent += `### Test: ${testName}\n\n`;
-      reportContent += `| Method | Timepoint | Specification | Results |\n`;
-      reportContent += `| :----- | :-------- | :------------ | :------ |\n`;
-
-      // Sort timepoints for consistent display (e.g., 0M, 3M, 6M)
       const sortedTimepoints = Object.keys(testData.timepoints).sort((a, b) => {
         const numA = parseInt(a.replace("M", ""));
         const numB = parseInt(b.replace("M", ""));
@@ -319,44 +269,142 @@ export const stabilityReport = async (req, res) => {
         const resultsAtTimepoint = testData.timepoints[timepoint];
         const resultValues = resultsAtTimepoint.map((r) => r.value).join(", ");
         const allPassedAtTimepoint = resultsAtTimepoint.every((r) => r.status);
+        const combinedRemarks =
+          resultsAtTimepoint
+            .map((r) => r.remarks)
+            .filter(Boolean)
+            .join("; ") || "N/A";
 
-        reportContent += `| ${testData.method} | ${timepoint} | ${
-          testData.specification
-        } | ${resultValues} ${
-          allPassedAtTimepoint ? "✅ Pass" : "❌ Fail"
-        } |\n`;
+        testResultsFormatted.push({
+          testName: testName,
+          method: testData.method,
+          timepoint: timepoint,
+          specification: testData.specification,
+          results: resultValues,
+          status: allPassedAtTimepoint ? "Pass" : "Fail",
+          remarks: combinedRemarks,
+        });
       }
-      reportContent += `\n`;
     }
 
-    // Conclusion Section
-    reportContent += `## 4. Conclusion\n\n`;
-    if (allTestsPassed) {
-      reportContent += `Based on the stability test results, the product is considered stable under the tested storage conditions for the duration of the study.\n\n`;
-    } else {
-      reportContent += `Based on the stability test results, the product is **not** considered stable under the tested storage conditions for the duration of the study due to one or more failing tests.\n\n`;
-    }
-
-    // Signature Section
-    reportContent += `## 5. Signature Section\n\n`;
-    reportContent += `| Column Name           | Column Description          |\n`;
-    reportContent += `| :-------------------- | :-------------------------- |\n`;
-    reportContent += `| Stability Study Manager | [Manager's Name]          |\n`;
-    reportContent += `| Date                  | ${dateFns.format(
-      new Date(),
-      "yyyy-MM-dd"
-    )} |\n`;
-    reportContent += `| Signature             | _________________________   |\n\n`;
-    reportContent += `*Digital Signature Status: Unsigned*\n`;
+    const reportContentJson = {
+      reportTitle: "Stability Study Report",
+      generatedOn: dateFns.format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      sections: {
+        productInformation: {
+          title: "Product Information",
+          data: [
+            {
+              field: "Product Name",
+              details: batch.project ? batch.project.project_name : "N/A",
+            },
+            { field: "Batch Number", details: batch.api_batch_id || "N/A" },
+            {
+              field: "Manufacturing Date",
+              details: batch.createdAt
+                ? dateFns.format(new Date(batch.createdAt), "yyyy-MM-dd")
+                : "N/A",
+            },
+            {
+              field: "Manufacturer",
+              details: batch.customer ? batch.customer.name : "N/A",
+            },
+            {
+              field: "Dosage Form",
+              details: "[Dosage Form - e.g., Tablet, Capsule]",
+            },
+            { field: "Strength", details: "[Strength - e.g., 10mg, 250mg]" },
+          ],
+        },
+        stabilityStudyInformation: {
+          title: "Stability Study Information",
+          data: [
+            { field: "Study Type", details: studyType },
+            { field: "Storage Conditions", details: storageConditions },
+            {
+              field: "Study Start Date",
+              details: studyStartDate
+                ? dateFns.format(new Date(studyStartDate), "yyyy-MM-dd")
+                : "N/A",
+            },
+            { field: "Study Duration", details: studyDuration },
+            { field: "Number of Samples", details: numberOfSamples },
+            {
+              field: "Report Date",
+              details: dateFns.format(new Date(), "yyyy-MM-dd"),
+            },
+          ],
+        },
+        testMethodsAndResults: {
+          title: "Test Methods and Results",
+          headers: [
+            "Test Name",
+            "Method",
+            "Timepoint",
+            "Specification",
+            "Results",
+            "Status",
+            "Remarks",
+          ],
+          data: testResultsFormatted.map((tr) => [
+            tr.testName,
+            tr.method,
+            tr.timepoint,
+            tr.specification,
+            tr.results,
+            tr.status,
+            tr.remarks,
+          ]),
+        },
+        conclusion: {
+          title: "Conclusion",
+          text: allTestsPassed
+            ? `Based on a comprehensive review of all stability test results conducted on Batch ${
+                batch.api_batch_id || "N/A"
+              }, it is concluded that the product remains stable and retains its quality attributes under the specified storage conditions (${storageConditions}) for the duration of the study (${studyDuration}). All tested parameters met the predefined specifications throughout the study period.`
+            : `Based on the stability test results for Batch ${
+                batch.api_batch_id || "N/A"
+              }, the product is not considered stable under the tested storage conditions for the duration of the study. One or more parameters failed to meet the predefined specifications, indicating potential degradation or loss of quality over time. Further investigation is recommended.`,
+        },
+        signatureSection: {
+          title: "Signature Section",
+          data: [
+            { field: "Stability Study Manager", details: "[Manager's Name]" },
+            {
+              field: "Date",
+              details: dateFns.format(new Date(), "yyyy-MM-dd"),
+            },
+            { field: "Signature", details: "_________________________" },
+          ],
+          digitalSignatureStatus: "Unsigned",
+        },
+        reportNotesDisclaimer: {
+          title: "Report Notes / Disclaimer",
+          text: "This report summarizes the stability data available as of the report generation date. The conclusions are based solely on the provided test results and may not encompass all potential long-term stability aspects beyond the study duration. This document is for informational purposes and should be reviewed by qualified personnel.",
+        },
+        revisionHistory: {
+          title: "Revision History",
+          headers: ["Revision", "Date", "Description"],
+          data: [
+            [
+              "1.0",
+              dateFns.format(new Date(), "yyyy-MM-dd"),
+              "Initial Release",
+            ],
+          ],
+        },
+      },
+    };
 
     // 6. Send the generated report
     res.status(200).json({
       success: true,
       data: {
-        report_content: reportContent,
-        report_format: "markdown",
+        report_content: reportContentJson,
+        report_format: "json",
         digital_signature_status: "Unsigned",
-        batch_number: batch.api_batch_id || batchId, // Include batch number for filename
+        batch_id: batch._id,
+        api_batch_id: batch.api_batch_id,
       },
       message: "Stability Study Report generated successfully.",
     });
@@ -1290,6 +1338,7 @@ export const batchDetailSummay = async (req, res) => {
   }
 };
 
+// _____________________________________________________________________________________________
 export const batchGenealogy = async (req, res) => {
   try {
     const { batchId } = req.params;
