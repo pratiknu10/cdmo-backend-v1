@@ -10,6 +10,8 @@ import { BatchComponentModel } from "../models/batchComponentModel.js";
 import { EquipmentEventModel } from "../models/equipmentEventModel.js";
 import { EquipmentModel } from "../models/equipmentModel.js";
 import { CapaModel } from "../models/capaModel.js";
+import { StabilityStudyModel } from "../models/stabilityStudyModel.js";
+import * as dateFns from "date-fns";
 // ================================
 // 1. MAIN BATCH DETAILED SUMMARY API
 // Route: GET /api/batches/:batchId/detailed-summary
@@ -138,6 +140,520 @@ export const getBatchOverview = async (req, res) => {
   } catch (error) {
     console.error("Error fetching batch overview:", error);
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const GET_ALL_API_BATCH_ID = async (req, res) => {
+  try {
+    // Find all batches and select only the 'api_batch_id' field.
+    // The '_id' field is included by default, so we explicitly exclude it.
+    const batches = await BatchModel.find({}, { api_batch_id: 1, _id: 0 });
+
+    // Extract just the api_batch_id into a flat array
+    const apiBatchIds = batches.map((batch) => batch.api_batch_id);
+
+    res.status(200).json({
+      success: true,
+      data: apiBatchIds,
+      message: "Successfully fetched all API Batch IDs.",
+    });
+  } catch (error) {
+    console.error("❌ Error fetching API Batch IDs:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+export const stabilityReport = async (req, res) => {
+  try {
+    const { batchId } = req.params;
+
+    // 1. Validate Batch ID
+    if (!mongoose.Types.ObjectId.isValid(batchId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Batch ID format",
+      });
+    }
+
+    // 2. Fetch Batch and related data
+    const batch = await BatchModel.findById(batchId)
+      .populate("customer", "name")
+      .populate("project", "project_name project_code");
+
+    if (!batch) {
+      return res.status(404).json({
+        success: false,
+        message: "Batch not found",
+      });
+    }
+
+    // Precondition: Production batch must be completed or released
+    if (batch.status !== "Completed" && batch.status !== "Released") {
+      return res.status(400).json({
+        success: false,
+        message: `Batch status is '${batch.status}'. Report can only be generated for 'Completed' or 'Released' batches.`,
+      });
+    }
+
+    // 3. Derive Stability Study Information (no DB lookup for StabilityStudyModel)
+    const studyType = "General Stability Study"; // Placeholder value
+    const storageConditions =
+      "25°C/60% RH (Long-Term), 40°C/75% RH (Accelerated)"; // Placeholder value
+    const studyStartDate = batch.createdAt; // Using batch creation date as study start date
+
+    // 4. Fetch Stability Test Results
+    // Find all samples linked to this batch and populate their test results
+    const stabilitySamples = await SampleModel.find({
+      batch: batchId,
+      // Optional: Add a filter here if only specific sample types are considered stability samples
+      // e.g., sample_type: 'Stability'
+    }).populate("test_results");
+
+    const groupedTests = {}; // { 'Test Name': { '0M': [], '3M': [] }, ... }
+    let allTestsPassed = true; // Flag for conclusion
+
+    for (const sample of stabilitySamples) {
+      for (const testResult of sample.test_results) {
+        const testName = testResult.parameter || "N/A";
+        const method = testResult.method || "N/A";
+        const specification = `${testResult.lower_spec || "N/A"} - ${
+          testResult.upper_spec || "N/A"
+        }`;
+        const resultValue = testResult.value || "N/A";
+        const resultStatus = testResult.result === "Pass"; // Assuming 'Pass' or 'Fail'
+
+        // Calculate timepoint in months from study start date (batch.createdAt)
+        let timepointLabel = "N/A";
+        if (studyStartDate && testResult.tested_at) {
+          const monthsDiff = dateFns.differenceInMonths(
+            new Date(testResult.tested_at),
+            new Date(studyStartDate)
+          );
+          timepointLabel = `${monthsDiff}M`;
+        } else if (testResult.tested_at) {
+          // Fallback if studyStartDate is missing, just use the test date
+          timepointLabel = dateFns.format(
+            new Date(testResult.tested_at),
+            "yyyy-MM-dd"
+          );
+        }
+
+        if (!groupedTests[testName]) {
+          groupedTests[testName] = {
+            method: method, // Assuming method is consistent for a given testName
+            specification: specification, // Assuming specification is consistent for a given testName
+            timepoints: {},
+          };
+        }
+        if (!groupedTests[testName].timepoints[timepointLabel]) {
+          groupedTests[testName].timepoints[timepointLabel] = [];
+        }
+        groupedTests[testName].timepoints[timepointLabel].push({
+          value: resultValue,
+          status: resultStatus,
+        });
+
+        if (!resultStatus) {
+          allTestsPassed = false;
+        }
+      }
+    }
+
+    // 5. Generate Report Content (Markdown)
+    let reportContent = `# Stability Study Report\n\n`;
+
+    // Product Information
+    reportContent += `## 1. Product Information\n\n`;
+    reportContent += `| Column Name       | Column Description                                |\n`;
+    reportContent += `| :---------------- | :------------------------------------------------ |\n`;
+    reportContent += `| Product Name      | ${
+      batch.project ? batch.project.project_name : "N/A"
+    } |\n`;
+    reportContent += `| Batch Number      | ${
+      batch.api_batch_id || "N/A"
+    }                        |\n`;
+    reportContent += `| Manufacturing Date| ${
+      batch.createdAt
+        ? dateFns.format(new Date(batch.createdAt), "yyyy-MM-dd")
+        : "N/A"
+    } |\n`;
+    reportContent += `| Manufacturer      | ${
+      batch.customer ? batch.customer.name : "N/A"
+    }       |\n\n`;
+
+    // Stability Study Information
+    reportContent += `## 2. Stability Study Information\n\n`;
+    reportContent += `| Column Name       | Column Description                       |\n`;
+    reportContent += `| :---------------- | :--------------------------------------- |\n`;
+    reportContent += `| Study Type        | ${studyType}                                |\n`;
+    reportContent += `| Storage Conditions| ${storageConditions}                        |\n`;
+    reportContent += `| Study Start Date  | ${
+      studyStartDate
+        ? dateFns.format(new Date(studyStartDate), "yyyy-MM-dd")
+        : "N/A"
+    } |\n`;
+    reportContent += `| Report Date       | ${dateFns.format(
+      new Date(),
+      "yyyy-MM-dd"
+    )}       |\n\n`;
+
+    // Test Methods and Results
+    reportContent += `## 3. Test Methods and Results\n\n`;
+    for (const testName in groupedTests) {
+      const testData = groupedTests[testName];
+      reportContent += `### Test: ${testName}\n\n`;
+      reportContent += `| Method | Timepoint | Specification | Results |\n`;
+      reportContent += `| :----- | :-------- | :------------ | :------ |\n`;
+
+      // Sort timepoints for consistent display (e.g., 0M, 3M, 6M)
+      const sortedTimepoints = Object.keys(testData.timepoints).sort((a, b) => {
+        const numA = parseInt(a.replace("M", ""));
+        const numB = parseInt(b.replace("M", ""));
+        return numA - numB;
+      });
+
+      for (const timepoint of sortedTimepoints) {
+        const resultsAtTimepoint = testData.timepoints[timepoint];
+        const resultValues = resultsAtTimepoint.map((r) => r.value).join(", ");
+        const allPassedAtTimepoint = resultsAtTimepoint.every((r) => r.status);
+
+        reportContent += `| ${testData.method} | ${timepoint} | ${
+          testData.specification
+        } | ${resultValues} ${
+          allPassedAtTimepoint ? "✅ Pass" : "❌ Fail"
+        } |\n`;
+      }
+      reportContent += `\n`;
+    }
+
+    // Conclusion Section
+    reportContent += `## 4. Conclusion\n\n`;
+    if (allTestsPassed) {
+      reportContent += `Based on the stability test results, the product is considered stable under the tested storage conditions for the duration of the study.\n\n`;
+    } else {
+      reportContent += `Based on the stability test results, the product is **not** considered stable under the tested storage conditions for the duration of the study due to one or more failing tests.\n\n`;
+    }
+
+    // Signature Section
+    reportContent += `## 5. Signature Section\n\n`;
+    reportContent += `| Column Name           | Column Description          |\n`;
+    reportContent += `| :-------------------- | :-------------------------- |\n`;
+    reportContent += `| Stability Study Manager | [Manager's Name]          |\n`;
+    reportContent += `| Date                  | ${dateFns.format(
+      new Date(),
+      "yyyy-MM-dd"
+    )} |\n`;
+    reportContent += `| Signature             | _________________________   |\n\n`;
+    reportContent += `*Digital Signature Status: Unsigned*\n`;
+
+    // 6. Send the generated report
+    res.status(200).json({
+      success: true,
+      data: {
+        report_content: reportContent,
+        report_format: "markdown",
+        digital_signature_status: "Unsigned",
+        batch_number: batch.api_batch_id || batchId, // Include batch number for filename
+      },
+      message: "Stability Study Report generated successfully.",
+    });
+  } catch (error) {
+    console.error("❌ Error generating stability report:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+export const releaseReport = async (req, res) => {
+  try {
+    const { apiBatchId } = req.params;
+
+    // 1. Fetch Batch Information and related populated data
+    const batch = await BatchModel.findOne({ api_batch_id: apiBatchId })
+      .populate("customer", "name")
+      .populate("project", "project_name")
+      .populate("equipment_events"); // Populate equipment_events on the batch
+
+    if (!batch) {
+      return res.status(404).json({
+        success: false,
+        message: `Batch with API Batch ID '${apiBatchId}' not found.`,
+      });
+    }
+
+    // --- Data Fetching for Report Sections ---
+
+    // Manufacturing Summary Data
+    // Get unique equipment IDs from equipment_events
+    const uniqueEquipmentIds = [
+      ...new Set(
+        batch.equipment_events.map((event) => event.equipment).filter(Boolean)
+      ),
+    ];
+
+    // Fetch actual Equipment documents based on these IDs
+    const equipmentDetails = await EquipmentModel.find({
+      _id: { $in: uniqueEquipmentIds },
+    });
+    const equipmentDetailsMap = new Map(
+      equipmentDetails.map((eq) => [eq._id, eq])
+    );
+
+    let equipmentUsedList = uniqueEquipmentIds; // List of equipment IDs used
+    let operatorIds = new Set(); // Assuming operator_id might be on ProcessStep or Batch
+
+    // Fetch process steps to get operator info and confirm equipment usage if needed
+    const processSteps = await ProcessStepModel.find({ batch: batch._id });
+    processSteps.forEach((step) => {
+      if (step.operator_id) {
+        // Assuming operator_id might be on ProcessStep
+        operatorIds.add(step.operator_id);
+      }
+    });
+
+    let criticalParametersMet = "Yes"; // Placeholder
+    let process = "Direct Compression"; // Placeholder
+
+    // Fetch deviations for the batch
+    const deviations = await DeviationModel.find({ batch: batch._id }).populate(
+      {
+        path: "resolution.linked_capa",
+        populate: {
+          path: "owner", // Populate the CAPA owner (assuming this is the QA approver)
+          select: "name",
+        },
+      }
+    );
+
+    const closedDeviationsCount = deviations.filter(
+      (d) => d.status === "Closed"
+    ).length;
+
+    // Quality Control Testing Summary Data
+    const samples = await SampleModel.find({ batch: batch._id }).populate({
+      path: "test_results",
+      populate: {
+        path: "tested_by", // Assuming tested_by is a user reference on TestResult
+        select: "name",
+      },
+    });
+
+    const qcTestResults = [];
+    for (const sample of samples) {
+      for (const testResult of sample.test_results) {
+        qcTestResults.push({
+          test: testResult.parameter || "N/A",
+          method: testResult.method || "N/A",
+          specification: `${testResult.lower_spec || "N/A"} - ${
+            testResult.upper_spec || "N/A"
+          }`,
+          result: testResult.value || "N/A",
+          analyst: testResult.tested_by ? testResult.tested_by.name : "N/A",
+          testTime: testResult.tested_at
+            ? dateFns.format(new Date(testResult.tested_at), "yyyy-MM-dd HH:mm")
+            : "N/A",
+          resultEntryTime: testResult.updatedAt
+            ? dateFns.format(new Date(testResult.updatedAt), "yyyy-MM-dd HH:mm")
+            : "N/A", // Assuming result entry time is testResult's updatedAt
+          instrument: testResult.instrument_id || "N/A", // Assuming instrument_id field on TestResult
+          status: testResult.result || "N/A", // 'Pass', 'Fail', etc.
+        });
+      }
+    }
+
+    // Deviation & CAPA Summary Data (already fetched 'deviations' above)
+    const deviationCapaSummary = deviations.map((dev) => ({
+      deviationId: dev.deviation_no || "N/A",
+      description: dev.description || "N/A",
+      rootCause: dev.root_cause || "N/A", // Assuming root_cause field on Deviation
+      capa: dev.resolution?.linked_capa?._id || "N/A", // Use CAPA _id as capa number
+      implementedOn: dev.resolution?.linked_capa?.closed_at
+        ? dateFns.format(
+            new Date(dev.resolution.linked_capa.closed_at),
+            "yyyy-MM-dd HH:mm"
+          )
+        : "N/A", // Use CAPA closed_at as implemented_at
+      qaApproval: dev.resolution?.linked_capa?.owner
+        ? `${dev.resolution.linked_capa.owner.name} (${
+            dev.resolution.linked_capa.closed_at
+              ? dateFns.format(
+                  new Date(dev.resolution.linked_capa.closed_at),
+                  "yyyy-MM-dd HH:mm"
+                )
+              : "N/A"
+          })`
+        : "N/A", // Use CAPA owner as approver and closed_at as approval date
+      status: dev.status || "N/A",
+    }));
+
+    // Equipment Qualification Summary Data
+    const equipmentQualificationSummary = [];
+    for (const eqId of uniqueEquipmentIds) {
+      const equipment = equipmentDetailsMap.get(eqId);
+      if (equipment) {
+        let nextDueOn = "N/A";
+        if (equipment.last_calibrated_on) {
+          // Assuming next due is 1 year after last calibrated
+          nextDueOn = dateFns.format(
+            dateFns.addYears(new Date(equipment.last_calibrated_on), 1),
+            "yyyy-MM-dd"
+          );
+        }
+        equipmentQualificationSummary.push({
+          equipmentId: equipment._id, // Use _id as equipmentId
+          type: equipment.type || "N/A", // Assuming 'type' field on EquipmentModel
+          lastCalibrated: equipment.last_calibrated_on
+            ? dateFns.format(
+                new Date(equipment.last_calibrated_on),
+                "yyyy-MM-dd"
+              )
+            : "N/A",
+          nextDue: nextDueOn,
+          qaApprovedOn: equipment.qa_approved_on
+            ? dateFns.format(
+                new Date(equipment.qa_approved_on),
+                "yyyy-MM-dd HH:mm"
+              )
+            : "N/A", // Assuming qa_approved_on on EquipmentModel
+          status: equipment.status || "N/A",
+        });
+      }
+    }
+
+    // Final Summary Data
+    const reviewOutcome = "Pass"; // Placeholder
+    const releaseStatus = batch.status;
+    const finalApprover = "Jane Doe, QA Manager"; // Placeholder
+    const releaseTimestamp = batch.released_at
+      ? dateFns.format(new Date(batch.released_at), "MMMM dd, yyyy, HH:mm zzz")
+      : "N/A";
+    const justification =
+      "All parameters met; deviations closed and approved. All instruments calibrated and QA-signed."; // Placeholder
+
+    // --- Generate Report Content (Markdown) ---
+    let reportContent = `# Batch Release Report\n\n`;
+    reportContent += `*Generated on: ${dateFns.format(
+      new Date(),
+      "yyyy-MM-dd HH:mm:ss"
+    )}*\n\n`;
+
+    // 1. Batch Information
+    reportContent += `## 1. Batch Information\n\n`;
+    reportContent += `| Field             | Details                                       |\n`;
+    reportContent += `| :---------------- | :-------------------------------------------- |\n`;
+    reportContent += `| Product Name      | ${
+      batch.project ? batch.project.project_name : "N/A"
+    } |\n`;
+    reportContent += `| Batch ID          | ${
+      batch.api_batch_id || "N/A"
+    }                |\n`;
+    reportContent += `| Batch Size        | ${
+      batch.batch_size || "10000 Tablets"
+    }        |\n`; // Placeholder
+    reportContent += `| Manufacturing Site| ${
+      batch.plant_location || "Pharma Corp – Factory 1"
+    } |\n`; // Use plant_location from batch, fallback to placeholder
+    reportContent += `| Manufacturing Date| ${
+      batch.createdAt
+        ? dateFns.format(new Date(batch.createdAt), "MMMM dd, yyyy")
+        : "N/A"
+    } |\n`;
+    reportContent += `| Packaging Date    | ${
+      batch.packaging_date
+        ? dateFns.format(new Date(batch.packaging_date), "MMMM dd, yyyy")
+        : "January 27, 2025"
+    } |\n\n`; // Placeholder
+
+    // 2. Manufacturing Summary
+    reportContent += `## 2. Manufacturing Summary\n\n`;
+    reportContent += `| Parameter           | Details                                       |\n`;
+    reportContent += `| :------------------ | :-------------------------------------------- |\n`;
+    reportContent += `| Process             | ${process}                                    |\n`;
+    reportContent += `| Critical Parameters Met | ${criticalParametersMet}                     |\n`;
+    reportContent += `| Equipment Used      | ${
+      equipmentUsedList.length > 0 ? equipmentUsedList.join(", ") : "N/A"
+    } |\n`;
+    reportContent += `| Operator ID         | ${
+      operatorIds.size > 0 ? Array.from(operatorIds).join(", ") : "MFG001"
+    } |\n`; // Placeholder
+    reportContent += `| Process Deviations  | ${closedDeviationsCount} (Closed)             |\n\n`;
+
+    // 3. Quality Control Testing Summary (From LIMS)
+    reportContent += `## 3. Quality Control Testing Summary (From LIMS)\n\n`;
+    reportContent += `| Test      | Method    | Specification    | Result  | Analyst   | Test Time           | Result Entry Time   | Instrument | Status |\n`;
+    reportContent += `| :-------- | :-------- | :--------------- | :------ | :-------- | :------------------ | :------------------ | :--------- | :----- |\n`;
+    qcTestResults.forEach((test) => {
+      reportContent += `| ${test.test} | ${test.method} | ${test.specification} | ${test.result} | ${test.analyst} | ${test.testTime} | ${test.resultEntryTime} | ${test.instrument} | ${test.status} |\n`;
+    });
+    reportContent += `\n`;
+
+    // 4. Deviation & CAPA Summary (From QMS)
+    reportContent += `## 4. Deviation & CAPA Summary (From QMS)\n\n`;
+    if (deviationCapaSummary.length > 0) {
+      reportContent += `| Deviation ID | Description          | Root Cause    | CAPA      | Implemented On      | QA Approval                 | Status |\n`;
+      reportContent += `| :----------- | :------------------- | :------------ | :-------- | :------------------ | :-------------------------- | :----- |\n`;
+      deviationCapaSummary.forEach((dev) => {
+        reportContent += `| ${dev.deviationId} | ${dev.description} | ${dev.rootCause} | ${dev.capa} | ${dev.implementedOn} | ${dev.qaApproval} | ${dev.status} |\n`;
+      });
+    } else {
+      reportContent += `No deviations or CAPAs recorded for this batch.\n`;
+    }
+    reportContent += `\n`;
+
+    // 5. Equipment Qualification Summary (From CMMS)
+    reportContent += `## 5. Equipment Qualification Summary (From CMMS)\n\n`;
+    if (equipmentQualificationSummary.length > 0) {
+      reportContent += `| Equipment ID | Type           | Last Calibrated | Next Due    | QA Approved On      | Status   |\n`;
+      reportContent += `| :----------- | :------------- | :-------------- | :---------- | :------------------ | :------- |\n`;
+      equipmentQualificationSummary.forEach((eq) => {
+        reportContent += `| ${eq.equipmentId} | ${eq.type} | ${eq.lastCalibrated} | ${eq.nextDue} | ${eq.qaApprovedOn} | ${eq.status} |\n`;
+      });
+    } else {
+      reportContent += `No equipment qualification data available for equipment used in this batch.\n`;
+    }
+    reportContent += `\n`;
+
+    // 6. Final Summary
+    reportContent += `## 6. Final Summary\n\n`;
+    reportContent += `| Field             | Detail                                        |\n`;
+    reportContent += `| :---------------- | :-------------------------------------------- |\n`;
+    reportContent += `| Review Outcome    | ${reviewOutcome}                              |\n`;
+    reportContent += `| Release Status    | ${releaseStatus}                              |\n`;
+    reportContent += `| Final Approver    | ${finalApprover}                              |\n`;
+    reportContent += `| Digital Signature | ![Signature Placeholder](https://placehold.co/150x50/cccccc/000000?text=Signature) |\n`;
+    reportContent += `| Release Timestamp | ${releaseTimestamp}                           |\n`;
+    reportContent += `| Justification     | ${justification}                             |\n\n`;
+
+    // Regulatory Best Practices Notes
+    reportContent += `**Notes (Regulatory Best Practices)**\n\n`;
+    reportContent += `* All actions and fields must be audit-logged and digitally signed.\n`;
+    reportContent += `* Timestamps are mandatory for audit and traceability.\n`;
+    reportContent += `* Output report must be 21 CFR Part 11 compliant.\n\n`;
+
+    // 7. Send the generated report
+    res.status(200).json({
+      success: true,
+      data: {
+        report_content: reportContent,
+        report_format: "markdown",
+        digital_signature_status: "Unsigned",
+        batch_id: batch._id,
+        api_batch_id: batch.api_batch_id,
+      },
+      message: "Batch Release Report generated successfully.",
+    });
+  } catch (error) {
+    console.error("❌ Error generating Batch Release Report:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
   }
 };
 export const batchParentDetail = async (req, res) => {

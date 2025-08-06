@@ -56,20 +56,12 @@ export const getCustomerBatchSummary = async (req, res) => {
       {
         $project: {
           name: 1,
-          batches: 1,
+          // batches: 1, // Keep if you need the full batch array in the output, otherwise remove for smaller response
           country: 1,
           contact_person: 1,
           email: 1,
           phone: 1,
-          active_batches: {
-            $size: {
-              $filter: {
-                input: "$batches",
-                as: "batch",
-                cond: { $in: ["$$batch.status", ["In-Process", "On-Hold"]] },
-              },
-            },
-          },
+          // Aggregating counts for each status
           not_started: {
             $size: {
               $filter: {
@@ -88,6 +80,16 @@ export const getCustomerBatchSummary = async (req, res) => {
               },
             },
           },
+          completed: {
+            // New field for 'Completed' status
+            $size: {
+              $filter: {
+                input: "$batches",
+                as: "b",
+                cond: { $eq: ["$$b.status", "Completed"] }, // Assuming 'Completed' is the status value
+              },
+            },
+          },
           released: {
             $size: {
               $filter: {
@@ -97,6 +99,27 @@ export const getCustomerBatchSummary = async (req, res) => {
               },
             },
           },
+          on_hold: {
+            // New field for 'On-Hold' status
+            $size: {
+              $filter: {
+                input: "$batches",
+                as: "b",
+                cond: { $eq: ["$$b.status", "On-Hold"] },
+              },
+            },
+          },
+          // 'active_batches' combines 'In-Process' and 'On-Hold'
+          active_batches: {
+            $size: {
+              $filter: {
+                input: "$batches",
+                as: "batch",
+                cond: { $in: ["$$batch.status", ["In-Process", "On-Hold"]] },
+              },
+            },
+          },
+          // 'pending_release' is 'On-Hold' AND 'released_at' is null
           pending_release: {
             $size: {
               $filter: {
@@ -133,12 +156,15 @@ export const getCustomerBatchSummary = async (req, res) => {
       active_batches: r.active_batches,
       not_started: r.not_started,
       in_progress: r.in_progress,
+      completed: r.completed, // Include the new 'completed' field
       released: r.released,
+      on_hold: r.on_hold, // Include the new 'on_hold' field
       pending_release: r.pending_release,
       last_activity: r.last_updated
         ? formatDistanceToNow(new Date(r.last_updated), { addSuffix: true })
         : "No activity",
     }));
+
     console.log(formatted);
     res.json(formatted);
   } catch (err) {

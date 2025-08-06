@@ -8,8 +8,7 @@
     "start": "node server.js",
     "token": "node ./src/utils/generateToken.js",
     "dev": "nodemon ./src/serverx.js",
-    
-    "generator":"node ./idck.js"
+    "generator": "node ./idck.js"
   },
   "keywords": [],
   "author": "",
