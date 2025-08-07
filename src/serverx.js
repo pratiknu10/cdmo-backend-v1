@@ -29,6 +29,7 @@ import batchRouter from "./routes/batchRoutes.js";
 import genealogyRouter from "./routes/genealogyRoutes.js";
 import sampleTestRoute from "./routes/sampleTestRoutes.js";
 import DeviationCapaRouter from "./routes/deviationCapaRoutes.js";
+import { equipmentRouter } from "./routes/equipmentRoutes.js";
 app.use(express.json());
 // app.use("/api/projects", projectRoutes);
 
@@ -83,6 +84,7 @@ app.use("/api/v1", batchRouter);
 app.use("/api/v1", genealogyRouter);
 app.use("/api/v1", sampleTestRoute);
 app.use("/api/v1", DeviationCapaRouter);
+app.use("/api/v1/equipments", equipmentRouter);
 app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
