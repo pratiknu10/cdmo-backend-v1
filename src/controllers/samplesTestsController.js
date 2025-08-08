@@ -288,10 +288,12 @@ class SamplesTestsController {
       samples.forEach((sample) => {
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          (test) => test.status === "Passed"
+          // Assuming 'result' field is used for Pass/Fail status
+          (test) => test.result === "Passed"
         ).length;
         const failedTests = sample.test_results.filter(
-          (test) => test.status === "Failed"
+          // Assuming 'result' field is used for Pass/Fail status
+          (test) => test.result === "Failed"
         ).length;
 
         if (totalTests === 0) {
@@ -328,7 +330,8 @@ class SamplesTestsController {
         // Calculate Test Progress
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          (test) => test.status === "Passed"
+          // Using 'result' field for Pass/Fail status
+          (test) => test.result === "Passed"
         ).length;
         const testProgress =
           totalTests > 0
@@ -361,7 +364,8 @@ class SamplesTestsController {
           testMethod: testResult.method_id || "N/A", // Using 'method_id' as Test Method
           resultValue: testResult.value || "N/A",
           resultUnit: testResult.unit || "N/A",
-          resultStatus: testResult.status || "N/A", // Correctly using 'status' field
+          // CORRECTED: Using 'result' field to determine the status
+          resultStatus: testResult.result || "N/A",
           specificationRange: "N/A", // Not directly in schema, placeholder
           testTimestamp: testResult.tested_at
             ? new Date(testResult.tested_at).toISOString().split("T")[0]
