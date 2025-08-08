@@ -6,6 +6,7 @@ import {
   batchParentDetail,
   GET_ALL_API_BATCH_ID,
   getBatchOverview,
+  getBatchTabOverviewByBID,
   getDeviationsCapa,
   getEquipmentsDetailsByID,
   performBatchActions,
@@ -23,6 +24,8 @@ batchRouter.get("/batches/api-ids", GET_ALL_API_BATCH_ID);
 batchRouter.get("/batches/parent-detail/:batchId", batchParentDetail);
 batchRouter.get("/batches/:batchId/detailed-summary", batchDetailSummay);
 batchRouter.get("/batches/overview", getBatchOverview);
+batchRouter.get("/batches/overview/tab/:batchId", getBatchTabOverviewByBID);
+
 //  genealogy tab
 
 // ________________________________________________________________
