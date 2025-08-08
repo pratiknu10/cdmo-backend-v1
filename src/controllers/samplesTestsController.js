@@ -1266,9 +1266,13 @@ class SamplesTestsController {
             // Add ObjectId for both the test result and the parent sample.
             _id: result._id || "N/A",
             sampleId: sample.sample_id || "N/A",
-            testName: result.test_name || "N/A",
-            // Use the `parameter` field from the result instead of `method`
+            // The user requested testName to be the same as method.
+            testName: result.parameter || "N/A",
+            // Use the `parameter` field for the method.
             method: result.parameter || "N/A",
+            // Now include the requested test_id and method_id
+            test_id: result.test_id || "N/A",
+            method_id: result.method_id || "N/A",
             result: result.result || "N/A",
             lowerSpec: result.lower_spec || "N/A",
             upperSpec: result.upper_spec || "N/A",

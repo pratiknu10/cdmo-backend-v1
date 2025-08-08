@@ -248,7 +248,11 @@ export const getEquipmentDetail = async (req, res) => {
 
 export const exportEquipmentsReport = async (req, res) => {
   try {
-    // --- 1. Aggregation for the summary of all event types ---
+    // --- 1. Get all distinct event types dynamically from the database ---
+    const allEventTypes = await EquipmentEventModel.distinct("event_type");
+
+    // --- 2. Aggregation for the summary of all event types ---
+    // This pipeline sums up the counts for each event type.
     const eventTypeSummary = await EquipmentEventModel.aggregate([
       {
         $group: {
@@ -271,40 +275,41 @@ export const exportEquipmentsReport = async (req, res) => {
       return acc;
     }, {});
 
-    // --- 2. Aggregation for the batch breakdown ---
-    // This pipeline calculates the total events and specific event type counts per batch.
+    // --- 3. Dynamic Aggregation for the batch breakdown ---
+    // This section builds the aggregation pipeline stage dynamically.
+    const dynamicGroupFields = allEventTypes.reduce((acc, eventType) => {
+      // For each event type, create a field in the aggregation stage
+      acc[eventType.toLowerCase()] = {
+        $sum: { $cond: [{ $eq: ["$event_type", eventType] }, 1, 0] },
+      };
+      return acc;
+    }, {});
+
+    const dynamicProjectionFields = allEventTypes.reduce(
+      (acc, eventType) => {
+        // For each event type, create a field in the projection stage
+        acc[eventType.toLowerCase()] = 1;
+        return acc;
+      },
+      {
+        _id: 0,
+        batchId: "$_id",
+        equipment_events: 1,
+      }
+    );
+
     const batchBreakdownRaw = await EquipmentEventModel.aggregate([
-      // Filter out events not linked to a batch
       { $match: { related_batch: { $ne: null } } },
       {
         $group: {
           _id: "$related_batch",
           equipment_events: { $sum: 1 },
-          calibrations: {
-            $sum: {
-              $cond: [{ $eq: ["$event_type", "Calibration"] }, 1, 0],
-            },
-          },
-          cleanings: {
-            $sum: {
-              $cond: [{ $eq: ["$event_type", "Cleaning"] }, 1, 0],
-            },
-          },
-          usages: {
-            $sum: {
-              $cond: [{ $eq: ["$event_type", "Usage"] }, 1, 0],
-            },
-          },
+          ...dynamicGroupFields, // Spread the dynamically created fields
         },
       },
       {
         $project: {
-          _id: 0,
-          batchId: "$_id",
-          equipment_events: 1,
-          calibrations: 1,
-          cleanings: 1,
-          usages: 1,
+          ...dynamicProjectionFields, // Spread the dynamically created fields
         },
       },
     ]);
@@ -317,28 +322,21 @@ export const exportEquipmentsReport = async (req, res) => {
         );
         return {
           batch_id: batch ? batch.api_batch_id : "N/A",
-          equipment_events: item.equipment_events,
-          calibrations: item.calibrations,
-          cleanings: item.cleanings,
-          usages: item.usages,
+          ...item, // Spread the rest of the dynamic counts from the aggregation
         };
       })
     );
 
-    // --- 3. Calculate total counts for the summary footer ---
+    // --- 4. Calculate total counts for the summary footer ---
     const totalEvents = await EquipmentEventModel.countDocuments({});
-
-    // Get the count of unique batches with related events.
     const batchesWithEvents = await EquipmentEventModel.distinct(
       "related_batch",
       { related_batch: { $ne: null } }
     );
     const batchesProcessed = batchesWithEvents.length;
-
-    // Get the total count of all equipment from the EquipmentModel.
     const equipmentCovered = await EquipmentModel.countDocuments({});
 
-    // --- 4. Construct the final response object ---
+    // --- 5. Construct the final response object ---
     const responseData = {
       summary,
       batchBreakdown,
