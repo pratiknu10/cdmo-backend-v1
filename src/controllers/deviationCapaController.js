@@ -79,20 +79,25 @@ class DeviationCapaController {
       };
 
       // Format the overview data to match the image
-      // linked_details will NOT be populated here. It will be an empty object.
       const formattedDeviations = allDeviations.map((deviation) => {
         const entityType = deviation.linked_entity?.entity_type;
-        const entityId = deviation.linked_entity?.entity_id; // This is the raw ID (string or ObjectId)
+
+        // Determine priority based on severity.
+        const priority = deviation.severity === "Critical" ? "High" : "Medium";
+
+        // Get project and customer names from the populated batch.
+        const projectName = deviation.batch?.project?.project_name || "N/A";
+        const customerName = deviation.batch?.customer?.name || "N/A";
 
         return {
           _id: deviation._id,
           deviation_no: deviation.deviation_no,
-          api_batch_id: deviation.batch ? deviation.batch.api_batch_id : "N/A", // Added api_batch_id
+          api_batch_id: deviation.batch ? deviation.batch.api_batch_id : "N/A",
           severity: deviation.severity,
           status: deviation.status,
-          source_system: "MES", // Placeholder as it's not in schema, assuming a default
+          source_system: "MES",
           deviation_type: entityType || "N/A",
-          linked_entity_id: entityId || "N/A", // Keep the original entityId
+          // The linked_entity_id field has been removed as requested.
           resolved_on: deviation.resolution?.closed_at
             ? new Date(deviation.resolution.closed_at)
                 .toISOString()
@@ -112,12 +117,16 @@ class DeviationCapaController {
                 (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
               )
             : "N/A",
+          // Added project and customer names.
+          project_name: projectName,
+          customer_name: customerName,
+          // Added priority based on severity.
+          priority: priority,
           actions: {
-            view_details: `/api/deviations/${deviation.deviation_no}`, // Link to single deviation details
-            // This will be the new API endpoint for linked details, using deviation._id
+            view_details: `/api/deviations/${deviation.deviation_no}`,
             view_linked_details: `/api/deviations/linked-details/${deviation._id}`,
           },
-          linked_details: {}, // This will be an empty object in the overview
+          linked_details: {},
         };
       });
 
@@ -332,250 +341,240 @@ class DeviationCapaController {
   }
 
   async exportDeviationsOverview(req, res) {
-     try {
-       // Return a summary of all deviations with stats
-       // Increased maxTimeMS to prevent timeout for large datasets
-       const allDeviations = await DeviationModel.find({})
-         .populate({
-           path: "batch",
-           select: "api_batch_id project customer", // Select project and customer from the Batch model
-           populate: [
-             {
-               path: "project",
-               select: "project_name", // Populate the project's name
-             },
-             {
-               path: "customer",
-               select: "name", // Populate the customer's name
-             },
-           ],
-         })
-         .populate({
-           path: "raised_by",
-           select: "name",
-         })
-         .populate({
-           path: "resolution.closed_by",
-           select: "name",
-         })
-         .populate({
-           path: "resolution.linked_capa",
-           select: "_id closed_at", // Populate CAPA to get its _id and closed_at for resolved_on
-         })
-         .maxTimeMS(30000); // Set timeout to 30 seconds
+    try {
+      // Return a summary of all deviations with stats
+      // Increased maxTimeMS to prevent timeout for large datasets
+      const allDeviations = await DeviationModel.find({})
+        .populate({
+          path: "batch",
+          select: "api_batch_id project customer", // Select project and customer from the Batch model
+          populate: [
+            {
+              path: "project",
+              select: "project_name", // Populate the project's name
+            },
+            {
+              path: "customer",
+              select: "name", // Populate the customer's name
+            },
+          ],
+        })
+        .populate({
+          path: "raised_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.closed_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.linked_capa",
+          select: "_id closed_at", // Populate CAPA to get its _id and closed_at for resolved_on
+        })
+        .maxTimeMS(30000); // Set timeout to 30 seconds
 
-       // Calculate stats
-       const totalDeviations = allDeviations.length;
-       const openDeviationsCount = allDeviations.filter(
-         (d) => d.status === "Open"
-       ).length;
-       const criticalDeviationsCount = allDeviations.filter(
-         (d) => d.severity === "Critical"
-       ).length;
-       const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
+      // Calculate stats
+      const totalDeviations = allDeviations.length;
+      const openDeviationsCount = allDeviations.filter(
+        (d) => d.status === "Open"
+      ).length;
+      const criticalDeviationsCount = allDeviations.filter(
+        (d) => d.severity === "Critical"
+      ).length;
+      const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
 
-       let totalAgeInDays = 0;
-       allDeviations.forEach((d) => {
-         if (d.raised_at) {
-           const diffInMs = new Date() - d.raised_at;
-           totalAgeInDays += diffInMs / (1000 * 60 * 60 * 24);
-         }
-       });
-       const averageAgeInDays =
-         totalDeviations > 0
-           ? (totalAgeInDays / totalDeviations).toFixed(2)
-           : 0;
+      let totalAgeInDays = 0;
+      allDeviations.forEach((d) => {
+        if (d.raised_at) {
+          const diffInMs = new Date() - d.raised_at;
+          totalAgeInDays += diffInMs / (1000 * 60 * 60 * 24);
+        }
+      });
+      const averageAgeInDays =
+        totalDeviations > 0 ? (totalAgeInDays / totalDeviations).toFixed(2) : 0;
 
-       const stats = {
-         totalDeviations,
-         openDeviationsCount,
-         criticalDeviationsCount,
-         investigatingCount,
-         averageAgeInDays,
-       };
+      const stats = {
+        totalDeviations,
+        openDeviationsCount,
+        criticalDeviationsCount,
+        investigatingCount,
+        averageAgeInDays,
+      };
 
-       // Format the overview data to match the image
-       // Now populating linked_entity.entity_id for relevant types to include linked_details
-       const formattedDeviations = await Promise.all(
-         allDeviations.map(async (deviation) => {
-           // Removed extra outer parentheses here
-           let linkedDetails = {};
-           const entityType = deviation.linked_entity?.entity_type;
-           const entityId = deviation.linked_entity?.entity_id; // This is the raw ID (string or ObjectId)
+      // Format the overview data to match the image
+      // Now populating linked_entity.entity_id for relevant types to include linked_details
+      const formattedDeviations = await Promise.all(
+        allDeviations.map(async (deviation) => {
+          // Removed extra outer parentheses here
+          let linkedDetails = {};
+          const entityType = deviation.linked_entity?.entity_type;
+          const entityId = deviation.linked_entity?.entity_id; // This is the raw ID (string or ObjectId)
 
-           let linkedEntityData = null;
+          let linkedEntityData = null;
 
-           // Conditionally fetch linked entity data based on entityType and ID format
-           // This part is now active for the overview API as well to populate linked_details
-           if (entityId) {
-             if (entityType === "Sample") {
-               linkedEntityData = await SampleModel.findById(entityId).populate(
-                 {
-                   path: "test_results",
-                   populate: {
-                     path: "tested_by",
-                     select: "name",
-                   },
-                 }
-               );
-             } else if (entityType === "TestResult") {
-               linkedEntityData = await TestResultModel.findById(
-                 entityId
-               ).populate("tested_by", "name");
-             } else if (entityType === "ProcessStep") {
-               linkedEntityData = await ProcessStepModel.findById(entityId);
-             } else if (entityType === "BatchComponent") {
-               linkedEntityData = await BatchComponentModel.findById(entityId);
-             } else if (entityType === "Equipment") {
-               linkedEntityData = await EquipmentModel.findById(entityId);
-             }
-           }
+          // Conditionally fetch linked entity data based on entityType and ID format
+          // This part is now active for the overview API as well to populate linked_details
+          if (entityId) {
+            if (entityType === "Sample") {
+              linkedEntityData = await SampleModel.findById(entityId).populate({
+                path: "test_results",
+                populate: {
+                  path: "tested_by",
+                  select: "name",
+                },
+              });
+            } else if (entityType === "TestResult") {
+              linkedEntityData = await TestResultModel.findById(
+                entityId
+              ).populate("tested_by", "name");
+            } else if (entityType === "ProcessStep") {
+              linkedEntityData = await ProcessStepModel.findById(entityId);
+            } else if (entityType === "BatchComponent") {
+              linkedEntityData = await BatchComponentModel.findById(entityId);
+            } else if (entityType === "Equipment") {
+              linkedEntityData = await EquipmentModel.findById(entityId);
+            }
+          }
 
-           if (linkedEntityData) {
-             if (entityType === "Sample" && linkedEntityData.test_results) {
-               linkedDetails.tests = linkedEntityData.test_results.map(
-                 (testResult) => ({
-                   testId: testResult.test_id || "N/A",
-                   deviationId: deviation._id, // Adding Deviation ID here
-                   testName: testResult.parameter || "N/A",
-                   testMethod: testResult.method || "N/A",
-                   resultValue: testResult.value || "N/A",
-                   resultUnit: testResult.unit || "N/A",
-                   resultStatus:
-                     testResult.result?.toLowerCase() === "pass" ? true : false,
-                   specificationRange: `${testResult.lower_spec || "N/A"} - ${
-                     testResult.upper_spec || "N/A"
-                   }`,
-                   testTimestamp: testResult.tested_at
-                     ? new Date(testResult.tested_at)
-                         .toISOString()
-                         .split("T")[0]
-                     : "N/A",
-                   analystId: testResult.tested_by?.name || "N/A",
-                   approvalStatus: "N/A", // Placeholder
-                 })
-               );
-             } else if (entityType === "TestResult") {
-               // Directly linked to a TestResult
-               linkedDetails.tests = [
-                 {
-                   testId: linkedEntityData.test_id || "N/A",
-                   deviationId: deviation._id, // Adding Deviation ID here
-                   testName: linkedEntityData.parameter || "N/A",
-                   testMethod: linkedEntityData.method || "N/A",
-                   resultValue: linkedEntityData.value || "N/A",
-                   resultUnit: linkedEntityData.unit || "N/A",
-                   resultStatus:
-                     linkedEntityData.result?.toLowerCase() === "pass"
-                       ? true
-                       : false,
-                   specificationRange: `${
-                     linkedEntityData.lower_spec || "N/A"
-                   } - ${linkedEntityData.upper_spec || "N/A"}`,
-                   testTimestamp: linkedEntityData.tested_at
-                     ? new Date(linkedEntityData.tested_at)
-                         .toISOString()
-                         .split("T")[0]
-                     : "N/A",
-                   analystId: linkedEntityData.tested_by?.name || "N/A",
-                   approvalStatus: "N/A",
-                 },
-               ];
-             } else if (entityType === "ProcessStep") {
-               linkedDetails.processDetails = {
-                 stepName: linkedEntityData.step_name || "N/A",
-                 stepSequence: linkedEntityData.step_sequence || "N/A",
-                 startTimestamp: linkedEntityData.start_timestamp
-                   ? new Date(linkedEntityData.start_timestamp)
-                       .toISOString()
-                       .split("T")[0]
-                   : "N/A",
-                 endTimestamp: linkedEntityData.end_timestamp
-                   ? new Date(linkedEntityData.end_timestamp)
-                       .toISOString()
-                       .split("T")[0]
-                   : "N/A",
-               };
-             } else if (entityType === "BatchComponent") {
-               linkedDetails.componentDetails = {
-                 componentName: linkedEntityData.component_name || "N/A",
-                 materialCode:
-                   linkedEntityData.material_code_component || "N/A",
-                 lotNumber: linkedEntityData.internal_lot_id || "N/A",
-               };
-             } else if (entityType === "Equipment") {
-               linkedDetails.equipmentDetails = {
-                 equipmentId: linkedEntityData._id || "N/A",
-                 name: linkedEntityData.name || "N/A",
-                 model: linkedEntityData.model || "N/A",
-                 location: linkedEntityData.location || "N/A",
-                 status: linkedEntityData.status || "N/A",
-                 calibrationStatus:
-                   linkedEntityData.calibration_status || "N/A",
-                 lastCalibratedOn: linkedEntityData.last_calibrated_on
-                   ? new Date(linkedEntityData.last_calibrated_on)
-                       .toISOString()
-                       .split("T")[0]
-                   : "N/A",
-                 lastCleanedOn: linkedEntityData.last_cleaned_on
-                   ? new Date(linkedEntityData.last_cleaned_on)
-                       .toISOString()
-                       .split("T")[0]
-                   : "N/A",
-               };
-             }
-           }
+          if (linkedEntityData) {
+            if (entityType === "Sample" && linkedEntityData.test_results) {
+              linkedDetails.tests = linkedEntityData.test_results.map(
+                (testResult) => ({
+                  testId: testResult.test_id || "N/A",
+                  deviationId: deviation._id, // Adding Deviation ID here
+                  testName: testResult.parameter || "N/A",
+                  testMethod: testResult.method || "N/A",
+                  resultValue: testResult.value || "N/A",
+                  resultUnit: testResult.unit || "N/A",
+                  resultStatus:
+                    testResult.result?.toLowerCase() === "pass" ? true : false,
+                  specificationRange: `${testResult.lower_spec || "N/A"} - ${
+                    testResult.upper_spec || "N/A"
+                  }`,
+                  testTimestamp: testResult.tested_at
+                    ? new Date(testResult.tested_at).toISOString().split("T")[0]
+                    : "N/A",
+                  analystId: testResult.tested_by?.name || "N/A",
+                  approvalStatus: "N/A", // Placeholder
+                })
+              );
+            } else if (entityType === "TestResult") {
+              // Directly linked to a TestResult
+              linkedDetails.tests = [
+                {
+                  testId: linkedEntityData.test_id || "N/A",
+                  deviationId: deviation._id, // Adding Deviation ID here
+                  testName: linkedEntityData.parameter || "N/A",
+                  testMethod: linkedEntityData.method || "N/A",
+                  resultValue: linkedEntityData.value || "N/A",
+                  resultUnit: linkedEntityData.unit || "N/A",
+                  resultStatus:
+                    linkedEntityData.result?.toLowerCase() === "pass"
+                      ? true
+                      : false,
+                  specificationRange: `${
+                    linkedEntityData.lower_spec || "N/A"
+                  } - ${linkedEntityData.upper_spec || "N/A"}`,
+                  testTimestamp: linkedEntityData.tested_at
+                    ? new Date(linkedEntityData.tested_at)
+                        .toISOString()
+                        .split("T")[0]
+                    : "N/A",
+                  analystId: linkedEntityData.tested_by?.name || "N/A",
+                  approvalStatus: "N/A",
+                },
+              ];
+            } else if (entityType === "ProcessStep") {
+              linkedDetails.processDetails = {
+                stepName: linkedEntityData.step_name || "N/A",
+                stepSequence: linkedEntityData.step_sequence || "N/A",
+                startTimestamp: linkedEntityData.start_timestamp
+                  ? new Date(linkedEntityData.start_timestamp)
+                      .toISOString()
+                      .split("T")[0]
+                  : "N/A",
+                endTimestamp: linkedEntityData.end_timestamp
+                  ? new Date(linkedEntityData.end_timestamp)
+                      .toISOString()
+                      .split("T")[0]
+                  : "N/A",
+              };
+            } else if (entityType === "BatchComponent") {
+              linkedDetails.componentDetails = {
+                componentName: linkedEntityData.component_name || "N/A",
+                materialCode: linkedEntityData.material_code_component || "N/A",
+                lotNumber: linkedEntityData.internal_lot_id || "N/A",
+              };
+            } else if (entityType === "Equipment") {
+              linkedDetails.equipmentDetails = {
+                equipmentId: linkedEntityData._id || "N/A",
+                name: linkedEntityData.name || "N/A",
+                model: linkedEntityData.model || "N/A",
+                location: linkedEntityData.location || "N/A",
+                status: linkedEntityData.status || "N/A",
+                calibrationStatus: linkedEntityData.calibration_status || "N/A",
+                lastCalibratedOn: linkedEntityData.last_calibrated_on
+                  ? new Date(linkedEntityData.last_calibrated_on)
+                      .toISOString()
+                      .split("T")[0]
+                  : "N/A",
+                lastCleanedOn: linkedEntityData.last_cleaned_on
+                  ? new Date(linkedEntityData.last_cleaned_on)
+                      .toISOString()
+                      .split("T")[0]
+                  : "N/A",
+              };
+            }
+          }
 
-           return {
-             _id: deviation._id,
-             deviation_no: deviation.deviation_no,
-             api_batch_id: deviation.batch
-               ? deviation.batch.api_batch_id
-               : "N/A", // Added api_batch_id
-             severity: deviation.severity,
-             status: deviation.status,
-             source_system: "MES", // Placeholder as it's not in schema, assuming a default
-             deviation_type: entityType || "N/A",
-             linked_entity_id: entityId || "N/A", // Keep the original entityId
-             resolved_on: deviation.resolution?.closed_at
-               ? new Date(deviation.resolution.closed_at)
-                   .toISOString()
-                   .split("T")[0]
-               : "N/A",
-             CAPA_id: deviation.resolution?.linked_capa?._id || "N/A",
-             type: entityType || "N/A",
-             title: deviation.title,
-             description: deviation.description,
-             capa_status: deviation.resolution.linked_capa ? "Linked" : "N/A",
-             reported_by: deviation.raised_by
-               ? deviation.raised_by.name
-               : "N/A",
-             date: deviation.raised_at
-               ? new Date(deviation.raised_at).toISOString().split("T")[0]
-               : "N/A",
-             age_in_days: deviation.raised_at
-               ? Math.floor(
-                   (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
-                 )
-               : "N/A",
-             actions: {
-               view_details: `/api/deviations/${deviation.deviation_no}`, // Link to single deviation details
-               // This will be the new API endpoint for linked details, using deviation._id
-               view_linked_details: `/api/deviations/linked-details/${deviation._id}`,
-             },
-             linked_details: linkedDetails, // This will be an empty object in the overview
-           };
-         })
-       ); // Removed extra outer parentheses here
+          return {
+            _id: deviation._id,
+            deviation_no: deviation.deviation_no,
+            api_batch_id: deviation.batch
+              ? deviation.batch.api_batch_id
+              : "N/A", // Added api_batch_id
+            severity: deviation.severity,
+            status: deviation.status,
+            source_system: "MES", // Placeholder as it's not in schema, assuming a default
+            deviation_type: entityType || "N/A",
+            linked_entity_id: entityId || "N/A", // Keep the original entityId
+            resolved_on: deviation.resolution?.closed_at
+              ? new Date(deviation.resolution.closed_at)
+                  .toISOString()
+                  .split("T")[0]
+              : "N/A",
+            CAPA_id: deviation.resolution?.linked_capa?._id || "N/A",
+            type: entityType || "N/A",
+            title: deviation.title,
+            description: deviation.description,
+            capa_status: deviation.resolution.linked_capa ? "Linked" : "N/A",
+            reported_by: deviation.raised_by ? deviation.raised_by.name : "N/A",
+            date: deviation.raised_at
+              ? new Date(deviation.raised_at).toISOString().split("T")[0]
+              : "N/A",
+            age_in_days: deviation.raised_at
+              ? Math.floor(
+                  (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
+                )
+              : "N/A",
+            actions: {
+              view_details: `/api/deviations/${deviation.deviation_no}`, // Link to single deviation details
+              // This will be the new API endpoint for linked details, using deviation._id
+              view_linked_details: `/api/deviations/linked-details/${deviation._id}`,
+            },
+            linked_details: linkedDetails, // This will be an empty object in the overview
+          };
+        })
+      ); // Removed extra outer parentheses here
 
-       return res.status(200).json({
-         stats,
-         deviations: formattedDeviations,
-       });
-     } catch (error) {
-       console.error("Error fetching deviation overview data:", error);
-       res.status(500).json({ message: "Server error", error: error.message });
-     }
+      return res.status(200).json({
+        stats,
+        deviations: formattedDeviations,
+      });
+    } catch (error) {
+      console.error("Error fetching deviation overview data:", error);
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
   }
   async getCapaDeviations(req, res) {
     try {

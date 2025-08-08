@@ -257,7 +257,8 @@ class SamplesTestsController {
       const samples = await SampleModel.find({})
         .populate({
           path: "batch",
-          select: "api_batch_id project customer",
+          // ADDED plant_location to the select fields.
+          select: "api_batch_id project customer plant_location",
           populate: [
             {
               path: "project",
@@ -287,10 +288,10 @@ class SamplesTestsController {
       samples.forEach((sample) => {
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          (test) => test.result === "Pass"
+          (test) => test.status === "Passed"
         ).length;
         const failedTests = sample.test_results.filter(
-          (test) => test.result === "Fail"
+          (test) => test.status === "Failed"
         ).length;
 
         if (totalTests === 0) {
@@ -327,7 +328,7 @@ class SamplesTestsController {
         // Calculate Test Progress
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          (test) => test.result === "Pass"
+          (test) => test.status === "Passed"
         ).length;
         const testProgress =
           totalTests > 0
@@ -342,14 +343,15 @@ class SamplesTestsController {
           ? new Date(sample.collected_at).toISOString().split("T")[0]
           : "N/A";
 
-        // Logic for "Sub-Process & Location" - Placeholder, as this is not in the schema.
-        const subProcessLocation = "N/A";
+        // Get the plant location from the batch.
+        const plantLocation = sample.batch
+          ? sample.batch.plant_location
+          : "N/A";
 
-        // Logic for "Priority" - Placeholder.
-        const priority = "N/A";
-
-        // Logic for "Disposition" - Placeholder.
-        const disposition = "N/A";
+        // Use priority and disposition directly from the sample model.
+        // Assuming these fields exist in the Sample schema.
+        const priority = sample.priority || "N/A";
+        const disposition = sample.disposition || "N/A";
 
         // Format the detailed test results for this sample
         const detailedTests = sample.test_results.map((testResult) => ({
@@ -359,7 +361,7 @@ class SamplesTestsController {
           testMethod: testResult.method_id || "N/A", // Using 'method_id' as Test Method
           resultValue: testResult.value || "N/A",
           resultUnit: testResult.unit || "N/A",
-          resultStatus: testResult.result || "N/A", // 'Pass', 'Fail', 'NA'
+          resultStatus: testResult.status || "N/A", // Correctly using 'status' field
           specificationRange: "N/A", // Not directly in schema, placeholder
           testTimestamp: testResult.tested_at
             ? new Date(testResult.tested_at).toISOString().split("T")[0]
@@ -379,16 +381,17 @@ class SamplesTestsController {
             customer_name: customerName,
             project_id: sample.batch.project,
           },
-          sub_process_and_location: subProcessLocation,
+          // Now using the correct plant_location from the batch.
+          sub_process_and_location: plantLocation,
           test_progress: testProgress,
           analyst: {
             name: analystName,
             pulled_date: pulledDate,
-            by: sample.collected_by ? sample.collected_by.name : "N/A",
+            by: analystName,
           },
           priority: priority,
           disposition: disposition,
-          storage_location: sample.storage_location,
+          storage_location: sample.storage_location, // Kept this in case it's a separate field
           actions: {
             view_details: `/api/samples/${sample._id}`,
             export_report: `/api/samples/${sample._id}/report`,
