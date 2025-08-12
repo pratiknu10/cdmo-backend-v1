@@ -37,30 +37,29 @@ export const createAdmin = async (req, res) => {
 };
 export const assignUser = async (req, res) => {
   try {
-    const { userId, projectId, assignedRole } = req.body;
-
+    const { userId, projectIds, assignedRole } = req.body;
     const user = await UserModel.findById(userId);
     if (!user) {
       return res.status(404).send("User not found.");
     }
 
-    // Check if the assignment already exists
-    const existingAssignment = user.projectAssignments.find(
-      (assignment) =>
-        assignment.projectId.toString() === projectId &&
-        assignment.assignedRole === assignedRole
-    );
+    // Ensure projectIds is always an array for consistent processing
+    const idsToAssign = Array.isArray(projectIds) ? projectIds : [projectIds];
 
-    if (existingAssignment) {
-      return res
-        .status(400)
-        .send("User already assigned this role for this project.");
-    }
+    // Iterate over each projectId and either update or add the assignment
+    idsToAssign.forEach((projectId) => {
+      const existingAssignment = user.projectAssignments.find(
+        (assignment) => assignment.projectId.toString() === projectId
+      );
+      if (existingAssignment) {
+        existingAssignment.assignedRole = assignedRole;
+      } else {
+        user.projectAssignments.push({ projectId, assignedRole });
+      }
+    });
 
-    user.projectAssignments.push({ projectId, assignedRole });
     await user.save();
-
-    res.status(200).send("User assigned successfully.");
+    res.status(200).send("User assigned to projects successfully.");
   } catch (error) {
     console.error("Error assigning user:", error);
     res.status(500).send("Server error.");

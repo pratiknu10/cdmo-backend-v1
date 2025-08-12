@@ -41,3 +41,10 @@ export const userLogin = async (req, res) => {
     });
   }
 };
+export const userLogout = async (req, res) => {
+  // Clearing the 'token' cookie effectively logs the user out.
+  // The 'httpOnly: true' option means this cookie cannot be cleared by client-side JS.
+  // By clearing it on the server, we ensure a secure logout.
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully.", data: null });
+};
