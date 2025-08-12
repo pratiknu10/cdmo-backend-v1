@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { BatchModel } from "../models/batchModel.js";
 import { SampleModel } from "../models/sampleModel.js";
 import { TestResultModel } from "../models/testResultModel.js";
-import { UserModel } from "../models/userModel.js";
+
 
 class SamplesTestsController {
   // ================================
@@ -414,7 +414,7 @@ class SamplesTestsController {
       res.status(500).json({ message: "Server error", error: error.message });
     }
   }
-
+  
   // async getBatchSamplesTests(req, res) {
   //   try {
   //     const { batchId } = req.params;

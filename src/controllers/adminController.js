@@ -1,0 +1,133 @@
+import RoleModel from "../models/roleModel.js";
+import UserModel from "../models/userModel.js";
+import bcrypt from "bcryptjs";
+
+export const createAdmin = async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Check if an "Admin" role exists
+    const adminRole = await RoleModel.findOne({ name: "Admin" });
+    if (!adminRole) {
+      return res
+        .status(400)
+        .send("Admin role not found. Please create the Admin role first.");
+    }
+
+    // Check if an admin user already exists
+    const existingAdmin = await UserModel.findOne({ role: adminRole._id });
+    if (existingAdmin) {
+      return res.status(409).send("An admin user already exists.");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newAdminUser = new UserModel({
+      username,
+      email,
+      password: hashedPassword,
+      role: adminRole._id, // Assign the Admin role
+    });
+
+    await newAdminUser.save();
+    res.status(201).send("Admin user registered successfully.");
+  } catch (error) {
+    console.error("Error registering admin user:", error);
+    res.status(500).send("Server error.");
+  }
+};
+export const assignUser = async (req, res) => {
+  try {
+    const { userId, projectId, assignedRole } = req.body;
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    // Check if the assignment already exists
+    const existingAssignment = user.projectAssignments.find(
+      (assignment) =>
+        assignment.projectId.toString() === projectId &&
+        assignment.assignedRole === assignedRole
+    );
+
+    if (existingAssignment) {
+      return res
+        .status(400)
+        .send("User already assigned this role for this project.");
+    }
+
+    user.projectAssignments.push({ projectId, assignedRole });
+    await user.save();
+
+    res.status(200).send("User assigned successfully.");
+  } catch (error) {
+    console.error("Error assigning user:", error);
+    res.status(500).send("Server error.");
+  }
+};
+export const users = async (req, res) => {
+  try {
+    const { username, email, password, roleId, department } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new UserModel({
+      username,
+      email,
+      password: hashedPassword,
+      role: roleId,
+      department,
+    });
+    await newUser.save();
+
+    res.status(201).json({ message: "User created successfully." });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+export const getRoles = async (req, res) => {
+  try {
+    const roles = await RoleModel.find({});
+    res.json({ data: roles, message: "roles fetched successfully" });
+  } catch (error) {
+    console.error("Error fetching roles:", error);
+    res.status(500).json({ message: error.message, data: null });
+  }
+};
+export const updatePermissions = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { permissions } = req.body; // Array of new permissions
+
+    const user = await UserModel.findById(userId).populate("role");
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    const role = await RoleModel.findById(user.role._id);
+    if (!role) {
+      return res.status(404).send("User role not found.");
+    }
+
+    // Update the permissions on the role
+    role.permissions = permissions;
+    await role.save();
+
+    res.status(200).send("Permissions updated successfully.");
+  } catch (error) {
+    console.error("Error updating permissions:", error);
+    res.status(500).send("Server error.");
+  }
+};
+export const createRole = async (req, res) => {
+  try {
+    const { name, description, permissions } = req.body;
+    const newRole = new RoleModel({ name, description, permissions });
+    await newRole.save();
+    res.status(201).json(newRole);
+  } catch (error) {
+    console.error("Error creating role:", error);
+    res.status(500).send("Server error.");
+  }
+};

@@ -1,17 +1,30 @@
+// models/User.js
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
-const UserSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
-    name: String,
-    email: { type: String, unique: true, index: true },
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true }, // Remember to hash passwords!
+    email: { type: String, required: true },
     role: {
-      type: String,
-      enum: ["Operator", "Analyst", "QA", "Supervisor", "Admin"],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
       required: true,
     },
+    // Example attribute for ABAC
+    department: { type: String },
+    projectAssignments: [
+      {
+        projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
+        assignedRole: {
+          type: String,
+          enum: ["Project Manager", "Lab Authority", "Quality Authority"],
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export const UserModel = mongoose.model("User", UserSchema);
+const UserModel = mongoose.model("User", userSchema);
+export default UserModel;
