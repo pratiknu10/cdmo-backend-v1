@@ -93,6 +93,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.options("*", cors());
 app.use(auditMiddleware);
 app.use(express.json());
 app.use(CookieParser()); // Use cookie-parser middleware
