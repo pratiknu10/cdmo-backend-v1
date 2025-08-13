@@ -85,14 +85,7 @@ const setSecureHeaders = (req, res, next) => {
   next();
 };
 // app.use(setSecureHeaders);
-app.use(
-  cors({
-    origin: ["http://localhost:5003", "https://preview--cdmo.lovable.app/"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 // app.options("(.*)", cors());
 app.use(auditMiddleware);
 app.use(express.json());
