@@ -85,8 +85,26 @@ const setSecureHeaders = (req, res, next) => {
   next();
 };
 // app.use(setSecureHeaders);
-app.use(cors());
-// app.options("(.*)", cors());
+const allowedOrigins = [
+  "https://preview--cdmo.lovable.app",
+  "http://localhost:5173", // for local dev
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests from allowedOrigins or server-to-server (no origin)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // <-- allow cookies/auth headers
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(auditMiddleware);
 app.use(express.json());
 app.use(CookieParser()); // Use cookie-parser middleware
