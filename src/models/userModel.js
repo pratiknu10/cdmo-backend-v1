@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+
+    lastLogin: { type: Date, default: null },
+    status: { type: String, enum: ["Active", "Inactive"], default: "Active" },
   },
   { timestamps: true }
 );

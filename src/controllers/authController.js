@@ -21,7 +21,9 @@ export const userLogin = async (req, res) => {
     if (!isMatch) {
       return res.status(400).send("Invalid username or password.");
     }
-
+    // Update the lastLogin field on successful login
+    user.lastLogin = new Date();
+    await user.save();
     const token = jwt.sign(
       { id: user._id, role: user.role.name },
       process.env.JWT_SECRET,
@@ -47,6 +49,8 @@ export const userLogin = async (req, res) => {
         role: user.role.name,
         permissions: user.role.permissions, // Return the user's permissions
         assignedProjects: user.projectAssignments, // Return the user's assigned projects
+        lastLogin: user.lastLogin,
+        status: user.status,
       },
     });
   } catch (error) {

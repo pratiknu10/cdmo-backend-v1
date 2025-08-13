@@ -35,6 +35,34 @@ export const createAdmin = async (req, res) => {
     res.status(500).send("Server error.");
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await UserModel.find({ _id: { $ne: req.user.id } }).populate(
+      "role",
+      "name"
+    ); // Only populate the 'name' field from the role
+
+    // Transform the data to match the UI requirements
+    const formattedUsers = users.map((user) => ({
+      _id: user._id,
+      name: user.username,
+      email: user.email,
+      role: user.role.name,
+      department: user.department,
+      status: user.status,
+      lastLogin: user.lastLogin,
+    }));
+
+    return res.json({
+      data: formattedUsers,
+      message: "user details fetched successfully",
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ message: error.message, data: null });
+  }
+};
 export const assignUser = async (req, res) => {
   try {
     const { userId, projectIds, assignedRole } = req.body;
