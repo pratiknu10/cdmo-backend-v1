@@ -84,7 +84,7 @@ const setSecureHeaders = (req, res, next) => {
   );
   next();
 };
-app.use(setSecureHeaders);
+// app.use(setSecureHeaders);
 app.use(
   cors({
     origin: ["http://localhost:5003", "https://preview--cdmo.lovable.app/"],
@@ -93,7 +93,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.options("(.*)", cors());
+// app.options("(.*)", cors());
 app.use(auditMiddleware);
 app.use(express.json());
 app.use(CookieParser()); // Use cookie-parser middleware
