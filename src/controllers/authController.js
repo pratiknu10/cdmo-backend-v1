@@ -5,7 +5,14 @@ import jwt from "jsonwebtoken";
 export const userLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await UserModel.findOne({ username }).populate("role");
+    // Populate both the user's role and their project assignments to include in the response
+    const user = await UserModel.findOne({ username })
+      .populate({ path: "role", select: "name permissions" })
+      .populate({
+        path: "projectAssignments.projectId",
+        select: "project_code project_name",
+      });
+
     if (!user) {
       return res.status(400).send("Invalid username or password.");
     }
@@ -33,7 +40,14 @@ export const userLogin = async (req, res) => {
 
     res.json({
       message: "Logged in successfully!",
-      user: { id: user._id, username: user.username, role: user.role.name },
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role.name,
+        permissions: user.role.permissions, // Return the user's permissions
+        assignedProjects: user.projectAssignments, // Return the user's assigned projects
+      },
     });
   } catch (error) {
     res.json({

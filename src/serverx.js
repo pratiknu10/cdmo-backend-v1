@@ -84,8 +84,8 @@ const setSecureHeaders = (req, res, next) => {
   );
   next();
 };
-app.use(cors());
 app.use(setSecureHeaders);
+app.use(cors());
 app.use(auditMiddleware);
 app.use(express.json());
 app.use(errorHandler);
