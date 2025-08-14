@@ -67,6 +67,7 @@ export const getCustomerBatches = async (req, res) => {
           _id: "$batches._id",
           customerName: "$name",
           customerId: "$_id",
+          projectId: "$projects._id", // Include the project ID
           projectCode: "$projects.project_code",
           apiBatchId: "$batches.api_batch_id",
           batchStatus: "$batches.status",
@@ -80,6 +81,7 @@ export const getCustomerBatches = async (req, res) => {
           batches: {
             $push: {
               batchId: "$_id",
+              projectId: "$projectId", // Include the project ID
               projectCode: "$projectCode",
               apiBatchId: "$apiBatchId",
               batchStatus: "$batchStatus",
@@ -93,6 +95,7 @@ export const getCustomerBatches = async (req, res) => {
     const formattedData = customers.flatMap((customer) => {
       return customer.batches.map((batch) => ({
         _id: batch.batchId, // Include the batch _id
+        projectId: batch.projectId, // Include the project_id
         sno: "", // This should be populated on the client-side
         customerName: customer.customerName,
         customerId: customer.customerId,
