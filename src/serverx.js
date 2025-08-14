@@ -87,6 +87,7 @@ const setSecureHeaders = (req, res, next) => {
 app.use(setSecureHeaders);
 const allowedOrigins = [
   "https://preview--cdmo.lovable.app",
+  "http://20.55.30.42",
   "http://localhost:5173", // for local dev
 ];
 
