@@ -6,8 +6,8 @@ export const authenticateToken = (req, res, next) => {
     req.cookies.token ||
     (req.headers["authorization"] &&
       req.headers["authorization"].split(" ")[1]);
-  console.log(req.cookies);
-  console.log(token);
+    console.log(req.cookies);
+    console.log(token);
   if (token == null) return res.sendStatus(401); // No token found in cookie or header
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {

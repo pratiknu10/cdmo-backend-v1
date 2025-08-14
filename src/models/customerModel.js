@@ -8,10 +8,8 @@ const CustomerSchema = new Schema(
     contact_person: String,
     email: String,
     phone: String,
-    
   },
   { timestamps: true }
-
 );
 
 export const CustomerModel = mongoose.model("Customer", CustomerSchema);

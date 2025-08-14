@@ -4,6 +4,7 @@ import {
   createAdmin,
   createRole,
   getAllUsers,
+  getCustomerBatches,
   getRoles,
   updatePermissions,
   users,
@@ -16,6 +17,12 @@ adminRouter.get("/users", authenticateToken, isAdmin, getAllUsers);
 adminRouter.post("/users", authenticateToken, isAdmin, users);
 adminRouter.get("/roles", authenticateToken, isAdmin, getRoles);
 adminRouter.post("/roles", authenticateToken, isAdmin, createRole);
+adminRouter.get(
+  "/customer-batches",
+  authenticateToken,
+  isAdmin,
+  getCustomerBatches
+);
 
 adminRouter.post(
   "/users/:id/permissions",

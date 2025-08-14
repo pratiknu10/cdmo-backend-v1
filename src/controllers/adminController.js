@@ -1,3 +1,4 @@
+import { CustomerModel } from "../models/customerModel.js";
 import RoleModel from "../models/roleModel.js";
 import UserModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
@@ -35,7 +36,78 @@ export const createAdmin = async (req, res) => {
     res.status(500).send("Server error.");
   }
 };
+export const getCustomerBatches = async (req, res) => {
+  try {
+    // Aggregate data from Customer, Project, and Batch collections
+    const customers = await CustomerModel.aggregate([
+      {
+        $lookup: {
+          from: "projects", // The name of the collection for ProjectModel
+          localField: "_id",
+          foreignField: "customer",
+          as: "projects",
+        },
+      },
+      {
+        $unwind: "$projects",
+      },
+      {
+        $lookup: {
+          from: "batches", // The name of the collection for BatchModel
+          localField: "projects.batches",
+          foreignField: "_id",
+          as: "batches",
+        },
+      },
+      {
+        $unwind: { path: "$batches", preserveNullAndEmptyArrays: true },
+      },
+      {
+        $project: {
+          _id: "$batches._id",
+          customerName: "$name",
+          customerId: "$_id",
+          projectCode: "$projects.project_code",
+          apiBatchId: "$batches.api_batch_id",
+          batchStatus: "$batches.status",
+        },
+      },
+      {
+        $group: {
+          _id: "$customerId",
+          customerName: { $first: "$customerName" },
+          customerId: { $first: "$customerId" },
+          batches: {
+            $push: {
+              batchId: "$_id",
+              projectCode: "$projectCode",
+              apiBatchId: "$apiBatchId",
+              batchStatus: "$batchStatus",
+            },
+          },
+        },
+      },
+    ]);
 
+    // Format the output to match the desired table structure
+    const formattedData = customers.flatMap((customer) => {
+      return customer.batches.map((batch) => ({
+        _id: batch.batchId, // Include the batch _id
+        sno: "", // This should be populated on the client-side
+        customerName: customer.customerName,
+        customerId: customer.customerId,
+        projectCode: batch.projectCode,
+        apiBatchId: batch.apiBatchId,
+        batchStatus: batch.batchStatus,
+      }));
+    });
+
+    res.json(formattedData);
+  } catch (error) {
+    console.error("Error fetching customers and batches:", error);
+    res.status(500).send("Server error.");
+  }
+};
 export const getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.find({ _id: { $ne: req.user.id } }).populate(
