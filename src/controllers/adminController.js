@@ -105,7 +105,7 @@ export const getCustomerBatches = async (req, res) => {
       }));
     });
 
-    res.json(formattedData);
+    res.json({ data: formattedData, message: "data fetched successfully" });
   } catch (error) {
     console.error("Error fetching customers and batches:", error);
     res.status(500).send("Server error.");
