@@ -141,6 +141,7 @@ export const getAllUsers = async (req, res) => {
 export const assignUser = async (req, res) => {
   try {
     const { userId, projectIds, assignedRole } = req.body;
+    console.log(userId, projectIds, assignedRole);
     const user = await UserModel.findById(userId);
     if (!user) {
       return res.status(404).send("User not found.");
@@ -162,7 +163,9 @@ export const assignUser = async (req, res) => {
     });
 
     await user.save();
-    res.status(200).send("User assigned to projects successfully.");
+    res
+      .status(200)
+      .json({ message: "User assigned to projects successfully.", data: user });
   } catch (error) {
     console.error("Error assigning user:", error);
     res.status(500).send("Server error.");
