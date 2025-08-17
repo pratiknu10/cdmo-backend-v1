@@ -2,23 +2,27 @@
 
 import express from "express";
 import deviationCapaController from "../controllers/deviationCapaController.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const DeviationCapaRouter = express.Router();
 
 // ___ FOR FETCHING ALL DEVIATIONS WITHOUT LINKED ENTITES _____
 DeviationCapaRouter.get(
   "/deviations/overview",
+  authenticateToken,
   deviationCapaController.deviationsOverview
 );
 // ___ FOR FETCHING DEVIATION LINKED ENTITES  _____
 
 DeviationCapaRouter.get(
   "/deviations/linked/:deviationNo",
+  authenticateToken,
   deviationCapaController.deviationLinkedEntity
 );
 // ___ FOR EXPORTING ALL DEVIATIONS WITH LINKED ENTITES _____
 DeviationCapaRouter.get(
   "/deviations/overview/export",
+  authenticateToken,
   deviationCapaController.exportDeviationsOverview
 );
 DeviationCapaRouter.get(

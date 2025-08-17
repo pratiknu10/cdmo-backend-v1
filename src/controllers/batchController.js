@@ -235,9 +235,7 @@ export const getBatchOverview = async (req, res) => {
           non_critical: nonCriticalDeviations,
         },
         samples: batch.samples.length,
-        // The image shows a "Target Release" date. This is not in the schema.
-        // I will add a placeholder for it here. In a real app, you would
-        // either add it to your schema or derive it from the project.
+
         target_release: "N/A",
         actions: {
           view_details: `/api/batches/${batch._id}`,

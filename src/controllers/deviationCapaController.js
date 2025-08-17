@@ -19,38 +19,100 @@ class DeviationCapaController {
   // ================================
   async deviationsOverview(req, res) {
     try {
-      // Return a summary of all deviations with stats
-      // Increased maxTimeMS to prevent timeout for large datasets
-      const allDeviations = await DeviationModel.find({})
-        .populate({
-          path: "batch",
-          select: "api_batch_id project customer", // Select project and customer from the Batch model
-          populate: [
-            {
-              path: "project",
-              select: "project_name", // Populate the project's name
-            },
-            {
-              path: "customer",
-              select: "name", // Populate the customer's name
-            },
-          ],
-        })
-        .populate({
-          path: "raised_by",
-          select: "name",
-        })
-        .populate({
-          path: "resolution.closed_by",
-          select: "name",
-        })
-        .populate({
-          path: "resolution.linked_capa",
-          select: "_id closed_at", // Populate CAPA to get its _id and closed_at for resolved_on
-        })
-        .maxTimeMS(30000); // Set timeout to 30 seconds
+      let allDeviations;
 
-      // Calculate stats
+      // Check if the user object exists and has a role.
+      if (!req.user || !req.user.role) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized: User role not found." });
+      }
+
+      // If the user is not an admin, filter by assigned projects.
+      if (req.user.role !== "admin") {
+        // Find the user to get their assigned projects.
+        const user = await UserModel.findById(req.user._id).select(
+          "assigned_projects"
+        );
+        if (!user) {
+          return res.status(404).json({ message: "User not found." });
+        }
+
+        // Convert assigned projects to an array of IDs.
+        const assignedProjectIds = user.assigned_projects.map((proj) =>
+          proj.toString()
+        );
+
+        // Find all batches that belong to the user's assigned projects.
+        const userBatches = await BatchModel.find({
+          project: { $in: assignedProjectIds },
+        }).select("_id");
+        const userBatchIds = userBatches.map((batch) => batch._id);
+
+        // Find deviations associated with the batches the user has access to.
+        allDeviations = await DeviationModel.find({
+          batch: { $in: userBatchIds },
+        })
+          .populate({
+            path: "batch",
+            select: "api_batch_id project customer",
+            populate: [
+              {
+                path: "project",
+                select: "project_name",
+              },
+              {
+                path: "customer",
+                select: "name",
+              },
+            ],
+          })
+          .populate({
+            path: "raised_by",
+            select: "name",
+          })
+          .populate({
+            path: "resolution.closed_by",
+            select: "name",
+          })
+          .populate({
+            path: "resolution.linked_capa",
+            select: "_id closed_at",
+          })
+          .maxTimeMS(30000);
+      } else {
+        // If the user is an admin, fetch all deviations.
+        allDeviations = await DeviationModel.find({})
+          .populate({
+            path: "batch",
+            select: "api_batch_id project customer",
+            populate: [
+              {
+                path: "project",
+                select: "project_name",
+              },
+              {
+                path: "customer",
+                select: "name",
+              },
+            ],
+          })
+          .populate({
+            path: "raised_by",
+            select: "name",
+          })
+          .populate({
+            path: "resolution.closed_by",
+            select: "name",
+          })
+          .populate({
+            path: "resolution.linked_capa",
+            select: "_id closed_at",
+          })
+          .maxTimeMS(30000);
+      }
+
+      // Calculate stats for the fetched deviations (this logic is the same for both admin and non-admin)
       const totalDeviations = allDeviations.length;
       const openDeviationsCount = allDeviations.filter(
         (d) => d.status === "Open"
@@ -58,7 +120,7 @@ class DeviationCapaController {
       const criticalDeviationsCount = allDeviations.filter(
         (d) => d.severity === "Critical"
       ).length;
-      const investigatingCount = 0; // This requires a new status or field in your schema. Placeholder.
+      const investigatingCount = 0; // Placeholder as it's not in the schema.
 
       let totalAgeInDays = 0;
       allDeviations.forEach((d) => {
@@ -78,14 +140,10 @@ class DeviationCapaController {
         averageAgeInDays,
       };
 
-      // Format the overview data to match the image
+      // Format the overview data for the response
       const formattedDeviations = allDeviations.map((deviation) => {
         const entityType = deviation.linked_entity?.entity_type;
-
-        // Determine priority based on severity.
         const priority = deviation.severity === "Critical" ? "High" : "Medium";
-
-        // Get project and customer names from the populated batch.
         const projectName = deviation.batch?.project?.project_name || "N/A";
         const customerName = deviation.batch?.customer?.name || "N/A";
 
@@ -97,7 +155,7 @@ class DeviationCapaController {
           status: deviation.status,
           source_system: "MES",
           deviation_type: entityType || "N/A",
-          // The linked_entity_id field has been removed as requested.
+          // The linked_entity_id field is removed.
           resolved_on: deviation.resolution?.closed_at
             ? new Date(deviation.resolution.closed_at)
                 .toISOString()
@@ -117,10 +175,8 @@ class DeviationCapaController {
                 (new Date() - deviation.raised_at) / (1000 * 60 * 60 * 24)
               )
             : "N/A",
-          // Added project and customer names.
           project_name: projectName,
           customer_name: customerName,
-          // Added priority based on severity.
           priority: priority,
           actions: {
             view_details: `/api/deviations/${deviation.deviation_no}`,

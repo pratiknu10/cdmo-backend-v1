@@ -14,6 +14,7 @@ import {
   sampleTests,
   stabilityReport,
 } from "../controllers/batchController.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 // # user-story 11
 const batchRouter = express.Router();
@@ -23,7 +24,7 @@ batchRouter.get("/batches/release-report/:apiBatchId", releaseReport);
 batchRouter.get("/batches/api-ids", GET_ALL_API_BATCH_ID);
 batchRouter.get("/batches/parent-detail/:batchId", batchParentDetail);
 batchRouter.get("/batches/:batchId/detailed-summary", batchDetailSummay);
-batchRouter.get("/batches/overview", getBatchOverview);
+batchRouter.get("/batches/overview", authenticateToken, getBatchOverview);
 batchRouter.get("/batches/overview/tab/:batchId", getBatchTabOverviewByBID);
 
 //  genealogy tab
