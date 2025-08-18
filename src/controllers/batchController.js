@@ -135,120 +135,236 @@ export const getBatchTabOverviewByBID = async (req, res) => {
 };
 export const getBatchOverview = async (req, res) => {
   try {
-    // Find all batches and populate the necessary fields from other collections.
-    // The populate calls are optimized to only retrieve the data needed for the overview.
-    const batches = await BatchModel.find({})
-      .populate({
-        path: "customer",
-        select: "name", // Only fetch the customer's name
-      })
-      .populate({
-        path: "project",
-        select: "project_name", // Only fetch the project's name for the 'Product' column
-      })
-      .populate({
-        path: "deviations",
-        select: "severity", // Only fetch the deviation's severity for counting
-      })
-      .populate({
-        path: "samples",
-        select: "_id", // Only fetch the sample's ID for counting
-      })
-      .populate({
-        path: "process_steps",
-        select: "end_timestamp", // Only fetch end_timestamp to calculate progress
-      });
+    // --- Access Control Logic Start ---
+    const batchFilter = {};
 
-    // Calculate status counts for the new stats object
-    const totalBatchesCount = batches.length;
-    let notStartedCount = 0;
-    let inProgressCount = 0;
-    let qaHoldCount = 0;
-    let releasedCount = 0;
-    let awaitingCoaCount = 0;
+    // Check if the user is not an admin
+    if (req.user && req.user.role !== "admin") {
+      // Find all projects assigned to the user
+      const assignedProjects = await ProjectModel.find({
+        _id: { $in: req.user.projectAssignments.map((p) => p.projectId) },
+      }).select("batches");
 
-    batches.forEach((batch) => {
-      switch (batch.status) {
-        case "In-Process":
-          // Assuming "In-Process" is equivalent to "In Progress" in the UI
-          inProgressCount++;
-          break;
-        case "Released":
-          releasedCount++;
-          break;
-        case "On-Hold":
-          // Assuming "On-Hold" is equivalent to "QA Hold" in the UI
-          qaHoldCount++;
-          break;
-        case "Awaiting Coa":
-          // The model does not have a direct status for "Awaiting Coa".
-          // This is a placeholder count based on the UI.
-          // In a real application, you would derive this from the BatchComponent model.
-          awaitingCoaCount++;
-          break;
-        // Logic for "Not Started" - assuming a batch with no process steps has not started.
-        default:
-          if (batch.process_steps.length === 0) {
-            notStartedCount++;
-          }
-          break;
+      // Extract all unique batch IDs from the assigned projects
+      const accessibleBatchIds = [
+        ...new Set(assignedProjects.flatMap((p) => p.batches)),
+      ];
+
+      // If no batches are accessible, we can return an empty response immediately.
+      if (accessibleBatchIds.length === 0) {
+        return res.status(200).json({
+          count: 0,
+          batches: [],
+          stats: {
+            totalBatchesCount: 0,
+            notStartedCount: 0,
+            inProgressCount: 0,
+            qaHoldCount: 0,
+            releasedCount: 0,
+            awaitingCoaCount: 0,
+          },
+        });
       }
-    });
 
-    const stats = {
-      totalBatchesCount,
-      notStartedCount,
-      inProgressCount,
-      qaHoldCount,
-      releasedCount,
-      awaitingCoaCount,
-    };
+      // Add the accessible batch IDs to the match filter
+      batchFilter._id = { $in: accessibleBatchIds };
+    }
+    // --- Access Control Logic End ---
 
-    // Format the data to match the desired response structure
-    const formattedBatches = batches.map((batch) => {
-      // Calculate progress percentage based on completed process steps
-      const totalSteps = batch.process_steps.length;
-      const completedSteps = batch.process_steps.filter(
-        (step) => step.end_timestamp
-      ).length;
-      const progress =
-        totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
+    // The single, optimized aggregation pipeline
+    const pipeline = [
+      // 1. Filter batches based on user access
+      {
+        $match: batchFilter,
+      },
 
-      // Count critical deviations
-      const criticalDeviations = batch.deviations.filter(
-        (d) => d.severity === "Critical"
-      ).length;
-      const nonCriticalDeviations = batch.deviations.filter(
-        (d) => d.severity !== "Critical"
-      ).length;
-
-      return {
-        _id: batch._id, // Include the batch _id as requested
-        api_batch_id: batch.api_batch_id,
-        product: batch.project ? batch.project.project_name : "N/A", // Use project_name as product
-        customer: batch.customer ? batch.customer.name : "N/A",
-        status: batch.status,
-        progress,
-        deviations: {
-          total: batch.deviations.length,
-          critical: criticalDeviations,
-          non_critical: nonCriticalDeviations,
+      // 2. Look up the associated customer and project
+      {
+        $lookup: {
+          from: "customers",
+          localField: "customer",
+          foreignField: "_id",
+          as: "customerData",
+          pipeline: [{ $project: { name: 1 } }],
         },
-        samples: batch.samples.length,
-
-        target_release: "N/A",
-        actions: {
-          view_details: `/api/batches/${batch._id}`,
-          export_report: `/api/batches/${batch._id}/report`,
+      },
+      { $unwind: { path: "$customerData", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "projects",
+          localField: "project",
+          foreignField: "_id",
+          as: "projectData",
+          pipeline: [{ $project: { project_name: 1 } }],
         },
-      };
-    });
+      },
+      { $unwind: { path: "$projectData", preserveNullAndEmptyArrays: true } },
+
+      // 3. Look up and count samples
+      {
+        $lookup: {
+          from: "samples",
+          localField: "_id",
+          foreignField: "batch",
+          as: "samplesData",
+          pipeline: [{ $count: "count" }],
+        },
+      },
+
+      // 4. Look up and count deviations
+      {
+        $lookup: {
+          from: "deviations",
+          localField: "_id",
+          foreignField: "batch",
+          as: "deviationsData",
+          pipeline: [
+            {
+              $group: {
+                _id: null,
+                total: { $sum: 1 },
+                critical: {
+                  $sum: { $cond: [{ $eq: ["$severity", "Critical"] }, 1, 0] },
+                },
+                non_critical: {
+                  $sum: { $cond: [{ $ne: ["$severity", "Critical"] }, 1, 0] },
+                },
+              },
+            },
+          ],
+        },
+      },
+
+      // 5. Look up and count process steps for progress calculation
+      {
+        $lookup: {
+          from: "processsteps",
+          localField: "_id",
+          foreignField: "batch",
+          as: "processStepsData",
+          pipeline: [
+            {
+              $group: {
+                _id: null,
+                total: { $sum: 1 },
+                completed: { $sum: { $cond: ["$end_timestamp", 1, 0] } },
+              },
+            },
+          ],
+        },
+      },
+
+      // 6. Project and format the final output, performing all calculations
+      {
+        $project: {
+          _id: 1,
+          api_batch_id: 1,
+          product: { $ifNull: ["$projectData.project_name", "N/A"] },
+          customer: { $ifNull: ["$customerData.name", "N/A"] },
+          status: "$status",
+          progress: {
+            $let: {
+              vars: {
+                total: {
+                  $ifNull: [
+                    { $arrayElemAt: ["$processStepsData.total", 0] },
+                    0,
+                  ],
+                },
+                completed: {
+                  $ifNull: [
+                    { $arrayElemAt: ["$processStepsData.completed", 0] },
+                    0,
+                  ],
+                },
+              },
+              in: {
+                $cond: [
+                  { $gt: ["$$total", 0] },
+                  {
+                    $round: [
+                      {
+                        $multiply: [
+                          { $divide: ["$$completed", "$$total"] },
+                          100,
+                        ],
+                      },
+                      0,
+                    ],
+                  },
+                  0,
+                ],
+              },
+            },
+          },
+          deviations: {
+            $let: {
+              vars: {
+                devData: {
+                  $ifNull: [
+                    { $arrayElemAt: ["$deviationsData", 0] },
+                    { total: 0, critical: 0, non_critical: 0 },
+                  ],
+                },
+              },
+              in: {
+                total: "$$devData.total",
+                critical: "$$devData.critical",
+                non_critical: "$$devData.non_critical",
+              },
+            },
+          },
+          samples: {
+            $ifNull: [{ $arrayElemAt: ["$samplesData.count", 0] }, 0],
+          },
+          target_release: { $ifNull: ["$released_at", "N/A"] },
+        },
+      },
+    ];
+
+    const formattedBatches = await BatchModel.aggregate(pipeline);
+
+    // Calculate status counts for the new stats object from the aggregated results
+    const stats = formattedBatches.reduce(
+      (acc, batch) => {
+        acc.totalBatchesCount++;
+        switch (batch.status) {
+          case "In-Process":
+            acc.inProgressCount++;
+            break;
+          case "Released":
+            acc.releasedCount++;
+            break;
+          case "On-Hold":
+            acc.qaHoldCount++;
+            break;
+          case "Awaiting Coa":
+            acc.awaitingCoaCount++;
+            break;
+          default:
+            // "Not Started" - if no process steps found
+            if (batch.progress === 0 && batch.status !== "In-Process") {
+              acc.notStartedCount++;
+            }
+            break;
+        }
+        return acc;
+      },
+      {
+        totalBatchesCount: 0,
+        notStartedCount: 0,
+        inProgressCount: 0,
+        qaHoldCount: 0,
+        releasedCount: 0,
+        awaitingCoaCount: 0,
+      }
+    );
 
     // Send the structured response
     res.status(200).json({
       count: formattedBatches.length,
       batches: formattedBatches,
-      stats, // Include the new stats object
+      stats,
     });
   } catch (error) {
     console.error("Error fetching batch overview:", error);
