@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { BatchModel } from "../models/batchModel.js";
 import { SampleModel } from "../models/sampleModel.js";
 import { TestResultModel } from "../models/testResultModel.js";
-
+import UserModel from "../models/userModel.js";
 
 class SamplesTestsController {
   // ================================
@@ -253,11 +253,69 @@ class SamplesTestsController {
   // }
   async samplesOverview(req, res) {
     try {
-      // Find all samples and populate the necessary fields from other collections.
-      const samples = await SampleModel.find({})
+      let queryFilter = {};
+
+      // Check for user and role
+      if (!req.user || !req.user.role) {
+        return res
+          .status(401)
+          .json({ message: "Unauthorized: User role not found." });
+      }
+
+      // If the user is not an admin, build a query to filter by their assigned projects.
+      if (req.user.role !== "admin") {
+        const user = await UserModel.findById(req.user.id).select(
+          "projectAssignments"
+        );
+
+        if (!user) {
+          return res.status(404).json({ message: "User not found." });
+        }
+
+        // Extract project IDs from the user's projectAssignments array.
+        const assignedProjectIds = user.projectAssignments.map(
+          (assignment) => assignment.projectId
+        );
+
+        // Find all batches associated with the assigned projects directly from the Project model.
+        const projectsWithBatches = await ProjectModel.find({
+          _id: { $in: assignedProjectIds },
+        }).select("batches");
+
+        // Consolidate all the batch IDs into a single array.
+        const accessibleBatchIds = projectsWithBatches.reduce(
+          (acc, project) => {
+            acc.push(...project.batches);
+            return acc;
+          },
+          []
+        );
+
+        // If there are no accessible batches, return an empty array of samples immediately.
+        // This prevents an unnecessary database call with an empty $in array.
+        if (accessibleBatchIds.length === 0) {
+          return res.status(200).json({
+            count: 0,
+            samples: [],
+            stats: {
+              totalSamplesCount: 0,
+              pendingTestingCount: 0,
+              inProgressCount: 0,
+              acceptedCount: 0,
+              failedTestsCount: 0,
+            },
+          });
+        }
+
+        // Set the query filter to only include samples from the accessible batches.
+        queryFilter = { batch: { $in: accessibleBatchIds } };
+      }
+
+      // Find all samples and populate the necessary fields from other collections,
+      // applying the query filter if the user is not an admin.
+      const samples = await SampleModel.find(queryFilter)
         .populate({
           path: "batch",
-          // ADDED plant_location to the select fields.
           select: "api_batch_id project customer plant_location",
           populate: [
             {
@@ -275,7 +333,7 @@ class SamplesTestsController {
           select: "name",
         })
         .populate({
-          path: "test_results", // Populate all test results for detailed display
+          path: "test_results",
         });
 
       // Calculate stats for the stats object
@@ -288,11 +346,9 @@ class SamplesTestsController {
       samples.forEach((sample) => {
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          // Assuming 'result' field is used for Pass/Fail status
           (test) => test.result === "Passed"
         ).length;
         const failedTests = sample.test_results.filter(
-          // Assuming 'result' field is used for Pass/Fail status
           (test) => test.result === "Failed"
         ).length;
 
@@ -330,7 +386,6 @@ class SamplesTestsController {
         // Calculate Test Progress
         const totalTests = sample.test_results.length;
         const passedTests = sample.test_results.filter(
-          // Using 'result' field for Pass/Fail status
           (test) => test.result === "Passed"
         ).length;
         const testProgress =
@@ -352,7 +407,6 @@ class SamplesTestsController {
           : "N/A";
 
         // Use priority and disposition directly from the sample model.
-        // Assuming these fields exist in the Sample schema.
         const priority = sample.priority || "N/A";
         const disposition = sample.disposition || "N/A";
 
@@ -360,23 +414,22 @@ class SamplesTestsController {
         const detailedTests = sample.test_results.map((testResult) => ({
           _id: testResult._id,
           testId: testResult.test_id || "N/A",
-          testName: testResult.parameter || "N/A", // Using 'parameter' as Test Name
-          testMethod: testResult.method_id || "N/A", // Using 'method_id' as Test Method
+          testName: testResult.parameter || "N/A",
+          testMethod: testResult.method_id || "N/A",
           resultValue: testResult.value || "N/A",
           resultUnit: testResult.unit || "N/A",
-          // CORRECTED: Using 'result' field to determine the status
           resultStatus: testResult.result || "N/A",
-          specificationRange: "N/A", // Not directly in schema, placeholder
+          specificationRange: "N/A",
           testTimestamp: testResult.tested_at
             ? new Date(testResult.tested_at).toISOString().split("T")[0]
             : "N/A",
-          analystId: testResult.tested_by ? testResult.tested_by.name : "N/A", // Assuming tested_by is User ObjectId
-          approvalStatus: "N/A", // Not directly in schema, placeholder
+          analystId: testResult.tested_by ? testResult.tested_by.name : "N/A",
+          approvalStatus: "N/A",
         }));
 
         return {
-          _id: sample._id, // Sample object ID
-          batch_id: sample.batch._id, // Batch object ID
+          _id: sample._id,
+          batch_id: sample.batch._id,
           sample_id: sample.sample_id,
           api_batch_id: batchApiId,
           type_and_status: sample.sample_type,
@@ -385,7 +438,6 @@ class SamplesTestsController {
             customer_name: customerName,
             project_id: sample.batch.project,
           },
-          // Now using the correct plant_location from the batch.
           sub_process_and_location: plantLocation,
           test_progress: testProgress,
           analyst: {
@@ -395,12 +447,12 @@ class SamplesTestsController {
           },
           priority: priority,
           disposition: disposition,
-          storage_location: sample.storage_location, // Kept this in case it's a separate field
+          storage_location: sample.storage_location,
           actions: {
             view_details: `/api/samples/${sample._id}`,
             export_report: `/api/samples/${sample._id}/report`,
           },
-          tests: detailedTests, // Include the detailed test results here
+          tests: detailedTests,
         };
       });
 
@@ -414,7 +466,7 @@ class SamplesTestsController {
       res.status(500).json({ message: "Server error", error: error.message });
     }
   }
-  
+
   // async getBatchSamplesTests(req, res) {
   //   try {
   //     const { batchId } = req.params;
