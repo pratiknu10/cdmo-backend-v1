@@ -28,7 +28,7 @@ export const isAdmin = async (req, res, next) => {
     if (user && user.role.name === "Admin") {
       next();
     } else {
-      res.status(403).send("Access Denied: Requires Admin role.");
+      return res.status(403).send("Access Denied: Requires Admin role.");
     }
   } catch (error) {
     res.status(500).send("Server Error during authorization.");

@@ -4,6 +4,7 @@
 
 import mongoose from "mongoose";
 import { BatchModel } from "../models/batchModel.js";
+import UserModel from "../models/userModel.js";
 import { DeviationModel } from "../models/deviationModel.js";
 import { ProjectModel } from "../models/projectModel.js";
 import { BatchComponentModel } from "../models/batchComponentModel.js";
@@ -19,100 +20,95 @@ class DeviationCapaController {
   // ================================
   async deviationsOverview(req, res) {
     try {
-      let allDeviations;
+      let queryFilter = {};
 
-      // Check if the user object exists and has a role.
+      // Check for user and role
       if (!req.user || !req.user.role) {
         return res
           .status(401)
           .json({ message: "Unauthorized: User role not found." });
       }
 
-      // If the user is not an admin, filter by assigned projects.
+      // If the user is not an admin, build a query to filter by their assigned projects.
       if (req.user.role !== "admin") {
-        // Find the user to get their assigned projects.
-        const user = await UserModel.findById(req.user._id).select(
-          "assigned_projects"
+        // Use req.user._id, as this is the standard Mongoose ID field.
+        const user = await UserModel.findById(req.user.id).select(
+          "projectAssignments"
         );
         if (!user) {
           return res.status(404).json({ message: "User not found." });
         }
 
-        // Convert assigned projects to an array of IDs.
-        const assignedProjectIds = user.assigned_projects.map((proj) =>
-          proj.toString()
+        // Extract project IDs from the user's projectAssignments array.
+        const assignedProjectIds = user.projectAssignments.map(
+          (assignment) => assignment.projectId
         );
 
-        // Find all batches that belong to the user's assigned projects.
-        const userBatches = await BatchModel.find({
-          project: { $in: assignedProjectIds },
-        }).select("_id");
-        const userBatchIds = userBatches.map((batch) => batch._id);
+        // Find all batches associated with the assigned projects directly from the Project model.
+        const projectsWithBatches = await ProjectModel.find({
+          _id: { $in: assignedProjectIds },
+        }).select("batches");
+        console.log(projectsWithBatches);
 
-        // Find deviations associated with the batches the user has access to.
-        allDeviations = await DeviationModel.find({
-          batch: { $in: userBatchIds },
-        })
-          .populate({
-            path: "batch",
-            select: "api_batch_id project customer",
-            populate: [
-              {
-                path: "project",
-                select: "project_name",
-              },
-              {
-                path: "customer",
-                select: "name",
-              },
-            ],
-          })
-          .populate({
-            path: "raised_by",
-            select: "name",
-          })
-          .populate({
-            path: "resolution.closed_by",
-            select: "name",
-          })
-          .populate({
-            path: "resolution.linked_capa",
-            select: "_id closed_at",
-          })
-          .maxTimeMS(30000);
-      } else {
-        // If the user is an admin, fetch all deviations.
-        allDeviations = await DeviationModel.find({})
-          .populate({
-            path: "batch",
-            select: "api_batch_id project customer",
-            populate: [
-              {
-                path: "project",
-                select: "project_name",
-              },
-              {
-                path: "customer",
-                select: "name",
-              },
-            ],
-          })
-          .populate({
-            path: "raised_by",
-            select: "name",
-          })
-          .populate({
-            path: "resolution.closed_by",
-            select: "name",
-          })
-          .populate({
-            path: "resolution.linked_capa",
-            select: "_id closed_at",
-          })
-          .maxTimeMS(30000);
+        // Consolidate all the batch IDs into a single array.
+        const accessibleBatchIds = projectsWithBatches.reduce(
+          (acc, project) => {
+            acc.push(...project.batches);
+            return acc;
+          },
+          []
+        );
+
+        // If there are no accessible batches, return an empty array of deviations immediately.
+        // This prevents an unnecessary database call with an empty $in array.
+        if (accessibleBatchIds.length === 0) {
+          return res.status(200).json({
+            stats: {
+              totalDeviations: 0,
+              openDeviationsCount: 0,
+              criticalDeviationsCount: 0,
+              investigatingCount: 0,
+              averageAgeInDays: 0,
+            },
+            deviations: [],
+          });
+        }
+
+        // Set the query filter to only include deviations from the accessible batches.
+        queryFilter = { batch: { $in: accessibleBatchIds } };
       }
 
-      // Calculate stats for the fetched deviations (this logic is the same for both admin and non-admin)
+      // Fetch the deviations with the specified filter (if any) and populate the necessary fields.
+      const allDeviations = await DeviationModel.find(queryFilter)
+        .populate({
+          path: "batch",
+          select: "api_batch_id project customer",
+          populate: [
+            {
+              path: "project",
+              select: "project_name",
+            },
+            {
+              path: "customer",
+              select: "name",
+            },
+          ],
+        })
+        .populate({
+          path: "raised_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.closed_by",
+          select: "name",
+        })
+        .populate({
+          path: "resolution.linked_capa",
+          select: "_id closed_at",
+        })
+        .maxTimeMS(30000);
+
+      // Calculate stats
       const totalDeviations = allDeviations.length;
       const openDeviationsCount = allDeviations.filter(
         (d) => d.status === "Open"
@@ -155,7 +151,6 @@ class DeviationCapaController {
           status: deviation.status,
           source_system: "MES",
           deviation_type: entityType || "N/A",
-          // The linked_entity_id field is removed.
           resolved_on: deviation.resolution?.closed_at
             ? new Date(deviation.resolution.closed_at)
                 .toISOString()
