@@ -4,6 +4,7 @@ import { BatchModel } from "../models/batchModel.js";
 import { DeviationModel } from "../models/deviationModel.js";
 import { SampleModel } from "../models/sampleModel.js";
 import { formatDistanceToNow } from "date-fns";
+import { ProjectModel } from "../models/projectModel.js";
 
 export const getDashboardSummary = async (req, res) => {
   try {
@@ -44,7 +45,37 @@ export const getDashboardSummary = async (req, res) => {
 
 export const getCustomerBatchSummary = async (req, res) => {
   try {
+    // --- Access Control Logic Start ---
+    let customerFilter = {};
+
+    // Check if the user is not an admin
+    if (req.user && req.user.role !== "admin") {
+      // Find all projects assigned to the user
+      const assignedProjects = await ProjectModel.find({
+        _id: { $in: req.user.projectAssignments.map((p) => p.projectId) },
+      }).select("customer");
+
+      // Extract the unique customer IDs directly from the projects
+      const accessibleCustomers = [
+        ...new Set(assignedProjects.map((p) => p.customer)),
+      ];
+
+      // If no projects are assigned, there will be no customers to show.
+      if (accessibleCustomers.length === 0) {
+        return res.json([]);
+      }
+
+      // Set the filter for the main aggregation pipeline
+      customerFilter = { _id: { $in: accessibleCustomers } };
+    }
+    // --- Access Control Logic End ---
+
     const pipeline = [
+      // Add the $match stage here to filter customers first.
+      // This is a crucial step for performance, as it reduces the number of documents processed.
+      {
+        $match: customerFilter,
+      },
       {
         $lookup: {
           from: "batches",
@@ -56,12 +87,10 @@ export const getCustomerBatchSummary = async (req, res) => {
       {
         $project: {
           name: 1,
-          // batches: 1, // Keep if you need the full batch array in the output, otherwise remove for smaller response
           country: 1,
           contact_person: 1,
           email: 1,
           phone: 1,
-          // Aggregating counts for each status
           not_started: {
             $size: {
               $filter: {
@@ -81,12 +110,11 @@ export const getCustomerBatchSummary = async (req, res) => {
             },
           },
           completed: {
-            // New field for 'Completed' status
             $size: {
               $filter: {
                 input: "$batches",
                 as: "b",
-                cond: { $eq: ["$$b.status", "Completed"] }, // Assuming 'Completed' is the status value
+                cond: { $eq: ["$$b.status", "Completed"] },
               },
             },
           },
@@ -100,7 +128,6 @@ export const getCustomerBatchSummary = async (req, res) => {
             },
           },
           on_hold: {
-            // New field for 'On-Hold' status
             $size: {
               $filter: {
                 input: "$batches",
@@ -109,7 +136,6 @@ export const getCustomerBatchSummary = async (req, res) => {
               },
             },
           },
-          // 'active_batches' combines 'In-Process' and 'On-Hold'
           active_batches: {
             $size: {
               $filter: {
@@ -119,7 +145,6 @@ export const getCustomerBatchSummary = async (req, res) => {
               },
             },
           },
-          // 'pending_release' is 'On-Hold' AND 'released_at' is null
           pending_release: {
             $size: {
               $filter: {
@@ -156,16 +181,15 @@ export const getCustomerBatchSummary = async (req, res) => {
       active_batches: r.active_batches,
       not_started: r.not_started,
       in_progress: r.in_progress,
-      completed: r.completed, // Include the new 'completed' field
+      completed: r.completed,
       released: r.released,
-      on_hold: r.on_hold, // Include the new 'on_hold' field
+      on_hold: r.on_hold,
       pending_release: r.pending_release,
       last_activity: r.last_updated
         ? formatDistanceToNow(new Date(r.last_updated), { addSuffix: true })
         : "No activity",
     }));
 
-    console.log(formatted);
     res.json(formatted);
   } catch (err) {
     console.error(err);

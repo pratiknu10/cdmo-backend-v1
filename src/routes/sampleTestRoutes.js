@@ -8,12 +8,14 @@
 // # user-story 13
 import express from "express";
 import samplesTestsController from "../controllers/samplesTestsController.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const sampleTestRoute = express.Router();
 
 // Main samples & tests overview for a batch
 sampleTestRoute.get(
   "/samples/overview",
+  authenticateToken,
   samplesTestsController.samplesOverview
 );
 sampleTestRoute.get(

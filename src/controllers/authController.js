@@ -12,7 +12,7 @@ export const userLogin = async (req, res) => {
         path: "projectAssignments.projectId",
         select: "project_code project_name",
       });
-
+    console.log(user);
     if (!user) {
       return res.status(400).send("Invalid username or password.");
     }
@@ -25,7 +25,11 @@ export const userLogin = async (req, res) => {
     user.lastLogin = new Date();
     await user.save();
     const token = jwt.sign(
-      { id: user._id, role: user.role.name },
+      {
+        id: user._id,
+        role: user.role.name,
+        projectAssignments: user.projectAssignments,
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
