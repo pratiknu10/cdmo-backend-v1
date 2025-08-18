@@ -149,7 +149,7 @@ export const getBatchOverview = async (req, res) => {
       const accessibleBatchIds = [
         ...new Set(assignedProjects.flatMap((p) => p.batches)),
       ];
-
+      console.log("accessibleBatchIds", accessibleBatchIds);
       // If no batches are accessible, we can return an empty response immediately.
       if (accessibleBatchIds.length === 0) {
         return res.status(200).json({
@@ -323,7 +323,7 @@ export const getBatchOverview = async (req, res) => {
     ];
 
     const formattedBatches = await BatchModel.aggregate(pipeline);
-
+ 
     // Calculate status counts for the new stats object from the aggregated results
     const stats = formattedBatches.reduce(
       (acc, batch) => {
