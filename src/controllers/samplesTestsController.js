@@ -7,6 +7,7 @@ import { BatchModel } from "../models/batchModel.js";
 import { SampleModel } from "../models/sampleModel.js";
 import { TestResultModel } from "../models/testResultModel.js";
 import UserModel from "../models/userModel.js";
+import { ProjectModel } from "../models/projectModel.js";
 
 class SamplesTestsController {
   // ================================
