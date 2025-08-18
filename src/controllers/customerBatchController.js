@@ -4,6 +4,7 @@ import { CustomerModel } from "../models/customerModel.js";
 import { SampleModel } from "../models/sampleModel.js";
 import { DeviationModel } from "../models/deviationModel.js";
 import { TestResultModel } from "../models/testResultModel.js";
+import { ProjectModel } from "../models/projectModel.js";
 
 export const getBatchSummaryByCustomerId = async (req, res) => {
   try {
@@ -35,20 +36,61 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
       phone: customer.phone || "N/A",
     };
 
-    // Build search filter
+    // --- Access Control Logic Start ---
+    const matchConditions = {
+      customer: new mongoose.Types.ObjectId(customerId),
+    };
+
+    // Check if the user is not an admin
+    if (req.user && req.user.role !== "admin") {
+      // Find all projects assigned to the user
+      const assignedProjects = await ProjectModel.find({
+        _id: { $in: req.user.projectAssignments.map((p) => p.projectId) },
+      }).select("batches");
+
+      // Extract all unique batch IDs from the assigned projects
+      const accessibleBatchIds = [
+        ...new Set(assignedProjects.flatMap((p) => p.batches)),
+      ];
+
+      // If no batches are accessible, return an empty array
+      if (accessibleBatchIds.length === 0) {
+        return res.json({
+          success: true,
+          data: {
+            customer: { ...customerWithDefaults, totalBatches: 0 },
+            summary: { totalBatches: 0 },
+            batches: [],
+            pagination: {
+              currentPage: 1,
+              totalPages: 1,
+              totalRecords: 0,
+              hasNext: false,
+              hasPrev: false,
+              limit: parseInt(limit),
+            },
+          },
+        });
+      }
+
+      // Add the accessible batch IDs to the match filter
+      matchConditions._id = { $in: accessibleBatchIds };
+    }
+    // --- Access Control Logic End ---
+
+    // Build search filter and merge with match conditions
     const searchFilter = search
       ? {
           $or: [{ api_batch_id: { $regex: search, $options: "i" } }],
         }
       : {};
 
+    const finalMatch = { ...matchConditions, ...searchFilter };
+
     // Optimized aggregation pipeline
     const pipeline = [
       {
-        $match: {
-          customer: new mongoose.Types.ObjectId(customerId),
-          ...searchFilter,
-        },
+        $match: finalMatch,
       },
 
       // Lookup project with defaults
@@ -98,7 +140,7 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
           pipeline: [
             {
               $group: {
-                _id: null, // Group all deviations for the batch into a single document
+                _id: null,
                 total: { $sum: 1 },
                 critical: {
                   $sum: { $cond: [{ $eq: ["$severity", "Critical"] }, 1, 0] },
@@ -116,14 +158,12 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
                 non_critical: 1,
               },
             },
-            { $limit: 1 }, // Ensure only one aggregated document is returned per batch
+            { $limit: 1 },
           ],
         },
       },
       {
         $addFields: {
-          // Extract counts from the single object in deviationsAggregatedData array
-          // These are intermediate fields to be used in the final $project
           totalDeviationsCount: {
             $ifNull: [
               { $arrayElemAt: ["$deviationsAggregatedData.total", 0] },
@@ -138,7 +178,9 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
           },
           nonCriticalDeviationsCount: {
             $ifNull: [
-              { $arrayElemAt: ["$deviationsAggregatedData.non_critical", 0] },
+              {
+                $arrayElemAt: ["$deviationsAggregatedData.non_critical", 0],
+              },
               0,
             ],
           },
@@ -196,8 +238,6 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
           },
         },
       },
-
-      // Add computed fields for UI display
       {
         $addFields: {
           displayStatus: {
@@ -225,7 +265,6 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
               default: "orange",
             },
           },
-          // Placeholder for Target Release - assuming it's a field in BatchModel or derived
           target_release: { $ifNull: ["$released_at", "N/A"] },
         },
       },
@@ -233,6 +272,9 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
 
     // Get summary counts
     const summaryPipeline = [
+      {
+        $match: finalMatch,
+      },
       ...pipeline,
       {
         $group: {
@@ -281,24 +323,21 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
           api_batch_id: 1,
           displayStatus: 1,
           statusColor: 1,
-          // Project the calculated counts for deviations and samples
           deviations: {
-            // Directly use the aggregated object from the lookup result
             $ifNull: [
               { $arrayElemAt: ["$deviationsAggregatedData", 0] },
-              { total: 0, critical: 0, non_critical: 0 }, // Default if no deviations found
+              { total: 0, critical: 0, non_critical: 0 },
             ],
           },
           samples: "$samplesCount",
-          progress: { $round: ["$progress", 0] }, // Round progress to whole number
+          progress: { $round: ["$progress", 0] },
           createdAt: 1,
           released_at: 1,
           project: {
             project_name: 1,
             project_code: 1,
           },
-          customer: "$project.customer.name", // Assuming customer name is populated under project
-          // Removed explicit exclusions to avoid the "Cannot do exclusion on field... in inclusion projection" error
+          customer: "$project.customer.name",
         },
       },
     ]);
