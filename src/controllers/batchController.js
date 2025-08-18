@@ -323,7 +323,7 @@ export const getBatchOverview = async (req, res) => {
     ];
 
     const formattedBatches = await BatchModel.aggregate(pipeline);
- 
+
     // Calculate status counts for the new stats object from the aggregated results
     const stats = formattedBatches.reduce(
       (acc, batch) => {
@@ -374,9 +374,28 @@ export const getBatchOverview = async (req, res) => {
 
 export const GET_ALL_API_BATCH_ID = async (req, res) => {
   try {
-    // Find all batches and select only the 'api_batch_id' field.
-    // The '_id' field is included by default, so we explicitly exclude it.
-    const batches = await BatchModel.find({}, { api_batch_id: 1, _id: 0 });
+    // --- Access Control Logic Start ---
+    const filter = {};
+
+    // Check if the user is not an admin
+    if (req.user && req.user.role !== "admin") {
+      // Find all projects assigned to the user
+      const assignedProjects = await ProjectModel.find({
+        _id: { $in: req.user.projectAssignments.map((p) => p.projectId) },
+      }).select("batches");
+
+      // Extract all unique batch IDs from the assigned projects
+      const accessibleBatchIds = [
+        ...new Set(assignedProjects.flatMap((p) => p.batches)),
+      ];
+
+      // Add the accessible batch IDs to the filter
+      filter._id = { $in: accessibleBatchIds };
+    }
+    // --- Access Control Logic End ---
+
+    // Find batches based on the constructed filter, and only return the api_batch_id
+    const batches = await BatchModel.find(filter, { api_batch_id: 1, _id: 0 });
 
     // Extract just the api_batch_id into a flat array
     const apiBatchIds = batches.map((batch) => batch.api_batch_id);

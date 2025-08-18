@@ -21,7 +21,7 @@ const batchRouter = express.Router();
 //  overview tab and summary table data
 batchRouter.get("/batches/stability-report/:apiBatchId", stabilityReport);
 batchRouter.get("/batches/release-report/:apiBatchId", releaseReport);
-batchRouter.get("/batches/api-ids", GET_ALL_API_BATCH_ID);
+batchRouter.get("/batches/api-ids", authenticateToken, GET_ALL_API_BATCH_ID);
 batchRouter.get("/batches/parent-detail/:batchId", batchParentDetail);
 batchRouter.get("/batches/:batchId/detailed-summary", batchDetailSummay);
 batchRouter.get("/batches/overview", authenticateToken, getBatchOverview);
