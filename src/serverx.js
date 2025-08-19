@@ -2,7 +2,7 @@ import express from "express";
 const app = express();
 import { port } from "./config/env.js";
 import errorHandler from "./middleware/errorHandler.js";
-import auditMiddleware from "./middleware/auditMiddleware.js";
+import { auditMiddleware, logRequest } from "./middleware/auditMiddleware.js";
 
 import dotenv from "dotenv";
 import { CustomerModel } from "./models/customerModel.js";
@@ -31,6 +31,7 @@ import { equipmentRouter } from "./routes/equipmentRoutes.js";
 import adminRouter from "./routes/adminRoute.js";
 import CookieParser from "cookie-parser";
 import authRouter from "./routes/authRotue.js";
+import { logRouter } from "./routes/logRoute.js";
 // app.use("/api/projects", projectRoutes);
 
 async function readJSON(path) {
@@ -107,6 +108,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 app.use(auditMiddleware);
+app.use(logRequest);
 app.use(express.json());
 app.use(CookieParser()); // Use cookie-parser middleware
 app.get("/", (req, res) => {
@@ -122,6 +124,7 @@ app.use("/api/v1", sampleTestRoute);
 app.use("/api/v1", DeviationCapaRouter);
 app.use("/api/v1/equipments", equipmentRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/logs", logRouter);
 app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
