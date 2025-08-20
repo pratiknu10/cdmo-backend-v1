@@ -1020,7 +1020,7 @@ export const batchParentDetail = async (req, res) => {
       .populate("customer", "name")
       .populate("project", "project_name project_code product_name") // Populate product_name from the project
       .populate("process_steps")
-      .populate("released_by", "name"); // Populate the user who released the batch
+      .populate("released_by", "username"); // Populate the user who released the batch
 
     if (!batch) {
       return res.status(404).json({
