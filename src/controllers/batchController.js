@@ -1015,12 +1015,12 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // Find the batch and populate essential details, including the released_by user's name
+    // Find the batch and populate essential details, including the released_by user's username
     const batch = await BatchModel.findById(batchId)
       .populate("customer", "name")
-      .populate("project", "project_name project_code product_name") // Populate product_name from the project
+      .populate("project", "project_name project_code product_name")
       .populate("process_steps")
-      .populate("released_by", "username"); // Populate the user who released the batch
+      .populate("released_by", "username"); // Populate the user who released the batch, using their username
 
     if (!batch) {
       return res.status(404).json({
@@ -1066,7 +1066,7 @@ export const batchParentDetail = async (req, res) => {
 
     // 5. Get Batch Release Status and Released By/Date
     const releaseStatus = batch.status || "N/A";
-    const releasedBy = batch.released_by ? batch.released_by.name : "N/A";
+    const releasedBy = batch.released_by ? batch.released_by.username : "N/A"; // Use username instead of name
     const releasedDate = batch.released_at || "N/A";
 
     // --- Construct the final response data ---
@@ -1074,18 +1074,14 @@ export const batchParentDetail = async (req, res) => {
       batch: {
         _id: batch._id,
         api_batch_id: batch.api_batch_id,
-        // Populate product_name from the project model
         product_name: batch.project ? batch.project.product_name : "N/A",
-        // Extract required yield and unit data
         target_yield: batch.target_yield || "N/A",
         actual_yield: batch.actual_yield || "N/A",
         yield_unit: batch.yield_unit || "N/A",
-        // Extract batch release data
         batch_release_status: releaseStatus,
         released_date: releasedDate,
         released_by: releasedBy,
 
-        // Existing fields
         product_code: batch.project ? batch.project.project_code : "N/A",
         customer: batch.customer ? batch.customer.name : "N/A",
         manufacturing_site: batch.plant_location || "N/A",
