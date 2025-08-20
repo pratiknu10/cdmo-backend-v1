@@ -1015,11 +1015,12 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // Find the batch and populate essential details from the new schemas
+    // Find the batch and populate essential details, including the released_by user's name
     const batch = await BatchModel.findById(batchId)
       .populate("customer", "name")
-      .populate("project", "project_name project_code")
-      .populate("process_steps");
+      .populate("project", "project_name project_code product_name") // Populate product_name from the project
+      .populate("process_steps")
+      .populate("released_by", "name"); // Populate the user who released the batch
 
     if (!batch) {
       return res.status(404).json({
@@ -1027,6 +1028,8 @@ export const batchParentDetail = async (req, res) => {
         message: "Batch not found",
       });
     }
+
+    // --- Calculation and Data Aggregation ---
 
     // 1. Calculate Progress based on completed process steps
     const totalProcessSteps = batch.process_steps.length;
@@ -1045,12 +1048,10 @@ export const batchParentDetail = async (req, res) => {
     });
 
     // 3. Count Pending Samples
-    // We assume a 'pending' sample is one that has not been approved by QC.
-    // This logic relies on the SampleModel, which was not provided in the new schemas.
-    // I am assuming the SampleModel has a `qc_status` field.
+    // This logic relies on the SampleModel and an assumed 'qc_status' field.
     const pendingSamplesCount = await SampleModel.countDocuments({
       batch: batchId,
-      qc_status: "Pending", // This is an assumption based on the user's request.
+      qc_status: "Pending",
     });
 
     // 4. Calculate Days to Release
@@ -1063,12 +1064,28 @@ export const batchParentDetail = async (req, res) => {
       daysToRelease = diffDays > 0 ? diffDays : 0;
     }
 
-    // Construct the response using the new schema fields
+    // 5. Get Batch Release Status and Released By/Date
+    const releaseStatus = batch.status || "N/A";
+    const releasedBy = batch.released_by ? batch.released_by.name : "N/A";
+    const releasedDate = batch.released_at || "N/A";
+
+    // --- Construct the final response data ---
     const responseData = {
       batch: {
         _id: batch._id,
         api_batch_id: batch.api_batch_id,
-        product_name: batch.product_name, // This field is not in the new schema, but I will keep it for compatibility with the image.
+        // Populate product_name from the project model
+        product_name: batch.project ? batch.project.product_name : "N/A",
+        // Extract required yield and unit data
+        target_yield: batch.target_yield || "N/A",
+        actual_yield: batch.actual_yield || "N/A",
+        yield_unit: batch.yield_unit || "N/A",
+        // Extract batch release data
+        batch_release_status: releaseStatus,
+        released_date: releasedDate,
+        released_by: releasedBy,
+
+        // Existing fields
         product_code: batch.project ? batch.project.project_code : "N/A",
         customer: batch.customer ? batch.customer.name : "N/A",
         manufacturing_site: batch.plant_location || "N/A",
