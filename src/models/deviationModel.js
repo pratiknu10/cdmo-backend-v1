@@ -44,6 +44,8 @@ const DeviationSchema = new Schema(
       enum: ["Minor", "Major", "Critical"],
       required: true,
     },
+    root_cause: String,
+
     status: {
       type: String,
       enum: ["Open", "Closed", "In-Progress"],

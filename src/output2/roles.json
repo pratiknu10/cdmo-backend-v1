@@ -1,0 +1,87 @@
+[
+  {
+    "_id": "68a6ec8ad8fd0e9b34055e08",
+
+    "name": "Project Manager",
+    "description": "Project Manager with rights to access projects",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "68a6f01e290cfc61464f1906",
+    "name": "Admin",
+    "description": "Admin With ALL administration rights",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "68a6f1f8290cfc61464f191b",
+    "name": "Analyst",
+    "description": "Analyst with limited rights",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "68a6f209290cfc61464f191f",
+    "name": "Operator",
+    "description": "Operator with limited rights",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "68a6f21f290cfc61464f1923",
+    "name": "QA",
+    "description": "QA Executive with limited rights",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "68a6f24e290cfc61464f1927",
+    "name": "Supervisor",
+    "description": "Supervisor  with controlled and limited managerial rights",
+    "permissions": [
+      {
+        "resource": "dashboard",
+        "canView": true,
+        "canEdit": true,
+        "canAddDel": false
+      }
+    ],
+    "__v": 0
+  }
+]

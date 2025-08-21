@@ -17,7 +17,10 @@ const BatchSchema = new Schema(
     yield_unit: { type: String },
     customer: { type: Schema.Types.ObjectId, ref: "Customer", index: true },
     project: { type: Schema.Types.ObjectId, ref: "Project", index: true },
-
+    batch_size: {
+      quantity: Number,
+      unit: String,
+    },
     // HARD REFS (arrays)
     components: [{ type: Schema.Types.ObjectId, ref: "BatchComponent" }],
     process_steps: [{ type: Schema.Types.ObjectId, ref: "ProcessStep" }],

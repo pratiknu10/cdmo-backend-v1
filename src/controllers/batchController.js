@@ -1015,12 +1015,12 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // Find the batch and populate essential details, including the released_by user's username
+    // Find the batch and populate essential details, including the released_by user's name
     const batch = await BatchModel.findById(batchId)
       .populate("customer", "name")
       .populate("project", "project_name project_code product_name")
       .populate("process_steps")
-      .populate("released_by", "username"); // Populate the user who released the batch, using their username
+      .populate("released_by", "name"); // Populate the user who released the batch, using their name
 
     if (!batch) {
       return res.status(404).json({
@@ -1066,7 +1066,7 @@ export const batchParentDetail = async (req, res) => {
 
     // 5. Get Batch Release Status and Released By/Date
     const releaseStatus = batch.status || "N/A";
-    const releasedBy = batch.released_by ? batch.released_by.username : "N/A"; // Use username instead of name
+    const releasedBy = batch.released_by ? batch.released_by.name : "N/A"; // Use name instead of username
     const releasedDate = batch.released_at || "N/A";
 
     // --- Construct the final response data ---

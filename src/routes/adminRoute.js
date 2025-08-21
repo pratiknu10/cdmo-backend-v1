@@ -16,12 +16,12 @@ adminRouter.post("/register", createAdmin);
 adminRouter.get("/users", authenticateToken, isAdmin, getAllUsers);
 adminRouter.post("/users", authenticateToken, isAdmin, users);
 adminRouter.get("/roles", authenticateToken, isAdmin, getRoles);
-adminRouter.post("/roles", authenticateToken, isAdmin, createRole);
+adminRouter.post("/roles", createRole);
 adminRouter.get(
   "/customer-batches",
   authenticateToken,
   isAdmin,
-  getCustomerBatches
+  getCustomerBatches    
 );
 
 adminRouter.post(

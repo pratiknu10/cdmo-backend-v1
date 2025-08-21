@@ -4,9 +4,18 @@ const { Schema } = mongoose;
 const EquipmentEventSchema = new Schema(
   {
     equipment: { type: String, ref: "Equipment", required: true, index: true },
+    equip_id: String,
     event_type: {
       type: String,
-      enum: ["Usage", "Calibration", "Cleaning", "Maintenance", "Fault"],
+      enum: [
+        "Usage",
+        "Calibration",
+        "Cleaning",
+        "Maintenance",
+        "Validation",
+        "Fault",
+        "Inspection",
+      ],
       required: true,
     },
     timestamp: { type: Date, default: Date.now, index: true },

@@ -1,62 +1,82 @@
 [
   {
-    "_id": "689050077849264fcbb1e24e",
-    "name": "John Smith",
+    "_id": "689485f37fafc1107150a3ca",
+    "username": "JohnSmith",
     "email": "john.smith@cdmo.com",
-    "role": "Operator"
+    "role": "68a6f209290cfc61464f191f",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e24f",
-    "name": "Sarah Johnson",
+    "_id": "689485f37fafc1107150a3cb",
+    "username": "SarahJohnson",
     "email": "sarah.johnson@cdmo.com",
-    "role": "Analyst"
+    "role": "68a6f1f8290cfc61464f191b",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e250",
-    "name": "Michael Chen",
+    "_id": "689485f37fafc1107150a3cc",
+    "username": "MichaelChen",
     "email": "michael.chen@cdmo.com",
-    "role": "QA"
+    "role": "68a6f21f290cfc61464f1923",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e251",
-    "name": "Emily Davis",
+    "_id": "689485f37fafc1107150a3cd",
+    "username": "EmilyDavis",
     "email": "emily.davis@cdmo.com",
-    "role": "Supervisor"
+    "role": "68a6f24e290cfc61464f1927",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e252",
-    "name": "Robert Wilson",
+    "_id": "689485f37fafc1107150a3ce",
+    "username": "RobertWilson",
     "email": "robert.wilson@cdmo.com",
-    "role": "Admin"
+    "role": "68a6f01e290cfc61464f1906",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e253",
-    "name": "Lisa Garcia",
+    "_id": "689485f37fafc1107150a3cf",
+    "username": "LisaGarcia",
     "email": "lisa.garcia@cdmo.com",
-    "role": "Operator"
+    "role": "68a6f209290cfc61464f191f",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e254",
-    "name": "David Martinez",
+    "_id": "689485f37fafc1107150a3d0",
+    "username": "DavidMartinez",
     "email": "david.martinez@cdmo.com",
-    "role": "Analyst"
+    "role": "68a6f1f8290cfc61464f191b",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e255",
-    "name": "Jennifer Brown",
+    "_id": "689485f37fafc1107150a3d1",
+    "username": "JenniferBrown",
     "email": "jennifer.brown@cdmo.com",
-    "role": "QA"
+    "role": "68a6f21f290cfc61464f1923",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e256",
-    "name": "Christopher Lee",
+    "_id": "689485f37fafc1107150a3d2",
+    "username": "ChristopherLee",
     "email": "christopher.lee@cdmo.com",
-    "role": "Supervisor"
+    "role": "68a6f24e290cfc61464f1927",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   },
   {
-    "_id": "689050077849264fcbb1e257",
-    "name": "Amanda Taylor",
+    "_id": "689485f37fafc1107150a3d3",
+    "username": "AmandaTaylor",
     "email": "amanda.taylor@cdmo.com",
-    "role": "Operator"
+    "role": "68a6f209290cfc61464f191f",
+    "password": "$2a$10$B3.5Fa1FzaLuO4D/BO.K/eb42i1v3OfRe2n1ebqz0pdJj2WtOGEOS",
+    "projectAssignments": []
   }
 ]

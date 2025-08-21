@@ -1187,8 +1187,6 @@ class SamplesTestsController {
     try {
       const { batchId } = req.params;
 
-      // A robust check to ensure the batchId is a valid ObjectId,
-      // preventing malformed queries and potential server errors.
       if (!mongoose.Types.ObjectId.isValid(batchId)) {
         return res.status(400).json({
           success: false,
@@ -1196,14 +1194,11 @@ class SamplesTestsController {
         });
       }
 
-      // A placeholder value, since the total number of samples required is not
-      // available from the provided schemas. This value is based on the UI example.
       const totalSamplesNeeded = 6;
 
-      // Use an aggregation pipeline to fetch all required data efficiently in one go.
+      // Use an aggregation pipeline to fetch all required data efficiently.
       const samples = await SampleModel.aggregate([
         // Stage 1: Match samples to the provided batchId.
-        // The `$or` operator handles potential data type mismatches (string vs. ObjectId).
         {
           $match: {
             $or: [
@@ -1213,35 +1208,17 @@ class SamplesTestsController {
           },
         },
 
-        // Stage 2: Look up the user who collected the sample.
+        // Stage 2: Look up all test results for each sample using the new TestResultModel.
         {
           $lookup: {
-            from: "users",
-            localField: "collected_by",
-            foreignField: "_id",
-            as: "collectedByDetails",
-          },
-        },
-        // Unwind the user details to get a single document.
-        {
-          $unwind: {
-            path: "$collectedByDetails",
-            preserveNullAndEmptyArrays: true, // Keep samples even if no user is found
-          },
-        },
-
-        // Stage 3: Look up all test results for each sample.
-        {
-          $lookup: {
-            from: "testresults",
+            from: "testresults", // Name of the TestResult collection
             localField: "test_results",
             foreignField: "_id",
             as: "testResults",
           },
         },
 
-        // Stage 4: Look up deviations linked to the samples.
-        // This is a nested pipeline to ensure an accurate match.
+        // Stage 3: Look up deviations linked to the samples.
         {
           $lookup: {
             from: "deviations",
@@ -1252,7 +1229,6 @@ class SamplesTestsController {
                   $expr: {
                     $and: [
                       { $eq: ["$linked_entity.entity_type", "Sample"] },
-                      // Convert sampleId to a string for comparison, as per the schema
                       {
                         $eq: [
                           "$linked_entity.entity_id",
@@ -1263,7 +1239,6 @@ class SamplesTestsController {
                   },
                 },
               },
-              // We only need the _id to check for existence, so project accordingly.
               {
                 $project: { _id: 1 },
               },
@@ -1272,20 +1247,19 @@ class SamplesTestsController {
           },
         },
 
-        // Stage 5: Add a new field to indicate if a deviation exists.
+        // Stage 4: Add a new field to indicate if a deviation exists.
         {
           $addFields: {
             hasDeviation: { $gt: [{ $size: "$deviations" }, 0] },
           },
         },
 
-        // Stage 6: Project the final document shape.
+        // Stage 5: Project the final document shape.
         {
           $project: {
             _id: 1,
             sample_id: 1,
-            collected_at: 1, // Include the collection date
-            collectedByDetails: 1, // Include the user details
+            collected_at: 1,
             testResults: 1,
             hasDeviation: 1,
           },
@@ -1312,15 +1286,32 @@ class SamplesTestsController {
       // Flatten the test results into a single array for the table display.
       const testResultsTable = [];
       samples.forEach((sample) => {
-        // Extract and format the user and date data, with "N/A" as a fallback.
-        const analystName = sample.collectedByDetails?.name || "N/A";
-        const collectedDate = sample.collected_at
-          ? new Date(sample.collected_at).toLocaleDateString()
-          : "N/A";
-
+        // Loop through each test result within the sample
         sample.testResults.forEach((result) => {
-          // Determine the boolean status based on the result.status string.
-          const isPassing = result.status === "Passed";
+          // Parse the specification string to get lower and upper bounds
+          let lowerSpec = "N/A";
+          let upperSpec = "N/A";
+          if (result.specification && result.specification !== "N/A") {
+            const specParts = result.specification.split("–");
+            if (specParts.length === 2) {
+              lowerSpec = specParts[0].trim();
+              upperSpec = specParts[1].trim();
+            }
+          }
+
+          // Determine the boolean status based on the new 'test_status' string.
+          const isPassing = result.test_status === "Pass";
+
+          // Combine value and unit for the 'result' field
+          const formattedResult =
+            result.value !== undefined && result.unit !== undefined
+              ? `${result.value} ${result.unit}`
+              : "N/A";
+
+          // Format the date
+          const formattedDate = result.tested_at
+            ? new Date(result.tested_at).toLocaleDateString()
+            : "N/A";
 
           testResultsTable.push({
             // Add ObjectId for both the test result and the parent sample.
@@ -1330,15 +1321,14 @@ class SamplesTestsController {
             testName: result.parameter || "N/A",
             // Use the `parameter` field for the method.
             method: result.parameter || "N/A",
-            // Now include the requested test_id and method_id
             test_id: result.test_id || "N/A",
             method_id: result.method_id || "N/A",
-            result: result.result || "N/A",
-            lowerSpec: result.lower_spec || "N/A",
-            upperSpec: result.upper_spec || "N/A",
+            result: formattedResult,
+            lowerSpec: lowerSpec,
+            upperSpec: upperSpec,
             status: isPassing, // Now a boolean value
-            analyst: analystName, // Use the new analystName from the user model
-            date: collectedDate, // Use the new collectedDate
+            analyst: result.approver || "N/A",
+            date: formattedDate,
           });
         });
       });

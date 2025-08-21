@@ -12,13 +12,13 @@ const permissionSchema = new mongoose.Schema(
 );
 
 const roleSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    description: String,
-    permissions: [permissionSchema],
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  description: String,
+  permissions: [permissionSchema],
 });
 
 const RoleModel = mongoose.model("Role", roleSchema);

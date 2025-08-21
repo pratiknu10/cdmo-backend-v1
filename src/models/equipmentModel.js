@@ -7,6 +7,7 @@ const EquipmentSchema = new Schema(
     _id: { type: String, required: true }, // equipment_id
     name: String,
     model: String,
+    equip_id: String,
     location: String,
     calibration_status: {
       type: String,
@@ -17,7 +18,13 @@ const EquipmentSchema = new Schema(
     last_cleaned_on: Date,
     status: {
       type: String,
-      enum: ["Available", "In Use", "Maintenance", "Faulted"],
+      enum: [
+        "Available",
+        "In Use",
+        "Maintenance",
+        "Under Maintenance",
+        "Faulted",
+      ],
       default: "Available",
     },
   },
