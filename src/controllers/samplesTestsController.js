@@ -1300,7 +1300,7 @@ class SamplesTestsController {
           }
 
           // Determine the boolean status based on the new 'test_status' string.
-          const isPassing = result.test_status === "Pass";
+          const isPassing = result.test_status;
 
           // Combine value and unit for the 'result' field
           const formattedResult =
