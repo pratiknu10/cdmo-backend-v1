@@ -27,7 +27,7 @@ customerBatchRoutes.get(
   getBatchSummaryByCustomerId
 );
 // _______________________________________________________________________________________________________________________________________
-// ================================
+// ================================ 
 // 2. GET BATCH DETAILS
 // Route: GET /api/batches/:batchId/details
 // Purpose: Get detailed batch information for View action
