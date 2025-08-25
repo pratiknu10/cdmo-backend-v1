@@ -2387,6 +2387,16 @@
     "status": "In-Process",
     "customer": "68a85bba0746531555834213",
     "project": "68a85bba074653155583421a",
+    "datasource": "ERP",
+    "released_at": null,
+    "released_by": null,
+    "createdAt": "2023-11-15T10:11:48.195Z",
+    "updatedAt": "2023-11-20T10:11:48.195Z",
+    "batch_size": {
+      "quantity": 28,
+      "unit": "kg"
+    },
+    "targeted_end_date": "2023-12-11T10:11:48.195Z",
     "components": [
       "68a85bba074653155583487a",
       "68a85bba074653155583487b",
@@ -2445,17 +2455,7 @@
       "68a85bba0746531555834e4f",
       "68a85bba074653155583489d",
       "68a85bba0746531555834e55"
-    ],
-    "datasource": "ERP",
-    "released_at": null,
-    "released_by": null,
-    "createdAt": "2023-11-15T10:11:48.195Z",
-    "updatedAt": "2023-11-20T10:11:48.195Z",
-    "batch_size": {
-      "quantity": 28,
-      "unit": "kg"
-    },
-    "targeted_end_date": "2023-12-11T10:11:48.195Z"
+    ]
   },
   {
     "_id": "68a85bba07465315558348c4",

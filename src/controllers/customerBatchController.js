@@ -84,7 +84,8 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
     const pipeline = [
       { $match: finalMatch },
 
-      // Lookup project data to get project_name, project_code, and the new product_name.
+      // Lookup project data to get project_name, project_code.
+      // We no longer need to look up product_name as it's directly on the batch.
       {
         $lookup: {
           from: "projects",
@@ -96,7 +97,6 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
               $project: {
                 project_name: 1,
                 project_code: 1,
-                product_name: { $ifNull: ["$product_name", "N/A"] },
               },
             },
           ],
@@ -228,7 +228,8 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
                   project_name: "$projectData.project_name",
                   project_code: "$projectData.project_code",
                 },
-                product_name: "$projectData.product_name",
+                // Corrected to pull product_name directly from the batch document
+                product_name: "$product_name",
                 released_at: 1,
                 createdAt: 1,
                 displayStatus: 1,
