@@ -637,7 +637,7 @@ class DeviationCapaController {
         })
         .populate({
           path: "raised_by",
-          select: "name",
+          select: "username",
         })
         .populate({
           path: "resolution.linked_capa",
@@ -686,7 +686,7 @@ class DeviationCapaController {
         title: deviation.title,
         description: deviation.description,
         capa_status: deviation.resolution.linked_capa ? "Linked" : "N/A",
-        reported_by: deviation.raised_by ? deviation.raised_by.name : "N/A",
+        reported_by: deviation.raised_by ? deviation.raised_by.username : "N/A",
         date: deviation.raised_at
           ? deviation.raised_at.toISOString().split("T")[0]
           : "N/A",
