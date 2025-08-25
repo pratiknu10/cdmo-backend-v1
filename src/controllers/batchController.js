@@ -1015,12 +1015,13 @@ export const batchParentDetail = async (req, res) => {
       });
     }
 
-    // Find the batch and populate essential details, including the released_by user's name
+    // Find the batch and populate essential details, including the released_by user's name.
+    // We are no longer populating product_name from the project, as it's now a top-level field on the batch.
     const batch = await BatchModel.findById(batchId)
       .populate("customer", "name")
-      .populate("project", "project_name project_code product_name")
+      .populate("project", "project_name project_code") // product_name is no longer needed here
       .populate("process_steps")
-      .populate("released_by", "name"); // Populate the user who released the batch, using their name
+      .populate("released_by", "name");
 
     if (!batch) {
       return res.status(404).json({
@@ -1048,7 +1049,6 @@ export const batchParentDetail = async (req, res) => {
     });
 
     // 3. Count Pending Samples
-    // This logic relies on the SampleModel and an assumed 'qc_status' field.
     const pendingSamplesCount = await SampleModel.countDocuments({
       batch: batchId,
       qc_status: "Pending",
@@ -1066,7 +1066,7 @@ export const batchParentDetail = async (req, res) => {
 
     // 5. Get Batch Release Status and Released By/Date
     const releaseStatus = batch.status || "N/A";
-    const releasedBy = batch.released_by ? batch.released_by.name : "N/A"; // Use name instead of username
+    const releasedBy = batch.released_by ? batch.released_by.name : "N/A";
     const releasedDate = batch.released_at || "N/A";
 
     // --- Construct the final response data ---
@@ -1074,7 +1074,12 @@ export const batchParentDetail = async (req, res) => {
       batch: {
         _id: batch._id,
         api_batch_id: batch.api_batch_id,
-        product_name: batch.project ? batch.project.product_name : "N/A",
+        // Now pulling product_name directly from the batch document
+        product_name: batch.product_name || "N/A",
+        // New field: Manufacturing Order ID
+        manufacturing_id: batch.manufacturing_id || "N/A",
+        // New field: Data source
+        datasource: batch.datasource || "N/A",
         target_yield: batch.target_yield || "N/A",
         actual_yield: batch.actual_yield || "N/A",
         yield_unit: batch.yield_unit || "N/A",
@@ -1085,9 +1090,11 @@ export const batchParentDetail = async (req, res) => {
         product_code: batch.project ? batch.project.project_code : "N/A",
         customer: batch.customer ? batch.customer.name : "N/A",
         manufacturing_site: batch.plant_location || "N/A",
-        created_date: batch.createdAt,
+        // Renamed field: createdAt to startDate
+        startDate: batch.createdAt,
         last_updated: batch.updatedAt,
-        target_release: batch.released_at,
+        // Renamed and corrected field: target_end_date to endDate
+        endDate: batch.targeted_end_date,
       },
       stats: {
         progress: `${Math.round(progress)}%`,
