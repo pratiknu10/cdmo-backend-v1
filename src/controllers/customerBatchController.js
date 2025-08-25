@@ -85,7 +85,6 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
       { $match: finalMatch },
 
       // Lookup project data to get project_name, project_code, and the new product_name.
-      // Assuming product_name is a direct field on the BatchModel as per your request.
       {
         $lookup: {
           from: "projects",
@@ -97,7 +96,7 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
               $project: {
                 project_name: 1,
                 project_code: 1,
-                product_name: 1, // Include the product_name from the project model
+                product_name: { $ifNull: ["$product_name", "N/A"] },
               },
             },
           ],
@@ -229,7 +228,7 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
                   project_name: "$projectData.project_name",
                   project_code: "$projectData.project_code",
                 },
-                product_name: "$projectData.product_name", // New field added here
+                product_name: "$projectData.product_name",
                 released_at: 1,
                 createdAt: 1,
                 displayStatus: 1,
