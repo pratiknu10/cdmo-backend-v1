@@ -1,169 +1,173 @@
 [
   {
-    "_id": "689485f37fafc1107150a3d9",
+    "_id": "68a85bba0746531555834217",
     "project_code": "PRJ-PHA-01-01",
     "project_name": "Pharma Global Inc. Development Project 1",
-    "customer": "689485f37fafc1107150a3d4",
+    "customer": "68a85bba0746531555834212",
     "status": "Ongoing",
-    "start_date": "2022-06-29T22:38:26.684Z",
-    "end_date": null,
-    "batches": [
-      "689485f37fafc1107150a463",
-      "689485f37fafc1107150a53d",
-      "689485f37fafc1107150a7fc",
-      "689485f37fafc1107150a92c"
-    ]
+    "start_date": "2022-04-24T09:35:34.759Z",
+    "end_date": "2024-10-20T12:34:27.983Z",
+    "batches": []
   },
   {
-    "_id": "689485f37fafc1107150a3da",
+    "_id": "68a85bba0746531555834218",
     "project_code": "PRJ-PHA-01-02",
     "project_name": "Pharma Global Inc. Development Project 2",
-    "customer": "689485f37fafc1107150a3d4",
+    "customer": "68a85bba0746531555834212",
     "status": "Ongoing",
-    "start_date": "2019-08-02T11:14:25.019Z",
-    "end_date": null,
-    "batches": ["689485f37fafc1107150a6cd"]
+    "start_date": "2023-08-08T16:26:37.481Z",
+    "end_date": "2024-10-08T05:31:31.677Z",
+    "batches": []
   },
   {
-    "_id": "689485f37fafc1107150a3db",
+    "_id": "68a85bba0746531555834219",
     "project_code": "PRJ-PHA-01-03",
     "project_name": "Pharma Global Inc. Development Project 3",
-    "customer": "689485f37fafc1107150a3d4",
+    "customer": "68a85bba0746531555834212",
     "status": "Ongoing",
-    "start_date": "2022-11-18T04:15:39.819Z",
-    "end_date": null,
-    "batches": []
+    "start_date": "2019-09-27T06:12:25.593Z",
+    "end_date": "2025-05-04T15:12:36.569Z",
+    "batches": [
+      "68a85bba0746531555834266",
+      "68a85bba07465315558343a0",
+      "68a85bba0746531555834641",
+      "68a85bba074653155583479e"
+    ]
   },
   {
-    "_id": "689485f37fafc1107150a3dc",
+    "_id": "68a85bba074653155583421a",
     "project_code": "PRJ-EUR-02-01",
     "project_name": "European Medicines Ltd. Development Project 1",
-    "customer": "689485f37fafc1107150a3d5",
+    "customer": "68a85bba0746531555834213",
     "status": "Ongoing",
-    "start_date": "2019-12-27T03:22:44.421Z",
+    "start_date": "2021-02-02T08:35:53.003Z",
     "end_date": null,
     "batches": [
-      "689485f37fafc1107150a49d",
-      "689485f37fafc1107150a7b3",
-      "689485f37fafc1107150aa30"
+      "68a85bba07465315558342db",
+      "68a85bba07465315558343f7",
+      "68a85bba0746531555834879"
     ]
   },
   {
-    "_id": "689485f37fafc1107150a3dd",
+    "_id": "68a85bba074653155583421b",
     "project_code": "PRJ-EUR-02-02",
     "project_name": "European Medicines Ltd. Development Project 2",
-    "customer": "689485f37fafc1107150a3d5",
+    "customer": "68a85bba0746531555834213",
     "status": "Ongoing",
-    "start_date": "2023-05-23T12:32:28.548Z",
-    "end_date": null,
-    "batches": ["689485f37fafc1107150a67d", "689485f37fafc1107150aa67"]
+    "start_date": "2022-12-18T00:10:08.721Z",
+    "end_date": "2025-02-10T14:11:50.482Z",
+    "batches": [
+      "68a85bba074653155583434b",
+      "68a85bba0746531555834719",
+      "68a85bba074653155583475a"
+    ]
   },
   {
-    "_id": "689485f37fafc1107150a3de",
+    "_id": "68a85bba074653155583421c",
     "project_code": "PRJ-EUR-02-03",
     "project_name": "European Medicines Ltd. Development Project 3",
-    "customer": "689485f37fafc1107150a3d5",
+    "customer": "68a85bba0746531555834213",
     "status": "Ongoing",
-    "start_date": "2020-09-20T12:36:47.518Z",
-    "end_date": "2024-02-28T07:56:36.930Z",
+    "start_date": "2023-11-12T21:32:16.171Z",
+    "end_date": null,
     "batches": []
   },
   {
-    "_id": "689485f37fafc1107150a3df",
+    "_id": "68a85bba074653155583421d",
     "project_code": "PRJ-ASI-03-01",
     "project_name": "Asia Pacific Pharma Development Project 1",
-    "customer": "689485f37fafc1107150a3d6",
+    "customer": "68a85bba0746531555834214",
     "status": "Ongoing",
-    "start_date": "2019-01-17T08:37:19.012Z",
-    "end_date": null,
-    "batches": ["689485f37fafc1107150a71a", "689485f37fafc1107150a96e"]
+    "start_date": "2022-05-17T20:23:17.490Z",
+    "end_date": "2025-05-31T23:09:00.040Z",
+    "batches": ["68a85bba07465315558342a2", "68a85bba07465315558345c8"]
   },
   {
-    "_id": "689485f37fafc1107150a3e0",
+    "_id": "68a85bba074653155583421e",
     "project_code": "PRJ-ASI-03-02",
     "project_name": "Asia Pacific Pharma Development Project 2",
-    "customer": "689485f37fafc1107150a3d6",
+    "customer": "68a85bba0746531555834214",
     "status": "Ongoing",
-    "start_date": "2022-02-22T17:21:52.477Z",
-    "end_date": "2025-03-25T20:23:44.534Z",
-    "batches": []
+    "start_date": "2021-10-24T18:28:16.904Z",
+    "end_date": "2024-09-14T11:26:03.971Z",
+    "batches": ["68a85bba0746531555834906"]
   },
   {
-    "_id": "689485f37fafc1107150a3e1",
+    "_id": "68a85bba074653155583421f",
     "project_code": "PRJ-ASI-03-03",
     "project_name": "Asia Pacific Pharma Development Project 3",
-    "customer": "689485f37fafc1107150a3d6",
+    "customer": "68a85bba0746531555834214",
     "status": "Ongoing",
-    "start_date": "2022-08-26T06:53:54.155Z",
-    "end_date": "2024-12-30T13:46:56.427Z",
-    "batches": [
-      "689485f37fafc1107150a58d",
-      "689485f37fafc1107150a62c",
-      "689485f37fafc1107150a8dc"
-    ]
+    "start_date": "2021-11-04T19:06:55.429Z",
+    "end_date": null,
+    "batches": ["68a85bba074653155583453f"]
   },
   {
-    "_id": "689485f37fafc1107150a3e2",
+    "_id": "68a85bba0746531555834220",
     "project_code": "PRJ-IND-04-01",
     "project_name": "Indian Pharmaceutical Co. Development Project 1",
-    "customer": "689485f37fafc1107150a3d7",
+    "customer": "68a85bba0746531555834215",
     "status": "Ongoing",
-    "start_date": "2019-03-18T14:47:33.892Z",
-    "end_date": "2024-02-05T12:34:04.654Z",
+    "start_date": "2021-08-07T16:17:44.929Z",
+    "end_date": null,
     "batches": [
-      "689485f37fafc1107150a428",
-      "689485f37fafc1107150a4ef",
-      "689485f37fafc1107150a843"
+      "68a85bba0746531555834314",
+      "68a85bba0746531555834605",
+      "68a85bba074653155583482f"
     ]
   },
   {
-    "_id": "689485f37fafc1107150a3e3",
+    "_id": "68a85bba0746531555834221",
     "project_code": "PRJ-IND-04-02",
     "project_name": "Indian Pharmaceutical Co. Development Project 2",
-    "customer": "689485f37fafc1107150a3d7",
+    "customer": "68a85bba0746531555834215",
     "status": "Ongoing",
-    "start_date": "2019-04-07T11:23:51.361Z",
+    "start_date": "2023-08-27T15:00:42.489Z",
     "end_date": null,
-    "batches": ["689485f37fafc1107150a88f"]
+    "batches": ["68a85bba074653155583458c", "68a85bba07465315558346d2"]
   },
   {
-    "_id": "689485f37fafc1107150a3e4",
+    "_id": "68a85bba0746531555834222",
     "project_code": "PRJ-IND-04-03",
     "project_name": "Indian Pharmaceutical Co. Development Project 3",
-    "customer": "689485f37fafc1107150a3d7",
+    "customer": "68a85bba0746531555834215",
     "status": "Ongoing",
-    "start_date": "2021-06-03T16:53:07.153Z",
-    "end_date": "2025-06-15T18:52:11.253Z",
+    "start_date": "2022-02-01T10:07:11.631Z",
+    "end_date": null,
+    "batches": [
+      "68a85bba0746531555834688",
+      "68a85bba07465315558347e5",
+      "68a85bba07465315558348c4"
+    ]
+  },
+  {
+    "_id": "68a85bba0746531555834223",
+    "project_code": "PRJ-CAN-05-01",
+    "project_name": "Canadian Health Solutions Development Project 1",
+    "customer": "68a85bba0746531555834216",
+    "status": "Ongoing",
+    "start_date": "2023-12-20T11:22:18.536Z",
+    "end_date": null,
     "batches": []
   },
   {
-    "_id": "689485f37fafc1107150a3e5",
-    "project_code": "PRJ-CAN-05-01",
-    "project_name": "Canadian Health Solutions Development Project 1",
-    "customer": "689485f37fafc1107150a3d8",
-    "status": "Ongoing",
-    "start_date": "2021-11-10T02:32:32.693Z",
-    "end_date": null,
-    "batches": ["689485f37fafc1107150a5d9", "689485f37fafc1107150a74b"]
-  },
-  {
-    "_id": "689485f37fafc1107150a3e6",
+    "_id": "68a85bba0746531555834224",
     "project_code": "PRJ-CAN-05-02",
     "project_name": "Canadian Health Solutions Development Project 2",
-    "customer": "689485f37fafc1107150a3d8",
+    "customer": "68a85bba0746531555834216",
     "status": "Ongoing",
-    "start_date": "2019-05-31T15:47:47.227Z",
+    "start_date": "2021-12-10T00:08:14.832Z",
     "end_date": null,
-    "batches": ["689485f37fafc1107150a9f6"]
+    "batches": ["68a85bba07465315558344ed"]
   },
   {
-    "_id": "689485f37fafc1107150a3e7",
+    "_id": "68a85bba0746531555834225",
     "project_code": "PRJ-CAN-05-03",
     "project_name": "Canadian Health Solutions Development Project 3",
-    "customer": "689485f37fafc1107150a3d8",
-    "status": "Ongoing",
-    "start_date": "2021-09-29T19:09:41.412Z",
+    "customer": "68a85bba0746531555834216",
+    "status": "Completed",
+    "start_date": "2023-04-16T22:12:53.293Z",
     "end_date": null,
-    "batches": ["689485f37fafc1107150a77e", "689485f37fafc1107150a9b2"]
+    "batches": ["68a85bba074653155583444f", "68a85bba074653155583449e"]
   }
 ]

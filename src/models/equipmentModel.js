@@ -16,6 +16,7 @@ const EquipmentSchema = new Schema(
     },
     last_calibrated_on: Date,
     last_cleaned_on: Date,
+    
     status: {
       type: String,
       enum: [

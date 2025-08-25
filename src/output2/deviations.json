@@ -1,202 +1,152 @@
 [
   {
-    "_id": "689485f37fafc1107150abd5",
+    "_id": "68a85bba0746531555834a8b",
     "deviation_no": "DEV-000001",
-    "batch": "689485f37fafc1107150a428",
-    "api_batch_id": "API-PAR-0000015",
-    "title": "Minor Deviation - Equipment Issue - Paracetamol",
+    "batch": "68a85bba07465315558342a2",
+    "api_batch_id": "API-PAR-0000030",
+    "title": "Critical Deviation - ProcessStep Issue - Paracetamol",
+    "description": "Crystallization step incomplete resulting in poor crystal formation",
+    "root_cause": "Cooling rate too rapid due to chiller malfunction",
+    "severity": "Critical",
+    "status": "In-Progress",
+    "raised_by": "68a85bba0746531555834211",
+    "raised_at": "2024-03-05T03:10:19.089Z",
+    "linked_entity": {
+      "entity_type": "ProcessStep",
+      "entity_id": "68a85bba07465315558342cf"
+    },
+    "resolution": {
+      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Cooling rate too rapid due to chiller malfunction. Corrective actions implemented as per linked CAPA. CAPA in progress with interim controls established.",
+      "closed_by": null,
+      "closed_at": null,
+      "linked_capa": "68a85bba0746531555834a8a"
+    },
+    "createdAt": "2024-03-05T03:10:19.089Z",
+    "updatedAt": "2024-03-06T03:10:19.089Z"
+  },
+  {
+    "_id": "68a85bba0746531555834a8d",
+    "deviation_no": "DEV-000002",
+    "batch": "68a85bba07465315558343f7",
+    "api_batch_id": "API-IBU-0000135",
+    "title": "Major Deviation - Equipment Issue - Ibuprofen",
+    "description": "Pump failure during material transfer operation",
+    "root_cause": "Seal degradation due to chemical compatibility issues",
+    "severity": "Major",
+    "status": "Closed",
+    "raised_by": "68a85bba0746531555834208",
+    "raised_at": "2020-07-08T04:48:15.657Z",
+    "linked_entity": {
+      "entity_type": "Equipment",
+      "entity_id": "68a85bba074653155583423d"
+    },
+    "resolution": {
+      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Seal degradation due to chemical compatibility issues. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
+      "closed_by": "68a85bba074653155583420b",
+      "closed_at": "2020-07-13T04:48:15.657Z",
+      "linked_capa": "68a85bba0746531555834a8c"
+    },
+    "createdAt": "2020-07-08T04:48:15.657Z",
+    "updatedAt": "2020-07-09T04:48:15.657Z"
+  },
+  {
+    "_id": "68a85bba0746531555834a8f",
+    "deviation_no": "DEV-000003",
+    "batch": "68a85bba07465315558344ed",
+    "api_batch_id": "API-ATC-0000192",
+    "title": "Minor Deviation - Equipment Issue - Atorvastatin Calcium",
     "description": "Valve positioning error during automated sequence operation",
     "root_cause": "Actuator position feedback sensor drift",
     "severity": "Minor",
     "status": "Closed",
-    "raised_by": "689485f37fafc1107150a3ca",
-    "raised_at": "2024-01-27T07:09:31.465Z",
+    "raised_by": "68a85bba074653155583420f",
+    "raised_at": "2025-01-30T10:17:42.809Z",
     "linked_entity": {
       "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a41b"
+      "entity_id": "68a85bba0746531555834229"
     },
     "resolution": {
       "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Actuator position feedback sensor drift. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
-      "closed_by": "689485f37fafc1107150a3d0",
-      "closed_at": "2024-01-31T07:09:31.465Z",
-      "linked_capa": "689485f37fafc1107150abd4"
+      "closed_by": "68a85bba0746531555834209",
+      "closed_at": "2025-02-02T10:17:42.809Z",
+      "linked_capa": "68a85bba0746531555834a8e"
     },
-    "createdAt": "2024-01-27T07:09:31.465Z",
-    "updatedAt": "2024-01-28T07:09:31.465Z"
+    "createdAt": "2025-01-30T10:17:42.809Z",
+    "updatedAt": "2025-01-31T10:17:42.809Z"
   },
   {
-    "_id": "689485f37fafc1107150abd7",
-    "deviation_no": "DEV-000002",
-    "batch": "689485f37fafc1107150a4ef",
-    "api_batch_id": "API-IBU-0000080",
-    "title": "Major Deviation - Equipment Issue - Ibuprofen",
-    "description": "Agitator speed variation beyond acceptable limits during mixing",
-    "root_cause": "Motor drive controller malfunction",
-    "severity": "Major",
-    "status": "Closed",
-    "raised_by": "689485f37fafc1107150a3d0",
-    "raised_at": "2021-04-28T01:36:02.808Z",
-    "linked_entity": {
-      "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a3fe"
-    },
-    "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Motor drive controller malfunction. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
-      "closed_by": "689485f37fafc1107150a3cc",
-      "closed_at": "2021-05-04T01:36:02.808Z",
-      "linked_capa": "689485f37fafc1107150abd6"
-    },
-    "createdAt": "2021-04-28T01:36:02.808Z",
-    "updatedAt": "2021-04-29T01:36:02.808Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abd9",
-    "deviation_no": "DEV-000003",
-    "batch": "689485f37fafc1107150a5d9",
-    "api_batch_id": "API-ATC-0000149",
-    "title": "Major Deviation - Equipment Issue - Atorvastatin Calcium",
-    "description": "Equipment alarm activation during critical process step",
-    "root_cause": "Sensor malfunction causing false alarm condition",
-    "severity": "Major",
-    "status": "Closed",
-    "raised_by": "689485f37fafc1107150a3d1",
-    "raised_at": "2025-04-06T16:01:31.451Z",
-    "linked_entity": {
-      "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a3f4"
-    },
-    "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Sensor malfunction causing false alarm condition. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
-      "closed_by": "689485f37fafc1107150a3cf",
-      "closed_at": "2025-04-09T16:01:31.451Z",
-      "linked_capa": "689485f37fafc1107150abd8"
-    },
-    "createdAt": "2025-04-06T16:01:31.451Z",
-    "updatedAt": "2025-04-07T16:01:31.451Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abdb",
+    "_id": "68a85bba0746531555834a91",
     "deviation_no": "DEV-000004",
-    "batch": "689485f37fafc1107150a77e",
-    "api_batch_id": "API-MET-0000248",
-    "title": "Critical Deviation - BatchComponent Issue - Metformin HCl",
+    "batch": "68a85bba074653155583458c",
+    "api_batch_id": "API-MET-0000225",
+    "title": "Minor Deviation - Equipment Issue - Metformin HCl",
+    "description": "Pump failure during material transfer operation",
+    "root_cause": "Seal degradation due to chemical compatibility issues",
+    "severity": "Minor",
+    "status": "In-Progress",
+    "raised_by": "68a85bba0746531555834209",
+    "raised_at": "2021-11-30T02:42:38.423Z",
+    "linked_entity": {
+      "entity_type": "Equipment",
+      "entity_id": "68a85bba074653155583425a"
+    },
+    "resolution": {
+      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Seal degradation due to chemical compatibility issues. Corrective actions implemented as per linked CAPA. CAPA in progress with interim controls established.",
+      "closed_by": null,
+      "closed_at": null,
+      "linked_capa": "68a85bba0746531555834a90"
+    },
+    "createdAt": "2021-11-30T02:42:38.423Z",
+    "updatedAt": "2021-12-01T02:42:38.423Z"
+  },
+  {
+    "_id": "68a85bba0746531555834a93",
+    "deviation_no": "DEV-000005",
+    "batch": "68a85bba0746531555834688",
+    "api_batch_id": "API-AML-0000283",
+    "title": "Major Deviation - BatchComponent Issue - Amlodipine Besylate",
     "description": "Component identity test failure during incoming inspection",
     "root_cause": "Mislabeled material from supplier warehouse",
-    "severity": "Critical",
+    "severity": "Major",
     "status": "Closed",
-    "raised_by": "689485f37fafc1107150a3cc",
-    "raised_at": "2019-05-16T23:03:42.248Z",
+    "raised_by": "68a85bba0746531555834208",
+    "raised_at": "2019-07-27T10:27:49.703Z",
     "linked_entity": {
       "entity_type": "BatchComponent",
-      "entity_id": "689485f37fafc1107150a781"
+      "entity_id": "68a85bba0746531555834691"
     },
     "resolution": {
       "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Mislabeled material from supplier warehouse. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
-      "closed_by": "689485f37fafc1107150a3d0",
-      "closed_at": "2019-05-20T23:03:42.248Z",
-      "linked_capa": "689485f37fafc1107150abda"
+      "closed_by": "68a85bba074653155583420d",
+      "closed_at": "2019-07-31T10:27:49.703Z",
+      "linked_capa": "68a85bba0746531555834a92"
     },
-    "createdAt": "2019-05-16T23:03:42.248Z",
-    "updatedAt": "2019-05-17T23:03:42.248Z"
+    "createdAt": "2019-07-27T10:27:49.703Z",
+    "updatedAt": "2019-07-28T10:27:49.703Z"
   },
   {
-    "_id": "689485f37fafc1107150abdd",
-    "deviation_no": "DEV-000005",
-    "batch": "689485f37fafc1107150a7b3",
-    "api_batch_id": "API-AML-0000263",
-    "title": "Minor Deviation - TestResult Issue - Amlodipine Besylate",
-    "description": "Spectroscopic analysis showing baseline drift during measurement",
-    "root_cause": "Environmental temperature fluctuation affecting instrument stability",
-    "severity": "Minor",
-    "status": "Closed",
-    "raised_by": "689485f37fafc1107150a3ca",
-    "raised_at": "2019-03-05T13:04:16.208Z",
-    "linked_entity": {
-      "entity_type": "TestResult",
-      "entity_id": "689485f37fafc1107150ab48"
-    },
-    "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Environmental temperature fluctuation affecting instrument stability. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
-      "closed_by": "689485f37fafc1107150a3d2",
-      "closed_at": "2019-03-08T13:04:16.208Z",
-      "linked_capa": "689485f37fafc1107150abdc"
-    },
-    "createdAt": "2019-03-05T13:04:16.208Z",
-    "updatedAt": "2019-03-06T13:04:16.208Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abdf",
+    "_id": "68a85bba0746531555834a95",
     "deviation_no": "DEV-000006",
-    "batch": "689485f37fafc1107150a88f",
-    "api_batch_id": "API-SOF-0000310",
-    "title": "Minor Deviation - Equipment Issue - Sofosbuvir",
-    "description": "Equipment alarm activation during critical process step",
-    "root_cause": "Sensor malfunction causing false alarm condition",
-    "severity": "Minor",
-    "status": "In-Progress",
-    "raised_by": "689485f37fafc1107150a3cc",
-    "raised_at": "2019-12-21T11:37:00.899Z",
-    "linked_entity": {
-      "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a407"
-    },
-    "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Sensor malfunction causing false alarm condition. Corrective actions implemented as per linked CAPA. CAPA in progress with interim controls established.",
-      "closed_by": null,
-      "closed_at": null,
-      "linked_capa": "689485f37fafc1107150abde"
-    },
-    "createdAt": "2019-12-21T11:37:00.899Z",
-    "updatedAt": "2019-12-22T11:37:00.899Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abe1",
-    "deviation_no": "DEV-000007",
-    "batch": "689485f37fafc1107150a9b2",
-    "api_batch_id": "API-SIT-0000372",
-    "title": "Major Deviation - Equipment Issue - Sitagliptin Phosphate",
-    "description": "Equipment alarm activation during critical process step",
-    "root_cause": "Sensor malfunction causing false alarm condition",
+    "batch": "68a85bba074653155583475a",
+    "api_batch_id": "API-SOF-0000332",
+    "title": "Major Deviation - BatchComponent Issue - Sofosbuvir",
+    "description": "Component identity test failure during incoming inspection",
+    "root_cause": "Mislabeled material from supplier warehouse",
     "severity": "Major",
-    "status": "Open",
-    "raised_by": "689485f37fafc1107150a3d1",
-    "raised_at": "2022-03-14T10:02:42.993Z",
+    "status": "Closed",
+    "raised_by": "68a85bba074653155583420f",
+    "raised_at": "2019-12-27T11:07:49.777Z",
     "linked_entity": {
-      "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a411"
+      "entity_type": "BatchComponent",
+      "entity_id": "68a85bba0746531555834762"
     },
     "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Sensor malfunction causing false alarm condition. Corrective actions implemented as per linked CAPA. CAPA in progress with interim controls established.",
-      "closed_by": null,
-      "closed_at": null,
-      "linked_capa": "689485f37fafc1107150abe0"
+      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Mislabeled material from supplier warehouse. Corrective actions implemented as per linked CAPA. CAPA completed successfully with preventive measures in place.",
+      "closed_by": "68a85bba074653155583420a",
+      "closed_at": "2019-12-31T11:07:49.777Z",
+      "linked_capa": "68a85bba0746531555834a94"
     },
-    "createdAt": "2022-03-14T10:02:42.993Z",
-    "updatedAt": "2022-03-15T10:02:42.993Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abe3",
-    "deviation_no": "DEV-000008",
-    "batch": "689485f37fafc1107150aa30",
-    "api_batch_id": "API-OLA-0000398",
-    "title": "Minor Deviation - Equipment Issue - Olanzapine",
-    "description": "Heat exchanger efficiency degradation affecting temperature control",
-    "root_cause": "Fouling buildup on heat transfer surfaces",
-    "severity": "Minor",
-    "status": "In-Progress",
-    "raised_by": "689485f37fafc1107150a3d1",
-    "raised_at": "2023-10-01T09:59:11.207Z",
-    "linked_entity": {
-      "entity_type": "Equipment",
-      "entity_id": "689485f37fafc1107150a413"
-    },
-    "resolution": {
-      "action_taken": "Deviation investigated per SOP-DEV-001. Root cause analysis completed identifying: Fouling buildup on heat transfer surfaces. Corrective actions implemented as per linked CAPA. CAPA in progress with interim controls established.",
-      "closed_by": null,
-      "closed_at": null,
-      "linked_capa": "689485f37fafc1107150abe2"
-    },
-    "createdAt": "2023-10-01T09:59:11.207Z",
-    "updatedAt": "2023-10-02T09:59:11.207Z"
+    "createdAt": "2019-12-27T11:07:49.777Z",
+    "updatedAt": "2019-12-28T11:07:49.777Z"
   }
 ]

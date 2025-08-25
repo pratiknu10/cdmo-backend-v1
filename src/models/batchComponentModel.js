@@ -9,7 +9,7 @@ const BatchComponentSchema = new Schema(
       required: true,
       index: true,
     },
-
+    sequence: Number,
     api_batch_id: { type: String, required: true, index: true }, // duplicated for human trace
     component_batch_id: { type: String, required: true, index: true },
     component_type: {

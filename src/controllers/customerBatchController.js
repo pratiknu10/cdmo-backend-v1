@@ -8,7 +8,7 @@ import { ProjectModel } from "../models/projectModel.js";
 
 export const getBatchSummaryByCustomerId = async (req, res) => {
   try {
-    const { customerId } = req.params; // Assuming customerId is passed as a URL parameter
+    const { customerId } = req.params;
     const {
       page = 1,
       limit = 10,
@@ -17,7 +17,11 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
       sortOrder = "desc",
     } = req.query;
 
-    // Validate customer exists with default values
+    const parsedLimit = parseInt(limit);
+    const parsedPage = parseInt(page);
+    const skip = (parsedPage - 1) * parsedLimit;
+
+    // Validate customer exists and retrieve basic customer info.
     const customer = await CustomerModel.findById(customerId).lean();
     if (!customer) {
       return res.status(404).json({
@@ -26,59 +30,48 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
       });
     }
 
-    // Ensure customer has all required fields with defaults
-    const customerWithDefaults = {
-      _id: customer._id,
-      name: customer.name || "Unknown Customer",
-      country: customer.country || "N/A",
-      contact_person: customer.contact_person || "N/A",
-      email: customer.email || "N/A",
-      phone: customer.phone || "N/A",
-    };
-
-    // --- Access Control Logic Start ---
+    // Prepare access control and search conditions.
     const matchConditions = {
       customer: new mongoose.Types.ObjectId(customerId),
     };
 
-    // Check if the user is not an admin
     if (req.user && req.user.role !== "admin") {
-      // Find all projects assigned to the user
       const assignedProjects = await ProjectModel.find({
         _id: { $in: req.user.projectAssignments.map((p) => p.projectId) },
       }).select("batches");
 
-      // Extract all unique batch IDs from the assigned projects
       const accessibleBatchIds = [
         ...new Set(assignedProjects.flatMap((p) => p.batches)),
       ];
 
-      // If no batches are accessible, return an empty array
       if (accessibleBatchIds.length === 0) {
         return res.json({
           success: true,
           data: {
-            customer: { ...customerWithDefaults, totalBatches: 0 },
-            summary: { totalBatches: 0 },
+            customer: { ...customer, totalBatches: 0 },
+            summary: {
+              totalBatches: 0,
+              notStarted: 0,
+              inProgress: 0,
+              completed: 0,
+              qaHold: 0,
+              released: 0,
+            },
             batches: [],
             pagination: {
-              currentPage: 1,
+              currentPage: parsedPage,
               totalPages: 1,
               totalRecords: 0,
               hasNext: false,
               hasPrev: false,
-              limit: parseInt(limit),
+              limit: parsedLimit,
             },
           },
         });
       }
-
-      // Add the accessible batch IDs to the match filter
       matchConditions._id = { $in: accessibleBatchIds };
     }
-    // --- Access Control Logic End ---
 
-    // Build search filter and merge with match conditions
     const searchFilter = search
       ? {
           $or: [{ api_batch_id: { $regex: search, $options: "i" } }],
@@ -87,159 +80,112 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
 
     const finalMatch = { ...matchConditions, ...searchFilter };
 
-    // Optimized aggregation pipeline
+    // Use a single aggregation pipeline with $facet for efficiency.
     const pipeline = [
-      {
-        $match: finalMatch,
-      },
+      { $match: finalMatch },
 
-      // Lookup project with defaults
+      // Lookup project data to get project_name, project_code, and the new product_name.
+      // Assuming product_name is a direct field on the BatchModel as per your request.
       {
         $lookup: {
           from: "projects",
           localField: "project",
           foreignField: "_id",
-          as: "project",
+          as: "projectData",
           pipeline: [
             {
               $project: {
-                project_name: { $ifNull: ["$project_name", "Unknown Product"] },
-                project_code: { $ifNull: ["$project_code", "N/A"] },
+                project_name: 1,
+                project_code: 1,
+                product_name: 1, // Include the product_name from the project model
               },
             },
           ],
         },
       },
-      { $unwind: { path: "$project", preserveNullAndEmptyArrays: true } },
+      {
+        $unwind: {
+          path: "$projectData",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
 
-      // Optimized Lookup for samples count
+      // Use a single $lookup with an aggregation pipeline to get all necessary counts.
       {
         $lookup: {
           from: "samples",
           localField: "_id",
           foreignField: "batch",
           as: "samplesData",
-          pipeline: [{ $count: "count" }],
         },
       },
-      {
-        $addFields: {
-          samplesCount: {
-            $ifNull: [{ $arrayElemAt: ["$samplesData.count", 0] }, 0],
-          },
-        },
-      },
-
-      // Optimized Lookup for deviations and count critical/non-critical
       {
         $lookup: {
           from: "deviations",
           localField: "_id",
           foreignField: "batch",
-          as: "deviationsAggregatedData",
-          pipeline: [
-            {
-              $group: {
-                _id: null,
-                total: { $sum: 1 },
-                critical: {
-                  $sum: { $cond: [{ $eq: ["$severity", "Critical"] }, 1, 0] },
-                },
-                non_critical: {
-                  $sum: { $cond: [{ $ne: ["$severity", "Critical"] }, 1, 0] },
-                },
-              },
-            },
-            {
-              $project: {
-                _id: 0,
-                total: 1,
-                critical: 1,
-                non_critical: 1,
-              },
-            },
-            { $limit: 1 },
-          ],
+          as: "deviationsData",
         },
       },
-      {
-        $addFields: {
-          totalDeviationsCount: {
-            $ifNull: [
-              { $arrayElemAt: ["$deviationsAggregatedData.total", 0] },
-              0,
-            ],
-          },
-          criticalDeviationsCount: {
-            $ifNull: [
-              { $arrayElemAt: ["$deviationsAggregatedData.critical", 0] },
-              0,
-            ],
-          },
-          nonCriticalDeviationsCount: {
-            $ifNull: [
-              {
-                $arrayElemAt: ["$deviationsAggregatedData.non_critical", 0],
-              },
-              0,
-            ],
-          },
-        },
-      },
-
-      // Optimized Lookup for process steps and progress calculation
       {
         $lookup: {
           from: "processsteps",
           localField: "_id",
           foreignField: "batch",
           as: "processStepsData",
-          pipeline: [
-            {
-              $group: {
-                _id: null,
-                total: { $sum: 1 },
-                completed: { $sum: { $cond: ["$end_timestamp", 1, 0] } },
-              },
-            },
-            {
-              $project: {
-                _id: 0,
-                total: 1,
-                completed: 1,
-              },
-            },
-          ],
         },
       },
+
+      // Add fields for display status, counts, and progress
       {
         $addFields: {
-          totalProcessSteps: {
-            $ifNull: [{ $arrayElemAt: ["$processStepsData.total", 0] }, 0],
+          samples: { $size: "$samplesData" },
+          deviations: {
+            total: { $size: "$deviationsData" },
+            critical: {
+              $size: {
+                $filter: {
+                  input: "$deviationsData",
+                  as: "deviation",
+                  cond: { $eq: ["$$deviation.severity", "Critical"] },
+                },
+              },
+            },
+            non_critical: {
+              $size: {
+                $filter: {
+                  input: "$deviationsData",
+                  as: "deviation",
+                  cond: { $ne: ["$$deviation.severity", "Critical"] },
+                },
+              },
+            },
           },
-          completedProcessSteps: {
-            $ifNull: [{ $arrayElemAt: ["$processStepsData.completed", 0] }, 0],
-          },
-        },
-      },
-      {
-        $addFields: {
           progress: {
             $cond: [
-              { $gt: ["$totalProcessSteps", 0] },
+              { $eq: [{ $size: "$processStepsData" }, 0] },
+              0,
               {
                 $multiply: [
-                  { $divide: ["$completedProcessSteps", "$totalProcessSteps"] },
+                  {
+                    $divide: [
+                      {
+                        $size: {
+                          $filter: {
+                            input: "$processStepsData",
+                            as: "step",
+                            cond: { $ne: ["$$step.end_timestamp", null] },
+                          },
+                        },
+                      },
+                      { $size: "$processStepsData" },
+                    ],
+                  },
                   100,
                 ],
               },
-              0,
             ],
           },
-        },
-      },
-      {
-        $addFields: {
           displayStatus: {
             $switch: {
               branches: [
@@ -249,9 +195,9 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
                 },
                 { case: { $eq: ["$status", "On-Hold"] }, then: "QA Hold" },
                 { case: { $eq: ["$status", "Released"] }, then: "Released" },
-                { case: { $eq: ["$status", "Rejected"] }, then: "Not Started" },
+                { case: { $eq: ["$status", "Completed"] }, then: "Completed" },
               ],
-              default: { $ifNull: ["$status", "Unknown"] },
+              default: "Not Started",
             },
           },
           statusColor: {
@@ -260,91 +206,96 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
                 { case: { $eq: ["$status", "In-Process"] }, then: "yellow" },
                 { case: { $eq: ["$status", "On-Hold"] }, then: "gray" },
                 { case: { $eq: ["$status", "Released"] }, then: "green" },
-                { case: { $eq: ["$status", "Rejected"] }, then: "blue" },
+                { case: { $eq: ["$status", "Completed"] }, then: "orange" },
               ],
-              default: "orange",
+              default: "blue",
             },
           },
-          target_release: { $ifNull: ["$released_at", "N/A"] },
+        },
+      },
+
+      // $facet to perform parallel aggregations for summary and batches
+      {
+        $facet: {
+          batches: [
+            { $sort: { [sortBy]: sortOrder === "desc" ? -1 : 1 } },
+            { $skip: skip },
+            { $limit: parsedLimit },
+            {
+              $project: {
+                _id: 1,
+                api_batch_id: 1,
+                project: {
+                  project_name: "$projectData.project_name",
+                  project_code: "$projectData.project_code",
+                },
+                product_name: "$projectData.product_name", // New field added here
+                released_at: 1,
+                createdAt: 1,
+                displayStatus: 1,
+                statusColor: 1,
+                deviations: 1,
+                samples: 1,
+                progress: { $round: ["$progress", 0] },
+              },
+            },
+          ],
+          summary: [
+            {
+              $group: {
+                _id: null,
+                totalBatches: { $sum: 1 },
+                notStarted: {
+                  $sum: {
+                    $cond: [{ $eq: ["$displayStatus", "Not Started"] }, 1, 0],
+                  },
+                },
+                inProgress: {
+                  $sum: {
+                    $cond: [{ $eq: ["$displayStatus", "In Progress"] }, 1, 0],
+                  },
+                },
+                completed: {
+                  $sum: {
+                    $cond: [{ $eq: ["$displayStatus", "Completed"] }, 1, 0],
+                  },
+                },
+                qaHold: {
+                  $sum: {
+                    $cond: [{ $eq: ["$displayStatus", "QA Hold"] }, 1, 0],
+                  },
+                },
+                released: {
+                  $sum: {
+                    $cond: [{ $eq: ["$displayStatus", "Released"] }, 1, 0],
+                  },
+                },
+              },
+            },
+            { $project: { _id: 0 } },
+          ],
+          totalCount: [{ $count: "count" }],
         },
       },
     ];
 
-    // Get summary counts
-    const summaryPipeline = [
-      {
-        $match: finalMatch,
-      },
-      ...pipeline,
-      {
-        $group: {
-          _id: null,
-          totalBatches: { $sum: 1 },
-          notStarted: {
-            $sum: { $cond: [{ $eq: ["$status", "Rejected"] }, 1, 0] },
-          },
-          inProgress: {
-            $sum: { $cond: [{ $eq: ["$status", "In-Process"] }, 1, 0] },
-          },
-          completed: {
-            $sum: { $cond: [{ $eq: ["$status", "Completed"] }, 1, 0] },
-          },
-          qaHold: {
-            $sum: { $cond: [{ $eq: ["$status", "On-Hold"] }, 1, 0] },
-          },
-          released: {
-            $sum: { $cond: [{ $eq: ["$status", "Released"] }, 1, 0] },
-          },
-        },
-      },
-    ];
+    const [result] = await BatchModel.aggregate(pipeline);
 
-    // Execute summary aggregation
-    const [summaryResult] = await BatchModel.aggregate(summaryPipeline);
-    const summary = summaryResult || {
-      totalBatches: 0,
-      notStarted: 0,
-      inProgress: 0,
-      completed: 0,
-      qaHold: 0,
-      released: 0,
-    };
+    const summary =
+      result.summary.length > 0
+        ? result.summary[0]
+        : {
+            totalBatches: 0,
+            notStarted: 0,
+            inProgress: 0,
+            completed: 0,
+            qaHold: 0,
+            released: 0,
+          };
+    const totalRecords =
+      result.totalCount.length > 0 ? result.totalCount[0].count : 0;
+    const totalPages = Math.ceil(totalRecords / parsedLimit);
 
-    // Execute main pipeline with pagination and sorting
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const batchData = await BatchModel.aggregate([
-      ...pipeline,
-      { $sort: { [sortBy]: sortOrder === "desc" ? -1 : 1 } },
-      { $skip: skip },
-      { $limit: parseInt(limit) },
-      {
-        $project: {
-          _id: 1,
-          api_batch_id: 1,
-          displayStatus: 1,
-          statusColor: 1,
-          deviations: {
-            $ifNull: [
-              { $arrayElemAt: ["$deviationsAggregatedData", 0] },
-              { total: 0, critical: 0, non_critical: 0 },
-            ],
-          },
-          samples: "$samplesCount",
-          progress: { $round: ["$progress", 0] },
-          createdAt: 1,
-          released_at: 1,
-          project: {
-            project_name: 1,
-            project_code: 1,
-          },
-          customer: "$project.customer.name",
-        },
-      },
-    ]);
-
-    const totalPages = Math.ceil(summary.totalBatches / parseInt(limit));
-
-    // Audit log
     console.log(
       `📋 Customer batch summary accessed - Customer: ${customerId}, Page: ${page}, User: ${
         req.headers["user-id"] || "anonymous"
@@ -354,19 +305,16 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
     res.json({
       success: true,
       data: {
-        customer: {
-          ...customerWithDefaults,
-          totalBatches: summary.totalBatches,
-        },
+        customer: { ...customer, totalBatches: totalRecords },
         summary,
-        batches: batchData,
+        batches: result.batches,
         pagination: {
-          currentPage: parseInt(page),
+          currentPage: parsedPage,
           totalPages,
-          totalRecords: summary.totalBatches,
-          hasNext: parseInt(page) < totalPages,
-          hasPrev: parseInt(page) > 1,
-          limit: parseInt(limit),
+          totalRecords,
+          hasNext: parsedPage < totalPages,
+          hasPrev: parsedPage > 1,
+          limit: parsedLimit,
         },
       },
     });

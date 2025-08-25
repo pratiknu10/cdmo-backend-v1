@@ -1,90 +1,68 @@
 [
   {
-    "_id": "689485f37fafc1107150abd4",
-    "title": "CAPA - Valve Control System Enhancement - Paracetamol",
+    "_id": "68a85bba0746531555834a8a",
+    "title": "CAPA - Crystallization Process Control Improvement - Paracetamol",
+    "description": "Install programmable temperature control system with redundant cooling circuits. Establish controlled cooling rate protocols and implement real-time crystal quality monitoring.",
+    "status": "In-Progress",
+    "opened_at": "2024-03-05T03:10:19.089Z",
+    "closed_at": null,
+    "owner": "68a85bba074653155583420d",
+    "createdAt": "2024-03-05T03:10:19.089Z",
+    "updatedAt": "2024-03-15T03:10:19.089Z"
+  },
+  {
+    "_id": "68a85bba0746531555834a8c",
+    "title": "CAPA - Pump Reliability Enhancement Program - Ibuprofen",
+    "description": "Upgrade pump sealing systems with chemically resistant materials. Implement pump performance monitoring and establish backup pump availability for critical operations.",
+    "status": "Closed",
+    "opened_at": "2020-07-08T04:48:15.657Z",
+    "closed_at": "2020-07-27T04:48:15.657Z",
+    "owner": "68a85bba0746531555834210",
+    "createdAt": "2020-07-06T04:48:15.657Z",
+    "updatedAt": "2020-07-27T04:48:15.657Z"
+  },
+  {
+    "_id": "68a85bba0746531555834a8e",
+    "title": "CAPA - Valve Control System Enhancement - Atorvastatin Calcium",
     "description": "Upgrade valve actuators with digital position feedback systems. Implement valve performance verification procedures and establish backup manual operation capabilities for critical valves.",
     "status": "Closed",
-    "opened_at": "2024-01-29T07:09:31.465Z",
-    "closed_at": "2024-02-18T07:09:31.465Z",
-    "owner": "689485f37fafc1107150a3cb",
-    "createdAt": "2024-01-29T07:09:31.465Z",
-    "updatedAt": "2024-02-18T07:09:31.465Z"
+    "opened_at": "2025-01-31T10:17:42.809Z",
+    "closed_at": "2025-02-05T10:17:42.809Z",
+    "owner": "68a85bba0746531555834209",
+    "createdAt": "2025-01-31T10:17:42.809Z",
+    "updatedAt": "2025-02-05T10:17:42.809Z"
   },
   {
-    "_id": "689485f37fafc1107150abd6",
-    "title": "CAPA - Motor Drive System Upgrade - Ibuprofen",
-    "description": "Replace motor drive controllers with advanced units having better stability. Implement real-time speed monitoring with automatic adjustment capabilities and backup drive availability.",
-    "status": "Closed",
-    "opened_at": "2021-04-30T01:36:02.808Z",
-    "closed_at": "2021-05-19T01:36:02.808Z",
-    "owner": "689485f37fafc1107150a3cd",
-    "createdAt": "2021-04-30T01:36:02.808Z",
-    "updatedAt": "2021-05-19T01:36:02.808Z"
+    "_id": "68a85bba0746531555834a90",
+    "title": "CAPA - Pump Reliability Enhancement Program - Metformin HCl",
+    "description": "Upgrade pump sealing systems with chemically resistant materials. Implement pump performance monitoring and establish backup pump availability for critical operations.",
+    "status": "In-Progress",
+    "opened_at": "2021-12-02T02:42:38.423Z",
+    "closed_at": null,
+    "owner": "68a85bba0746531555834210",
+    "createdAt": "2021-12-02T02:42:38.423Z",
+    "updatedAt": "2021-12-06T02:42:38.423Z"
   },
   {
-    "_id": "689485f37fafc1107150abd8",
-    "title": "CAPA - Equipment Sensor Reliability Program - Atorvastatin Calcium",
-    "description": "Implement redundant sensor systems with cross-validation algorithms. Establish sensor preventive maintenance schedule and operator training on alarm response procedures.",
-    "status": "Closed",
-    "opened_at": "2025-04-08T16:01:31.451Z",
-    "closed_at": "2025-04-19T16:01:31.451Z",
-    "owner": "689485f37fafc1107150a3cf",
-    "createdAt": "2025-04-08T16:01:31.451Z",
-    "updatedAt": "2025-04-19T16:01:31.451Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abda",
-    "title": "CAPA - Material Identification System Upgrade - Metformin HCl",
+    "_id": "68a85bba0746531555834a92",
+    "title": "CAPA - Material Identification System Upgrade - Amlodipine Besylate",
     "description": "Implement barcode/RFID tracking system for all incoming materials. Establish dual identity verification procedures and supplier labeling requirements enhancement.",
     "status": "Closed",
-    "opened_at": "2019-05-16T23:03:42.248Z",
-    "closed_at": "2019-05-25T23:03:42.248Z",
-    "owner": "689485f37fafc1107150a3d3",
-    "createdAt": "2019-05-16T23:03:42.248Z",
-    "updatedAt": "2019-05-25T23:03:42.248Z"
+    "opened_at": "2019-07-27T10:27:49.703Z",
+    "closed_at": "2019-08-10T10:27:49.703Z",
+    "owner": "68a85bba074653155583420d",
+    "createdAt": "2019-07-25T10:27:49.703Z",
+    "updatedAt": "2019-08-10T10:27:49.703Z"
   },
   {
-    "_id": "689485f37fafc1107150abdc",
-    "title": "CAPA - Laboratory Environmental Control Improvement - Amlodipine Besylate",
-    "description": "Install enhanced HVAC system in analytical laboratory with tighter temperature control. Implement environmental monitoring with automatic alerts and establish instrument warm-up procedures.",
+    "_id": "68a85bba0746531555834a94",
+    "title": "CAPA - Material Identification System Upgrade - Sofosbuvir",
+    "description": "Implement barcode/RFID tracking system for all incoming materials. Establish dual identity verification procedures and supplier labeling requirements enhancement.",
     "status": "Closed",
-    "opened_at": "2019-03-07T13:04:16.208Z",
-    "closed_at": "2019-03-21T13:04:16.208Z",
-    "owner": "689485f37fafc1107150a3d2",
-    "createdAt": "2019-03-07T13:04:16.208Z",
-    "updatedAt": "2019-03-21T13:04:16.208Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abde",
-    "title": "CAPA - Equipment Sensor Reliability Program - Sofosbuvir",
-    "description": "Implement redundant sensor systems with cross-validation algorithms. Establish sensor preventive maintenance schedule and operator training on alarm response procedures.",
-    "status": "Open",
-    "opened_at": "2019-12-21T11:37:00.899Z",
-    "closed_at": null,
-    "owner": "689485f37fafc1107150a3cb",
-    "createdAt": "2019-12-21T11:37:00.899Z",
-    "updatedAt": "2019-12-26T11:37:00.899Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abe0",
-    "title": "CAPA - Equipment Sensor Reliability Program - Sitagliptin Phosphate",
-    "description": "Implement redundant sensor systems with cross-validation algorithms. Establish sensor preventive maintenance schedule and operator training on alarm response procedures.",
-    "status": "Open",
-    "opened_at": "2022-03-16T10:02:42.993Z",
-    "closed_at": null,
-    "owner": "689485f37fafc1107150a3cd",
-    "createdAt": "2022-03-16T10:02:42.993Z",
-    "updatedAt": "2022-03-21T10:02:42.993Z"
-  },
-  {
-    "_id": "689485f37fafc1107150abe2",
-    "title": "CAPA - Heat Exchanger Maintenance Program - Olanzapine",
-    "description": "Implement automated cleaning-in-place systems and establish fouling monitoring procedures. Develop heat exchanger performance tracking and preventive cleaning schedule optimization.",
-    "status": "In-Progress",
-    "opened_at": "2023-10-03T09:59:11.207Z",
-    "closed_at": null,
-    "owner": "689485f37fafc1107150a3cf",
-    "createdAt": "2023-10-03T09:59:11.207Z",
-    "updatedAt": "2023-10-05T09:59:11.207Z"
+    "opened_at": "2019-12-29T11:07:49.777Z",
+    "closed_at": "2020-01-09T11:07:49.777Z",
+    "owner": "68a85bba074653155583420a",
+    "createdAt": "2019-12-29T11:07:49.777Z",
+    "updatedAt": "2020-01-09T11:07:49.777Z"
   }
 ]

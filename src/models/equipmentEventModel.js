@@ -5,6 +5,7 @@ const EquipmentEventSchema = new Schema(
   {
     equipment: { type: String, ref: "Equipment", required: true, index: true },
     equip_id: String,
+    approver_name: String,
     event_type: {
       type: String,
       enum: [

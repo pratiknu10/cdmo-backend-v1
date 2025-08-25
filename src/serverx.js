@@ -32,6 +32,7 @@ import adminRouter from "./routes/adminRoute.js";
 import CookieParser from "cookie-parser";
 import authRouter from "./routes/authRotue.js";
 import { logRouter } from "./routes/logRoute.js";
+import RoleModel from "./models/roleModel.js";
 // app.use("/api/projects", projectRoutes);
 
 async function readJSON(path) {
@@ -46,6 +47,7 @@ async function seedData() {
   // Load JSON seeds
   const inserts = [
     [CustomerModel, "./src/output2/customers.json"],
+    [RoleModel, "./src/output2/roles.json"],
     [UserModel, "./src/output2/users.json"],
     [ProjectModel, "./src/output2/projects.json"],
     [EquipmentModel, "./src/output2/equipment.json"],
