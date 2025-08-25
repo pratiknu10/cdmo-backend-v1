@@ -327,6 +327,7 @@ export const getBatchSummaryByCustomerId = async (req, res) => {
     });
   }
 };
+
 export const getBatchIdDetailByID = async (req, res) => {
   try {
     const { batchId } = req.params;
